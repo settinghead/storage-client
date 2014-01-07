@@ -1,0 +1,1103 @@
+s/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+  color: #555;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+/*  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto;/* -60px;
+  /* Pad bottom by footer height */
+  padding: 0;/* 0 60px;*/
+  padding-bottom: 100px;
+}
+
+/* Set the fixed height of the footer here */
+
+
+hr {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #efefef;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+#wrap > .container {
+  /*padding: 0px 15px 0;*/
+}
+.container .credit {
+  /*margin: 20px 0;*/
+}
+
+footer {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  /*padding: 60px 15px 0;*/
+  /*margin-top: -60px;*/
+  /*left: 0;*/
+  bottom: 0;
+  z-index: 8999;
+  /*position: fixed;*/
+  width: 100%;
+  /*height: 60px;*/
+  background-color: #efefef;
+
+}
+
+code {
+  font-size: 80%;
+}
+
+
+a:link,
+a:visited {
+  color: #2d71c3;
+}
+
+
+a:hover {
+  /*color: #00B259;*/
+  text-decoration: none;
+}
+
+
+.clear {
+  clear: both;
+}
+
+
+/**********************************************************************************************************************************
+
+  RISE NETWORK styles
+
+ **********************************************************************************************************************************/
+
+#wrap {
+  clear: both;
+}
+
+
+
+
+/**********************************************************************************************************************************
+
+  MODAL OVERWRITES
+
+ **********************************************************************************************************************************/
+
+
+
+
+body.modal-open,
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+  margin-right: 0px;
+}
+
+
+.modal {
+  z-index: 9999;
+}
+
+
+.modal-backdrop {
+  background-color: #FFF;
+}
+
+
+.modal-backdrop.in {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  z-index: 9001;
+}
+
+
+
+
+
+
+
+
+
+
+/*****************************************
+
+  Navigaiton header
+
+ *****************************************/
+
+#header-div {
+  /*position: relative;*/
+}
+
+#company-logo {
+  display: block;
+  float: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /*padding-left: 15px;*/
+  /*clear: both;*/
+}
+
+
+#rise-logo-header {
+  clear: none;
+  float: left;
+  padding-right: 50px;
+}
+
+
+#nav-header-row-1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+
+#collapse-button {
+  /*padding-right: 15px;*/
+}
+
+
+
+
+#navigation-right {
+  width: auto;
+  float: left;
+  clear: right;
+  height: 75px;
+  padding-right: 0px;
+}
+
+
+
+ #app-navigation {
+    display: inline-block;
+    float: right;
+    /*clear: both;*/
+    margin-right: 0;
+ }
+
+#top-of-page,
+#header-navbar {
+
+  border-bottom: 1px solid #ccc;
+ }
+
+
+ .rise-top-nav {
+
+  padding-left: 0px;
+
+
+ }
+
+
+/*.navbar-right a {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: 5px;
+}
+*/
+
+
+.navbar-right {
+  /*overflow-x: hidden;*/
+}
+
+ .rise-top-nav .navbar-right > li:last-child > a {
+
+  padding-right: 0px;
+ }
+
+
+
+.navbar-default .navbar-nav > li > a {
+  color: #0A63D0;
+  font-size: 18px;
+  padding: 7px;
+  margin: 8px;
+}
+
+.navbar-default .navbar-left > li > a:hover,
+.navbar-default .navbar-left > li > a:focus,
+.navbar-default .navbar-left > li > a.active-link
+
+ {
+  color: #FFF;
+
+  background-color: #0A63D0;
+}
+
+
+
+#open-alert-icon-li  > a:hover,
+#open-alert-icon-li  > a:focus
+
+ {
+  color: #0A63D0;
+
+  background-color: transparent;
+}
+
+
+
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #00B259;
+  background-color: #e7e7e7;
+}
+
+.navbar-default .navbar-nav > .disabled > a,
+.navbar-default .navbar-nav > .disabled > a:hover,
+.navbar-default .navbar-nav > .disabled > a:focus {
+  color: #00B259;
+
+  background-color: transparent;
+}
+
+
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #00B259;
+  background-color: #e7e7e7;
+}
+
+
+.navbar-default .navbar-toggle  {
+  border: none;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  /*background-color: #FFF;*/
+  background-color: #2d71c3;
+}
+
+
+.navbar-default .navbar-toggle:hover, 
+.navbar-default .navbar-toggle:focus {
+  /*background-color: #1f71a2;*/
+  background-color: #FFF;
+  border: none;
+}
+
+
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #2d71c3;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: #FFF;
+
+    background-color: #0A63D0;
+}
+
+
+.company-dropdown {
+  background: url('../images/company-icon.png') no-repeat;
+  width: 27px;
+  height: 27px;
+}
+
+
+
+
+
+.navbar-default .navbar-nav > .dropdown > a .caret {
+  border-top-color: #2d71c3;
+  border-bottom-color: #2d71c3;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret, 
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: #2d71c3;
+  border-bottom-color: #2d71c3;
+}
+
+
+
+.navbar-collapse {
+  padding-right: 0px;
+  
+}
+
+
+
+
+
+.navbar {
+  /*padding: 20px 0;*/
+  margin-bottom: 0;
+  background-color: #efefef;
+}
+
+
+.navbar-toggle {
+  /*border: solid 1px #2d71c3;*/
+  /*background-color: #045888;*/
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+/*  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;*/
+
+}
+
+/*.icon-bar {
+  background-color: #2d71c3;
+  background-color: #045888;
+}*/
+
+
+
+.user-icon {
+  display: inline-block;
+  margin-top: -5px;
+  padding-right: 5px;
+}
+
+
+
+.navbar-toggle {
+  /*display: inline-block;*/
+  clear: none;
+  float: right;
+}
+
+.navbar-collapse {
+  background-color: #efefef;
+}
+
+#collapse-menu-label {
+  clear: none;
+  color: #2d71c3;
+  float: left;
+  padding-right: 7px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: -1px;
+
+}
+
+#icon-bar-holder {
+  clear: none;
+  float: right;
+}
+
+
+#menu-button {
+  float: right;
+  clear: none;
+}
+
+
+.social-links {
+  float: left;
+  clear: none;
+}
+
+
+
+/*****************************************
+
+  Alert Message
+
+ *****************************************/
+
+
+#alert-container {
+  background-color: #FFF;
+  width: 100%;
+  height: auto;
+  /*position: relative;*/
+  text-align: right;
+  padding: 30px;
+  padding-right: 45px;
+  /*padding: 20px 0;*/
+
+}
+
+
+
+#system-message {
+  text-align: left;
+  clear: both;
+  padding: 10px 15px;
+
+  position: relative;
+  margin: 0 auto;
+
+
+
+  font-size: 14px;
+
+
+
+  background: #045888; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzA0NTg4OCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxZjcxYTIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #1f71a2 0%, #045888 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#045888), color-stop(100%,#1f71a2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #1f71a2 0%, #045888 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #1f71a2 0%, #045888 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #1f71a2 0%, #045888 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #1f71a2 0%, #045888 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#045888', endColorstr='#1f71a2',GradientType=0 ); /* IE6-8 */
+
+/*
+
+#045888  dark blue 
+
+#1f71a2  light blue 
+
+*/
+
+}
+
+
+#alert-close-button {
+  width: auto;
+  float: right;
+  clear: none;
+}
+
+.alert-text {
+  width: 90%;
+  clear: none;
+  float: left;
+  padding-top: 5px;
+  min-height: 30px
+}
+
+
+#system-alert {
+  height: auto;
+}
+
+
+
+button.close-alert {
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #FFF;
+  text-shadow: 0 1px 0 #000;
+  opacity: .8;
+}
+
+
+button.close-alert-black {
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #FFF;
+  text-shadow: 0 1px 0 #000;
+  opacity: .4;
+}
+
+
+
+
+#open-alert-icon>a {
+  width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#open-alert-icon {
+  /*margin-top: -1px;*/
+  position: relative;
+  overflow: hidden;
+
+}
+
+
+#open-alert-icon-li {
+  /*display: none;*/
+}
+
+
+#open-alert-icon-div {
+  font-size: 24px;
+  
+  margin-right: -42px;
+}
+
+
+/*****************************************
+
+  Page Content
+
+ *****************************************/
+
+
+#top-of-page {
+  background-color: #FFF;
+  /*position: fixed;*/
+  width: 100%;
+  z-index: 10000;
+  overflow-x: hidden;
+}
+
+
+
+
+#form-header {
+  border-bottom: 1px solid #ccc;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+
+}
+
+
+#form-header-title {
+  float: left;
+  width: auto;
+  clear: left;
+}
+
+
+
+
+#banner-image {
+  float: right;
+  clear: none;
+  /*position: relative;*/
+  /*padding-top: 50px;*/
+  text-align: right;
+  /*width: 100%;*/
+}
+
+
+
+/*.page-header {
+  float: left;
+  width: auto;
+  clear: none;
+  /*padding-top: 40px;
+}
+*/
+
+#form-container {
+  position: relative;
+  padding-top: 40px;
+}
+
+
+
+
+
+
+/*****************************************
+
+  Form Fields
+
+ *****************************************/
+
+
+
+
+#fixed-form-buttons {
+
+
+  padding-top: 20px;
+  width: 100%;
+
+}
+
+
+#fixed-save-button {
+  float: right;
+}
+
+
+#network-form {
+  width: 90%;
+}
+
+
+/* #network-form form {
+  padding-top: 130px;
+  display: inline-block;
+  position: relative;
+ }
+*/
+.form-label {
+  display: inline-block;
+  clear: both;
+  padding-bottom: 5px;
+  cursor: help;
+}
+
+
+.form-block {
+  float: left;
+  /*clear: right;*/
+  width: 50%;
+  padding-right: 10px;
+  padding-bottom: 30px;
+}
+
+/*.form-block:nth-child(odd) {}*/
+
+.text-field,
+select {
+
+  background-color: #EEE;
+  color: #888;
+
+
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  border: 1px solid #DDD;
+  
+  font-size: 14px;
+  height: 36px;
+  margin-left: -2px;
+  /*min-width: 250px;*/
+  
+  
+  padding: 3px;
+
+  
+
+  width: 100%;
+}
+
+
+input.btn {
+  width: 80px;
+}
+
+
+.checkbox-network {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+
+  width: 24px;
+  height: 24px;
+}
+
+
+input:focus {
+
+
+  transition-property: border-color;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+
+  /* Safari */
+  -webkit-transition-property:border-color;
+  -webkit-transition-duration:1s;
+  -webkit-transition-timing-function:ease;
+
+
+  border-color: #00B259;
+  outline: none;
+}
+
+
+
+
+.end-of-form-save {
+  display: none;
+}
+
+
+
+.presentation-select .btn-default {
+  background-color: #eee;
+}
+
+
+
+
+
+
+
+
+#footer {
+  border-top: 1px solid #ccc;
+}
+
+
+
+#about-rise-vision {
+  width: 40%;
+  display: inline-block;
+  clear: none;
+  float: left;
+  /*float:left;*/
+/*  position: absolute;
+  top: 0px;
+  left: 0px;*/
+  /*padding-left: 60px;*/
+}
+
+.terms-link {
+  padding-top: 20px;
+}
+
+
+#google-adsense-banner {
+  display: block;
+  
+  float: right;
+  clear: none;
+  padding-top: 28px;
+}
+
+
+.footer-banner-mobile {
+  display: none;
+}
+
+
+
+.text-muted {
+  font-size: 10px;
+}
+
+
+
+
+
+
+
+
+
+ul.social  {
+  margin-top: 20px;
+  margin-left: -40px;
+  list-style:none;
+  list-style-position: outside;
+}
+
+.social li {
+    float: left;
+    line-height: 24px;
+    vertical-align: middle
+}
+
+.social li:first-child {
+    margin-right: 20px;
+}
+
+.social li a {
+    display: block;
+    text-indent: -999999em;
+    width: 24px;
+    height: 24px;
+    background: url('../images/sprite-social2.png') 0 0 no-repeat;
+    margin: 0 5px
+}
+
+.social li.twit a {
+    background-position: -24px 0
+}
+
+.social li.in a {
+    background-position: -48px 0
+}
+
+.social li.gplus a {
+    background-position: -72px 0
+}
+
+.social li.email a {
+    background-position: -96px 0
+}
+
+
+.copyright {
+  float: right;
+}
+
+
+
+
+/*****************************************
+
+  Utility classes
+
+ *****************************************/
+
+
+
+
+.rise-blue {
+  color: #2d71c3;
+}
+
+
+
+.bg-rise-blue {
+  background-color: #2d71c3;
+}
+
+
+
+.bg-rise-dark-blue {
+  background-color: #005484;
+}
+
+
+
+
+
+.text-white {
+  color: white;
+}
+
+
+.fixed {
+  position: fixed;
+}
+
+
+.relative {
+  position: relative;
+}
+
+
+.full-width {
+  width: 100%;
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+
+
+.bold {
+  font-weight: bold;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+
+@media (max-width: 1024px) {
+
+  #header-navbar {
+    position: static;
+  }
+
+
+
+  .footer-banner-large {
+    display: none;
+  }
+
+  .footer-banner-mobile {
+    display: block;
+  }
+
+  
+
+}
+
+
+@media (max-width: 800px) {
+  .container {
+    max-width: 100%;
+  }
+
+  #form-header-title {
+    width: 100%;
+    
+  }
+
+  #banner-image {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    
+  }
+
+
+
+
+
+  
+
+    #company-logo {
+
+    padding-left: 15px;
+
+  }
+
+  #network-form {
+    width: 100%;
+  }
+
+
+
+  .btn-primary {
+    /*width: 80px;*/
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-width: 180px;
+    /*width: 290px;*/
+
+
+  }
+
+  .form-block {
+    /*float: left;*/
+    clear: both;
+    width: 80%;
+/*    padding-right: 10px;
+    padding-bottom: 30px;*/
+  }
+
+
+
+
+
+
+  .end-of-form-save {
+    display: inline;
+  }
+
+
+
+
+
+    #about-rise-vision {
+    width: 100%;
+    height: auto;
+    clear: both;
+  }
+
+
+
+
+  #google-adsense-banner {
+    width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    clear: both;
+  }
+
+  #fixed-form-buttons-holder {
+
+    display: none;
+    
+  }
+
+
+  .copyright {
+    float: left;
+    clear:both;
+    padding-top: 15px;
+    padding-bottom: 50px;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width:480px){
+  
+
+    .banner-image {
+      width: 300px;
+      height: auto;
+    }
+
+
+  input,
+  select {
+    min-width: 180px;
+    max-width: 180px;
+    /*width: 290px;*/
+  }
+
+  input {
+    width: 80px;
+  }
+
+
+
+  #wrap {
+    /*padding-top: 30px;*/
+  }
+
+
+  .footer-logo {
+
+    padding: 0px 10px;
+
+  }
+
+  .network-form,
+  #networkForm,
+  .form-block,
+  .text-field, select {
+    max-width: 100%;
+    min-width: 100%;
+    width: 100%;
+  }
+
+
+
+  .copyright {
+    float: left;
+    clear:both;
+  }
+
+
+
+
+}
+
+
+
+@media screen and (max-width:380px){ 
+
+
+  #collapse-button {
+    float: left;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+
+
+
+
+}
+
