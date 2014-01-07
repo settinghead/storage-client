@@ -1,0 +1,17 @@
+<datastore-indexes autoGenerate="false">
+
+    <!-- Usage -->
+    
+    <datastore-index kind="MediaLibraryUsage" ancestor="false" source="manual">
+        <property name="companyId" direction="asc"/>
+        <property name="creationDate" direction="asc"/>
+    </datastore-index>
+    
+    <!-- FileLogs -->
+
+    <datastore-index kind="MediaLibraryFileLog" ancestor="false" source="manual">
+        <property name="companyId" direction="asc"/>
+        <property name="creationDate" direction="asc"/>
+    </datastore-index>
+       
+</datastore-indexes>
