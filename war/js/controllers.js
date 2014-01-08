@@ -9,7 +9,6 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles) {
   });
 
 	initScope($scope);
-//	initViewToggle();
 
 }
 
@@ -17,15 +16,61 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles) {
 
 function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
 
-    
   $scope.mediaFiles = MediaFile.query();
 
 	initScope($scope);
-//	initViewToggle();
 
 }
 
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
+
+
+function initScope($scope) {
+  $scope.orderByAttribute = 'key';
+  $scope.reverseSort = false;
+	$scope.selectedCount = 0;
+
+	$scope.$watch('mediaFiles', function(items) {
+
+		var checkedCount = 0;
+
+		items.forEach(function(item) {
+			if (item.selected) {
+				checkedCount++;
+			}
+		});
+
+		$scope.selectedCount = checkedCount;
+
+	}, true);
+
+	$scope.$watch('selectedCount', function(v) {
+
+		if (v != 0) {
+			$('#button-select').prop('disabled', false);
+			$('#button-delete').prop('disabled', false);
+		} else {
+			$('#button-select').prop('disabled', true);
+			$('#button-delete').prop('disabled', true);
+		}
+
+		if (v == 1 ) {
+			$('#button-link').prop('disabled', false);
+		} else {
+			$('#button-link').prop('disabled', true);
+		}
+
+	});
+
+	$scope.$watch('selectAll', function(v) {
+
+    for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
+        $scope.mediaFiles[ i ].selected = v;
+    }
+
+	});
+
+}
 
 function NavController($scope, $location) { 
   
@@ -35,41 +80,7 @@ function NavController($scope, $location) {
 
 }
 
-function initScope($scope) {
-  $scope.orderByAttribute = 'key';
-  $scope.reverseSort = false;
-  //$scope.thumbnailView = true;
-	$scope.selectedCount = 0;
-
-//	$scope.$watch('mediaFiles'
-
-	$scope.initCheckBox = function() {
-
-		var checked = false;
-		var checkCount = 0;
-
-		$(".select-file-checkbox").each(function(i){
-			if (this.checked == true) {
-				checkCount++;
-			}
-		});
-
-
-		$(".select-file-checkbox").each(function(i){
-			if (this.checked == true) {
-				checked = true;
-				return;
-			}
-		});
-
-		
-		setButtonsEnabled(checked, checkCount);
-
-	};
-
-}
-
-function ViewController($scope, $rootScope) {
+function ViewController($scope) {
 	//$scope.thumbnailView = false;	
 
 	$('#view-toggle').bootstrapSwitch();
@@ -118,55 +129,6 @@ function showListView() {
 	$('#column-headers').show();
 
 }
-
-function initCheckBox() {
-//	$(".select-file-checkbox").change(function() {
-
-		var checked = false;
-		var checkCount = 0;
-
-		$(".select-file-checkbox").each(function(i){
-			if (this.checked == true) {
-				checkCount++;
-			}
-		});
-
-
-		$(".select-file-checkbox").each(function(i){
-			if (this.checked == true) {
-				checked = true;
-				return;
-			}
-		});
-
-		
-		setButtonsEnabled(checked, checkCount);
-
-
-//	});
-}
-
-	function setButtonsEnabled(checked, checkCount) {
-
-		console.log(checked + ' ' + checkCount);
-
-		if (checked) {
-			$('#button-select').prop('disabled', false);
-			$('#button-delete').prop('disabled', false);
-		} else {
-			$('#button-select').prop('disabled', true);
-			$('#button-delete').prop('disabled', true);
-		}
-
-
-		if (checkCount == 1 ) {
-			$('#button-link').prop('disabled', false);
-		} else {
-			$('#button-link').prop('disabled', true);
-		}
-
-
-	}
 
 
 

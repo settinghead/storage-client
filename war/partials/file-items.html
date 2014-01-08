@@ -38,7 +38,7 @@
         </span>
       </a>
     </div>
-    <div class="media-check-box left"><input type="checkbox" id="select-all">{{selectedCount}}</div>
+    <div class="media-check-box left"><input type="checkbox" ng-model="selectAll"></div>
 
 </div>
 
@@ -51,7 +51,7 @@
     <div class="media-file-type left">PNG</div>
     <div class="media-file-size left">{{file.sizeString}}</div>
     <div class="media-date-modified left">{{file.lastModified}}</div>
-    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.selected" ng-change="initCheckBox()"></div>
+    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.selected"></div>
     <div class="clear"></div>
     
   
