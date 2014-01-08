@@ -1,82 +1,4 @@
 
-	<div id="storage-usage-details" class="right">
-		Storage Used: 500MB / Bandwidth Used: 12GB 
-		<a href="" class="download-csv">
-			<i class="fa fa-cloud-download"></i>
-<!--	<span class="glyphicon glyphicon-cloud-download"></span>-->
-		</a>
-  </div>
-	<div>
-  	<h1>Media Library</h1>
-  </div>
-  
-	<div class="search-presentations">
-<!-- <div class="form-label no-help">Search Media</div> -->
-  	<div>
-			<div class="col-lg-4 width80">
-    		<div class="input-group">
-        	<input ng-model="query" type="text" class="form-control" value="Search Media">
-         	<span class="input-group-btn">
-            <button class="btn btn-primary search" type="button"><i class="fa fa-search"></i></button>
-        	</span>
-        </div><!-- /input-group -->
-			</div><!-- /.col-lg-6 -->
-
-			<div style="float:right;">
-            
-<!--  	<div class="make-switch has-switch" data-on-label="&lt;i class=&#39;fa fa-th-large&#39;&gt;&lt;/i&gt;" data-off-label="&lt;i class=&#39;fa fa-th-list&#39;&gt;&lt;/i&gt;" data-animated="false" data-on="primary" data-off="primary"> -->
-<!--      <div class="switch-on"> -->
-      	<input id="view-toggle" type="checkbox" checked data-on-label="&lt;i class=&#39;fa fa-th-large&#39;&gt;&lt;/i&gt;" data-off-label="&lt;i class=&#39;fa fa-th-list&#39;&gt;&lt;/i&gt;" data-animated="false" data-on="primary" data-off="primary" ng-model="thumbnailView">
-<!--        <span class="switch-left switch-primary"><i class="fa fa-th-large"></i></span><label>&nbsp;</label><span class="switch-right switch-primary"><i class="fa fa-th-list"></i></span> -->
-<!--      </div> -->
-<!--    </div> -->
-                
-			</div>
-
-      <div class="clear"></div>
-  	</div>
-
-    <div id="media-management-buttons">
-
-            <div id="buttons-action">
-              <button class="btn btn-success" type="button" disabled="disabled" id="button-select">
-                <!-- Select --><i class="fa fa-check-circle size_24"></i>
-              </button>
-              <button class="btn btn-primary" type="button">
-                <!-- Add --><i class="fa fa-plus-circle size_20"></i>
-              </button>
-              
-
-              <button class="btn btn-primary" type="button">
-                <!-- Upload --><i class="fa fa-upload size_20"></i>
-              </button>
-
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-download">
-                <!-- Download --><i class="fa fa-download size_20"></i>
-              </button>
-
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-link">
-                <!-- Link --><i class="fa fa-link size_20"></i>
-              </button>
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-delete">
-                <!-- Delete --><i class="fa fa-trash-o size_20"></i>
-              </button>
-
-
-            </div>
-
-
-              
-        
-        </div>
-
-      </div>
-
-
-
 <div class="media-item-headings row  padding-left-none" id="column-headers">
 
     <div ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort" class="media-file-name left">
@@ -116,7 +38,7 @@
         </span>
       </a>
     </div>
-    <div class="media-check-box left"><input type="checkbox" id="select-all"></div>
+    <div class="media-check-box left"><input type="checkbox" id="select-all">{{selectedCount}}</div>
 
 </div>
 
@@ -129,7 +51,7 @@
     <div class="media-file-type left">PNG</div>
     <div class="media-file-size left">{{file.sizeString}}</div>
     <div class="media-date-modified left">{{file.lastModified}}</div>
-    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox"></div>
+    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.selected" ng-change="initCheckBox()"></div>
     <div class="clear"></div>
     
   

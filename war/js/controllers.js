@@ -2,31 +2,26 @@
 
 /* Controllers */
 
-function FileListCtrl($scope, $routeParams, $filter, MediaFiles) {
+function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles) {
 
-  $scope.orderByAttribute = 'key';
-  $scope.reverseSort = false;
-  $scope.thumbnailView = true;
-    
   $scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
 //	  $scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
   });
 
-	initViewToggle();
+	initScope($scope);
+//	initViewToggle();
 
 }
 
 //PhoneListCtrl.$inject = ['$scope', 'Phone'];
 
-function FileDetailCtrl($scope, $routeParams, MediaFile) {
+function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
 
-  $scope.orderByAttribute = 'key';
-  $scope.reverseSort = false;
-  $scope.thumbnailView = true;
     
   $scope.mediaFiles = MediaFile.query();
 
-	initViewToggle();
+	initScope($scope);
+//	initViewToggle();
 
 }
 
@@ -40,23 +35,56 @@ function NavController($scope, $location) {
 
 }
 
-function initViewToggle() {
+function initScope($scope) {
+  $scope.orderByAttribute = 'key';
+  $scope.reverseSort = false;
+  //$scope.thumbnailView = true;
+	$scope.selectedCount = 0;
+
+//	$scope.$watch('mediaFiles'
+
+	$scope.initCheckBox = function() {
+
+		var checked = false;
+		var checkCount = 0;
+
+		$(".select-file-checkbox").each(function(i){
+			if (this.checked == true) {
+				checkCount++;
+			}
+		});
+
+
+		$(".select-file-checkbox").each(function(i){
+			if (this.checked == true) {
+				checked = true;
+				return;
+			}
+		});
+
+		
+		setButtonsEnabled(checked, checkCount);
+
+	};
+
+}
+
+function ViewController($scope, $rootScope) {
+	//$scope.thumbnailView = false;	
 
 	$('#view-toggle').bootstrapSwitch();
 
   $('#view-toggle').on('switch-change', function (e, data) {
-		var $el = $(data.el); 
-		var listView = data.value;
-
-		if (!listView) {
+		$scope.thumbnailView = data.value;
+		
+		if (data.value) {
 			showThumbView();
-		} else {
+		}
+		else {
 			showListView();
 		}
-
-		//console.log(e, $el, value);
 	});
-
+	
 }
 
 function showThumbView() {
@@ -90,5 +118,56 @@ function showListView() {
 	$('#column-headers').show();
 
 }
+
+function initCheckBox() {
+//	$(".select-file-checkbox").change(function() {
+
+		var checked = false;
+		var checkCount = 0;
+
+		$(".select-file-checkbox").each(function(i){
+			if (this.checked == true) {
+				checkCount++;
+			}
+		});
+
+
+		$(".select-file-checkbox").each(function(i){
+			if (this.checked == true) {
+				checked = true;
+				return;
+			}
+		});
+
+		
+		setButtonsEnabled(checked, checkCount);
+
+
+//	});
+}
+
+	function setButtonsEnabled(checked, checkCount) {
+
+		console.log(checked + ' ' + checkCount);
+
+		if (checked) {
+			$('#button-select').prop('disabled', false);
+			$('#button-delete').prop('disabled', false);
+		} else {
+			$('#button-select').prop('disabled', true);
+			$('#button-delete').prop('disabled', true);
+		}
+
+
+		if (checkCount == 1 ) {
+			$('#button-link').prop('disabled', false);
+		} else {
+			$('#button-link').prop('disabled', true);
+		}
+
+
+	}
+
+
 
 
