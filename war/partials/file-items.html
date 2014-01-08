@@ -46,12 +46,18 @@
 
 <div ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" class="media-item row padding-left-none" >
   
-    <div class="media-thumb-image"><img src="./images/presentation_thumb.jpg" width="120" height="80"></div>
-    <div class="media-file-name left">{{file.key}}</div>
+    <div class="media-thumb-image">
+			<a href="" ng-click="$emit('FileSelectAction', file)">
+				<img src="./images/presentation_thumb.jpg" width="120" height="80">
+			</a>
+		</div>
+    <div class="media-file-name left">
+			<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
+		</div>
     <div class="media-file-type left">PNG</div>
     <div class="media-file-size left">{{file.sizeString}}</div>
     <div class="media-date-modified left">{{file.lastModified}}</div>
-    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.selected"></div>
+    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.checked"></div>
     <div class="clear"></div>
     
   

@@ -90,7 +90,7 @@
 
 				<div id="buttons-action" ng-controller="ButtonsController">
 				
-					<button class="btn btn-success" type="button" id="button-select" ng-disabled="selectDisabled">
+					<button class="btn btn-success" type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
 						<!-- Select -->
 						<i class="fa fa-check-circle size_24"></i>
 					</button>
@@ -105,17 +105,17 @@
 						<i class="fa fa-upload size_20"></i>
 					</button>
 
-					<button class="btn btn-primary" type="button" id="button-download" ng-disabled="downloadDisabled">
+					<button class="btn btn-primary" type="button" ng-disabled="downloadDisabled">
 						<!-- Download -->
 						<i class="fa fa-download size_20"></i>
 					</button>
 
-					<button class="btn btn-primary" type="button" id="button-link">
+					<button class="btn btn-primary" type="button">
 						<!-- Link -->
 						<i class="fa fa-link size_20"></i>
 					</button>
 
-					<button class="btn btn-primary" type="button" id="button-delete" ng-disabled="deleteDisabled">
+					<button class="btn btn-primary" type="button" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
 						<!-- Delete -->
 						<i class="fa fa-trash-o size_20"></i>
 					</button>
