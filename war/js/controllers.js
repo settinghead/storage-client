@@ -8,7 +8,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles) {
 //	  $scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
   });
 
-	initScope($scope);
+	initScope($scope, $rootScope);
 
 }
 
@@ -18,55 +18,52 @@ function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
 
   $scope.mediaFiles = MediaFile.query();
 
-	initScope($scope);
+	initScope($scope, $rootScope);
 
 }
 
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
 
 
-function initScope($scope) {
+function initScope($scope, $rootScope) {
   $scope.orderByAttribute = 'key';
   $scope.reverseSort = false;
-	$scope.selectedCount = 0;
 
 	$scope.$watch('mediaFiles', function(items) {
 
-		var checkedCount = 0;
+		var selectedCount = 0;
 
 		items.forEach(function(item) {
 			if (item.selected) {
-				checkedCount++;
+				selectedCount++;
 			}
 		});
 
-		$scope.selectedCount = checkedCount;
+		$rootScope.$broadcast('SelectedCountChange', selectedCount);		
 
 	}, true);
-
-	$scope.$watch('selectedCount', function(v) {
-
-		if (v != 0) {
-			$('#button-select').prop('disabled', false);
-			$('#button-delete').prop('disabled', false);
-		} else {
-			$('#button-select').prop('disabled', true);
-			$('#button-delete').prop('disabled', true);
-		}
-
-		if (v == 1 ) {
-			$('#button-link').prop('disabled', false);
-		} else {
-			$('#button-link').prop('disabled', true);
-		}
-
-	});
 
 	$scope.$watch('selectAll', function(v) {
 
     for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
         $scope.mediaFiles[ i ].selected = v;
     }
+
+	});
+
+}
+
+function ButtonsController($scope, $rootScope) {
+
+	$scope.selectDisabled = true;	
+	$scope.downloadDisabled = true;
+	$scope.deleteDisabled = true;	
+	
+	$rootScope.$on('SelectedCountChange', function(event, count)	 {
+
+		$scope.selectDisabled = count != 1;
+		$scope.downloadDisabled = !count;
+		$scope.deleteDisabled = !count;
 
 	});
 

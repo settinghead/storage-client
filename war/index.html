@@ -63,66 +63,68 @@
 
 
   
-	<div class="search-presentations">
-<!-- <div class="form-label no-help">Search Media</div> -->
-  	<div>
-			<div class="col-lg-4 width80">
-    		<div class="input-group">
-        	<input ng-model="query" type="text" class="form-control" value="Search Media">
-         	<span class="input-group-btn">
-            <button class="btn btn-primary search" type="button"><i class="fa fa-search"></i></button>
-        	</span>
-        </div><!-- /input-group -->
-			</div><!-- /.col-lg-6 -->
+		<div class="search-presentations">
+<!--	<div class="form-label no-help">Search Media</div> -->
+  		<div>
+				<div class="col-lg-4 width80">
+    			<div class="input-group">
+      	  	<input ng-model="query" type="text" class="form-control" value="Search Media">
+     	    	<span class="input-group-btn">
+							<button class="btn btn-primary search" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /.col-lg-6 -->
 
-			<div style="float:right;" ng-controller="ViewController">
-      	<input id="view-toggle" type="checkbox" data-on-label="&lt;i class=&#39;fa fa-th-large&#39;&gt;&lt;/i&gt;" data-off-label="&lt;i class=&#39;fa fa-th-list&#39;&gt;&lt;/i&gt;" data-animated="false" data-on="primary" data-off="primary">
+				<div style="float:right;" ng-controller="ViewController">
+      		<input id="view-toggle" type="checkbox" data-on-label="&lt;i class=&#39;fa fa-th-large&#39;&gt;&lt;/i&gt;" data-off-label="&lt;i class=&#39;fa fa-th-list&#39;&gt;&lt;/i&gt;" data-animated="false" data-on="primary" data-off="primary">
+				</div>
+
+      	<div class="clear"></div>
+  		</div>
+
+
+
+			<div id="media-management-buttons">
+
+				<div id="buttons-action" ng-controller="ButtonsController">
+				
+					<button class="btn btn-success" type="button" id="button-select" ng-disabled="selectDisabled">
+						<!-- Select -->
+						<i class="fa fa-check-circle size_24"></i>
+					</button>
+
+					<!-- <button class="btn btn-primary" type="button"> -->
+						<!-- Add -->
+					<!-- 	<i class="fa fa-plus-circle size_20"></i> -->
+					<!-- </button> -->
+
+					<button class="btn btn-primary" type="button">
+						<!-- Upload -->
+						<i class="fa fa-upload size_20"></i>
+					</button>
+
+					<button class="btn btn-primary" type="button" id="button-download" ng-disabled="downloadDisabled">
+						<!-- Download -->
+						<i class="fa fa-download size_20"></i>
+					</button>
+
+					<button class="btn btn-primary" type="button" id="button-link">
+						<!-- Link -->
+						<i class="fa fa-link size_20"></i>
+					</button>
+
+					<button class="btn btn-primary" type="button" id="button-delete" ng-disabled="deleteDisabled">
+						<!-- Delete -->
+						<i class="fa fa-trash-o size_20"></i>
+					</button>
+
+				</div>
+
 			</div>
 
-      <div class="clear"></div>
-  	</div>
-
-
-
-
-    <div id="media-management-buttons">
-
-            <div id="buttons-action">
-              <button class="btn btn-success" type="button" disabled="disabled" id="button-select">
-                <!-- Select --><i class="fa fa-check-circle size_24"></i>
-              </button>
-              <button class="btn btn-primary" type="button">
-                <!-- Add --><i class="fa fa-plus-circle size_20"></i>
-              </button>
-              
-
-              <button class="btn btn-primary" type="button">
-                <!-- Upload --><i class="fa fa-upload size_20"></i>
-              </button>
-
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-download">
-                <!-- Download --><i class="fa fa-download size_20"></i>
-              </button>
-
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-link">
-                <!-- Link --><i class="fa fa-link size_20"></i>
-              </button>
-
-              <button class="btn btn-primary" type="button" disabled="disabled" id="button-delete">
-                <!-- Delete --><i class="fa fa-trash-o size_20"></i>
-              </button>
-
-
-            </div>
-
-
-              
-        
-        </div>
-
-      </div>
+		</div>
 
 
 
@@ -151,7 +153,7 @@
   <!-- Latest compiled and minified JavaScript -->
   <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
   <script type="text/javascript" src="lib/bootstrap-switch/js/bootstrap-switch.js"></script>
-  <script type="text/javascript" src="lib/media.js"></script>
+  <!-- <script type="text/javascript" src="lib/media.js"></script> -->
 
 </body>
 </html>
