@@ -26,6 +26,7 @@ function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
 
 
 function initScope($scope, $rootScope) {
+
   $scope.orderByAttribute = 'key';
   $scope.reverseSort = false;
 
