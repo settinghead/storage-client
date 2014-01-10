@@ -2,33 +2,47 @@
 
 /* Controllers */
 
-function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles) {
+function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles, LocalFiles) {
 
-  $scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
-//	  $scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
-  });
+	if ($routeParams.companyId) {
+  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
 
-	initScope($scope, $rootScope);
+//		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
+
+			$rootScope.librarySize = getLibrarySize(mediaFiles);
+
+  	});
+	}
+	else {
+		$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
+		
+			$rootScope.librarySize = getLibrarySize(mediaFiles);
+
+		});
+	}
+
+	
+  $scope.orderByAttribute = 'key';
+  $scope.reverseSort = false;
+
+	initActions($scope, $rootScope);
 
 }
 
-//PhoneListCtrl.$inject = ['$scope', 'Phone'];
+//FileListCtrl.$inject = ['$scope', 'Phone'];
 
-function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
-
-  $scope.mediaFiles = MediaFile.query();
-
-	initScope($scope, $rootScope);
-
-}
+//function FileDetailCtrl($scope, $rootScope, $routeParams, MediaFile) {
+//
+//  $scope.mediaFiles = MediaFile.query();
+//
+//	initScope($scope, $rootScope);
+//
+//}
 
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
 
 
-function initScope($scope, $rootScope) {
-
-  $scope.orderByAttribute = 'key';
-  $scope.reverseSort = false;
+function initActions($scope, $rootScope) {
 
 	$scope.$watch('mediaFiles', function(items) {
 
@@ -83,6 +97,17 @@ function initScope($scope, $rootScope) {
 		alert(selectedFiles.length + " files selected for deletion!");
 
 	});
+
+}
+
+function getLibrarySize(mediaFiles) {
+
+	var size = 0;
+	for ( var i = 0; i < mediaFiles.length; ++i ) {
+		size += mediaFiles[ i ].size;
+	}
+
+	return size;
 
 }
 

@@ -8,7 +8,7 @@ angular.module('medialibraryServices', ['ngResource']).
       query: {method:'GET', params:{companyId:''}, isArray:true}
   });
 }).
-    factory('MediaFile', function($resource){
+    factory('LocalFiles', function($resource){
     return $resource('/files/files.json', {}, {
       query: {method:'GET', params:{}, isArray:true}
   });

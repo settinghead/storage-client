@@ -10,7 +10,7 @@ angular.module('medialibraryFilters', [])
   };
 })
 
-.filter('lastModifiedDate', function() {
+.filter('lastModifiedFilter', function() {
   return function(timestamp) {
 		if (timestamp == null) {
 			return "";
@@ -48,6 +48,41 @@ angular.module('medialibraryFilters', [])
 	}
 })
 
+.filter('fileTypeFilter', function() {
+	return function(filename) {
+		var re = /(?:\.([^.]+))?$/;
+		var ext = re.exec(filename)[1];
+
+		if (ext && ext.length <= 4) {
+			ext = ext.toUpperCase();
+			return ext;
+		}
+
+		return "";
+	}
+})
+
+.filter('fileSizeFilter', function() {
+	return function(size) {
+		var sizeString = "";
+		
+		if (size < 1000) {
+			sizeString = size + " bytes";
+		}
+		else if (size > 1024 && size < Math.pow(1024, 2)) {
+			sizeString = Math.floor(size / (1024 / 10)) / 10.0 + " KB";
+		}
+		else if (size >= Math.pow(1024, 2) && size < Math.pow(1024, 3)) {
+			sizeString = Math.floor(size / (Math.pow(1024, 2) / 10)) / 10.0 + " MB";
+		}
+		else if (size >= Math.pow(1024, 3)) {
+			sizeString = Math.floor(size / (Math.pow(1024, 3) / 10)) / 10.0 + " GB";
+		}
+		
+		return sizeString;	
+
+	}
+})
 
 .filter('groupBy', function() {
     return function(items, groupedBy) {

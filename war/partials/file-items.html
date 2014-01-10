@@ -54,9 +54,9 @@
     <div class="media-file-name left">
 			<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
 		</div>
-    <div class="media-file-type left">PNG</div>
-    <div class="media-file-size left">{{file.sizeString}}</div>
-    <div class="media-date-modified left">{{file.lastModified | lastModifiedDate}}</div>
+    <div class="media-file-type left">{{file.key | fileTypeFilter}}</div>
+    <div class="media-file-size left">{{file.size | fileSizeFilter}}</div>
+    <div class="media-date-modified left">{{file.lastModified | lastModifiedFilter}}</div>
     <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.checked"></div>
     <div class="clear"></div>
     
