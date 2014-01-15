@@ -16,6 +16,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/getFiles</url-pattern>
 	</servlet-mapping>
   
+	<servlet>
+		<servlet-name>DeleteFiles</servlet-name>
+		<servlet-class>com.risevision.medialibrary.server.DeleteFilesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteFiles</servlet-name>
+		<url-pattern>/deleteFiles</url-pattern>
+	</servlet-mapping>  
+  
   <servlet>
     <servlet-name>ReadLogs</servlet-name>
     <servlet-class>com.risevision.medialibrary.server.ReadLogsServlet</servlet-class>

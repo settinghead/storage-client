@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles, LocalFiles) {
+function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFiles, LocalFiles) {
 
 	if ($routeParams.companyId) {
   	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
@@ -25,7 +25,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles, Loc
   $scope.orderByAttribute = 'key';
   $scope.reverseSort = false;
 
-	initActions($scope, $rootScope);
+	initActions($scope, $rootScope, $routeParams, $http);
 
 }
 
@@ -42,7 +42,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, MediaFiles, Loc
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
 
 
-function initActions($scope, $rootScope) {
+function initActions($scope, $rootScope, $routeParams, $http) {
 
 	$scope.$watch('mediaFiles', function(items) {
 
@@ -90,11 +90,31 @@ function initActions($scope, $rootScope) {
 
 		for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
 			if ($scope.mediaFiles[ i ].checked) {
-				selectedFiles.push($scope.mediaFiles[ i ]);
+				selectedFiles.push($scope.mediaFiles[ i ].key);
 			}
 		}
-	
-		alert(selectedFiles.length + " files selected for deletion!");
+
+		if (confirm("Are you sure you want to delete the " + selectedFiles.length + " files selected?")) {
+
+			$http({
+
+				url: 'deleteFiles',
+				method: "POST",
+				data: selectedFiles,
+				params:{companyId:$routeParams.companyId},
+				headers: {'Content-Type': 'application/octet-stream'}
+
+			}).success(function (data, status, headers, config) {
+			
+				$scope.mediaFiles = data;
+		
+			}).error(function (data, status, headers, config) {
+				
+				$scope.status = status;
+
+			});
+		
+		}
 
 	});
 
