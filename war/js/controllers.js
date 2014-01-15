@@ -145,6 +145,12 @@ function ButtonsController($scope, $rootScope) {
 
 	});
 
+  $scope.openCompanySelector = function() {
+	
+		$('#uploaddialog').modal('show');
+
+  }
+
 }
 
 function NavController($scope, $location) { 
@@ -205,6 +211,62 @@ function showListView() {
 
 }
 
+function UploadController($scope) {
+	$scope.tok = "<token>";
+	$scope.boundary = "---======= foo_bar_baz12034245623562346 ===";
+	$scope.consolidated_request = '';
 
+
+	$scope.fileCount = 0;
+	$scope.uploadDisabled = !$scope.fileCount > 0;
+
+	$scope.loadFiles = function(element) {
+
+//		var input = $('fileInput');
+		$scope.consolidated_request = "";
+
+		for (var i = 0; i < element.files.length; i++) {
+
+			var f = element.files[i];
+
+			var reader = new FileReader();
+			reader.readAsBinaryString(f);
+
+			reader.onload = function(e){
+
+				var fbinary = e.target.result;
+				var fsize = f.size;
+
+				var url = '/upload/storage/v1beta2/b/<mybucket>/o?';
+				url += 'uploadType=media&name='+f.name+ ' HTTP/1.1';
+
+				var req = $scope.boundary + 
+				'\r\nContent-Type: application/http'+
+				'\r\nContent-Transfer-Encoding: binary'+
+				'\r\n\nPOST ' + url +
+				'\r\nContent-Type: image/jpeg'+
+				'\r\nContent-Length: '+ f.size +
+				'\r\nAuthorization: '+ $scope.tok +
+				'\r\n\n'+ fbinary + '\n';
+
+				consolidated_request += req;
+			
+			};
+
+		}
+
+	}
+
+	$scope.uploadFiles = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'https://www.googleapis.com/batch', true);
+    xhr.setRequestHeader("Authorization", tok);
+    xhr.setRequestHeader("Content-Type", "multipart/mixed;boundary=" + boundary);
+    xhr.send(consolidated_request);
+	}
+
+
+
+}
 
 

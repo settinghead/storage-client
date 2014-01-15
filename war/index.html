@@ -100,7 +100,7 @@
 					<!-- 	<i class="fa fa-plus-circle size_20"></i> -->
 					<!-- </button> -->
 
-					<button class="btn btn-primary" type="button">
+					<button class="btn btn-primary" type="button" ng-click="openCompanySelector()">
 						<!-- Upload -->
 						<i class="fa fa-upload size_20"></i>
 					</button>
@@ -149,9 +149,33 @@
 
 	</div>
 	
-
+      <!-- Modal -->
+  <div class="modal fade" id="uploaddialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UploadController">
+    <div class="modal-dialog">
+      <div class="modal-content">
+				<div class="modal-header no-border">
+<!--					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						<img src="./images/close-btn-black.png" alt="close button" class="cancel-and-close"></button> -->
+					<h2 class="modal-title" id="myModalLabel">
+					Upload Files</h4>
+				</div>
+				<div class="modal-body shopping-cart-modal-body">
+					<input type="file" name="fileName" id="fileInput" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/> 
+				</div>
+				<div class="modal-footer no-border">
+					<button class="btn btn-primary" type="button" ng-click="uploadFiles()" ng-disabled="uploadDisabled">
+						Upload <i class='fa fa-check-circle'></i>
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">
+						Cancel
+					</button>
+			</div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+	
   <!-- Latest compiled and minified JavaScript -->
-  <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="lib/bootstrap-switch/js/bootstrap-switch.js"></script>
   <!-- <script type="text/javascript" src="lib/media.js"></script> -->
 
