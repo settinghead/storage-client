@@ -100,7 +100,7 @@
 					<!-- 	<i class="fa fa-plus-circle size_20"></i> -->
 					<!-- </button> -->
 
-					<button class="btn btn-primary" type="button" ng-click="openCompanySelector()">
+					<button class="btn btn-primary" type="button" ng-click="uploadButtonClick()">
 						<!-- Upload -->
 						<i class="fa fa-upload size_20"></i>
 					</button>
@@ -163,13 +163,28 @@
 					<input type="file" name="fileName" id="fileInput" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/> 
 				</div>
 				<div class="modal-footer no-border">
-					<button class="btn btn-primary" type="button" ng-click="uploadFiles()" ng-disabled="uploadDisabled">
+					<button class="btn btn-primary" type="button" ng-click="uploadFiles()" ng-disabled="fileCount > 0">
 						Upload <i class='fa fa-check-circle'></i>
 					</button>
 					<button type="button" class="btn btn-primary" data-dismiss="modal">
 						Cancel
 					</button>
-			</div>
+				</div>
+
+				<form id="uploadform" target="uploadcompleteframe" action="" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="key" ng-value="fileName">
+					<input type="hidden" name="success_action_redirect" ng-value="responseUrl">
+					<input type="hidden" name="acl" value="public-read">
+					<input type="hidden" name="content-type" ng-value="contentType">
+					<input type="hidden" name="cache-control" value="public, max-age=60">
+					<input type="hidden" name="GoogleAccessId" ng-value="googleAccessId">
+					<input type="hidden" name="policy" ng-value="policyBase64">
+					<input type="hidden" name="signature" ng-value="signature">
+					<input type="file" id="file" name="file" style="position:absolute;left:0px;top:0px;visibility:hidden;opacity:0;" onchange="angular.element(this).scope().loadFiles(this)">
+				</form>
+
+				<iframe id="uploadcompleteframe" style="position:absolute;left:0px;top:0px;width:0px;height:0px;visibility:hidden;"></iframe>
+
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->

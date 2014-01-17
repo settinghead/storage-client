@@ -25,6 +25,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/deleteFiles</url-pattern>
 	</servlet-mapping>  
   
+  	<servlet>
+		<servlet-name>GetSignedPolicy</servlet-name>
+		<servlet-class>com.risevision.medialibrary.server.GetSignedPolicyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetSignedPolicy</servlet-name>
+		<url-pattern>/getSignedPolicy</url-pattern>
+	</servlet-mapping>  
+	
+	<servlet>
+		<servlet-name>UploadComplete</servlet-name>
+		<servlet-class>com.risevision.medialibrary.server.UploadCompleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadComplete</servlet-name>
+		<url-pattern>/uploadComplete</url-pattern>
+	</servlet-mapping>  
+  
   <servlet>
     <servlet-name>ReadLogs</servlet-name>
     <servlet-class>com.risevision.medialibrary.server.ReadLogsServlet</servlet-class>

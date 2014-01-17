@@ -4,12 +4,6 @@
 
 angular.module('medialibraryFilters', [])
 
-.filter('checkmark', function() {
-  return function(input) {
-    return input ? '\u2713' : '\u2718';
-  };
-})
-
 .filter('lastModifiedFilter', function() {
   return function(timestamp) {
 		if (timestamp == null) {
