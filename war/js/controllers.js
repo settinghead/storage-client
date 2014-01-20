@@ -4,23 +4,26 @@
 
 function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFiles, LocalFiles) {
 
-	if ($routeParams.companyId) {
-  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
+	$scope.updateList = function() {
+		if ($routeParams.companyId) {
+	  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
 
-//		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
+//			$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
 
-			$rootScope.librarySize = getLibrarySize(mediaFiles);
+				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
-  	});
-	}
-	else {
-		$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
-		
-			$rootScope.librarySize = getLibrarySize(mediaFiles);
+	  	});
+		}
+		else {
+			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
+	
+				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
-		});
-	}
+			});
+		}
+	};
 
+	$scope.updateList();
 	
   $scope.orderByAttribute = 'key';
   $scope.reverseSort = false;
@@ -211,7 +214,7 @@ function showListView() {
 
 }
 
-function UploadController($scope, $http) {
+function UploadController($scope, $http, $timeout) {
 
 	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
 	var bucketName = 'risemedialibrary-' + '17899fe3-db05-4ecd-ade4-a7106fe53784';
@@ -221,10 +224,12 @@ function UploadController($scope, $http) {
 	$scope.contentType = '';
 	$('#uploadform').attr('action', MEDIA_LIBRARY_URL + bucketName + '/');
 
-	$('#uploadcompleteframe').load(function(element) {
+	$('#uploadcompleteframe').load(function(event) {
 
 		try {
-			if (element.contentWindow.name) {
+			if (event.target.contentWindow.name) {
+				$("#uploadform").reset();
+
 				return true;
 			}
 			else {
@@ -238,7 +243,7 @@ function UploadController($scope, $http) {
 	});
 
 	$scope.uploadFiles = function() {
-			$("#uploadform").submit();
+		//$("#uploadform").submit();
 
 		//$('#file').click();
 
@@ -266,7 +271,7 @@ function UploadController($scope, $http) {
 			'    {"success_action_redirect": "' + $scope.responseUrl + '" },' +
 			'  ]' +
 			'}';
-				
+
 		$scope.policyBase64 = utf8_to_b64(policyString);
 
 		$http({
@@ -282,7 +287,9 @@ function UploadController($scope, $http) {
 
 			if ($scope.signature) {
 			
-				//$("#uploadform").submit();
+				$timeout(function() {
+					$("#uploadform").submit();
+				});
 
 			}
 	
@@ -294,22 +301,14 @@ function UploadController($scope, $http) {
 
 	}
 
-	$scope.$watch('signature', function(v) {
-
-		if (v) {
-
-			$("#uploadform").submit();
-		
-		}
-
-	});
-
-
+/*
 	$scope.uploadComplete = function(element) {
 
 		try {
 			if (element.contentWindow.name) {
-				return true;
+
+				$("#uploadform").reset();
+
 			}
 			else {
 				return false;
@@ -319,6 +318,7 @@ function UploadController($scope, $http) {
 		}
 
 	}
+*/
 
 /*
 	// below code requires OAuth token, which cannot be obtained for Anonymous uploads
