@@ -150,10 +150,15 @@ function ButtonsController($scope, $rootScope) {
 
   $scope.uploadButtonClick = function() {
 	
-		$('#uploaddialog').modal('show');
+//		$('#uploaddialog').modal('show');
+		$('#selectedFile').click();
 
   }
 
+}
+
+function ProgressController($scope, $rootScope) {
+	$rootScope.uploadProgress = 0;
 }
 
 function NavController($scope, $location) { 
@@ -214,7 +219,16 @@ function showListView() {
 
 }
 
-function UploadController($scope, $http, $timeout) {
+function UploadController($scope, $rootScope, $http, $timeout) {
+
+/*
+	Dropzone.options.myAwesomeDropzone = {
+		multipleUploads: false,
+		init: function() {
+			this.on("addedfile", function(file) { alert("Added file."); });
+		}
+	};
+*/
 
 	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
 	var bucketName = 'risemedialibrary-' + '17899fe3-db05-4ecd-ade4-a7106fe53784';
@@ -224,11 +238,119 @@ function UploadController($scope, $http, $timeout) {
 	$scope.contentType = '';
 	$('#uploadform').attr('action', MEDIA_LIBRARY_URL + bucketName + '/');
 
+	$scope.uploadFiles = function() {
+
+		//$("#uploadform").submit();
+		//$('#file').click();
+
+	}
+
+/*
+	$('#uploadform').ajaxForm({
+		beforeSend: function() {
+			$rootScope.uploadProgress = 0;
+		},
+		uploadProgress: function(event, position, total, percentComplete) {
+			$rootScope.uploadStatus = "Uploading";
+			$rootScope.uploadProgress = percentComplete;
+		},
+		complete: function(xhr) {
+			$rootScope.uplodaProgress = 100;
+			$rootScope.uploadStatus = xhr.responseText;
+		}
+	});
+*/
+
+	$scope.loadFiles = function(element) {
+	//	$('#uploadcompleteframe').contentWindow.name = 'uploadCompleteFrame';
+
+		for (var i = 0; i < element.files.length; i++) {
+
+			$scope.fileName = element.files[i].name;
+			$scope.contentType = element.files[i].type;
+
+			var policyString = '{' +
+				'  "expiration": "2020-01-01T12:00:00.000Z",' +
+				'  "conditions": [' +
+				'    {"bucket": "' + bucketName + '" },' +
+				'    {"acl": "public-read" },' +
+				'    ["eq", "$key", "' + $scope.fileName + '"],' +
+				'    ["starts-with", "$Content-Type", "' + $scope.contentType + '"],' +
+				'    ["starts-with", "$Cache-Control", "public, max-age=60"],' +
+				'    {"success_action_redirect": "' + $scope.responseUrl + '" },' +
+				'  ]' +
+				'}';
+
+			$scope.policyBase64 = utf8_to_b64(policyString);
+
+			$http({
+				url: 'getSignedPolicy',
+				method: "POST",
+				data: "policyBase64=" + $scope.policyBase64,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+		
+				$scope.signature = data.trim();
+
+				if ($scope.signature) {
+		
+					$timeout(function() {
+						$("#uploadform").submit();
+					});
+
+				}
+
+			}).error(function (data, status, headers, config) {
+		
+				$scope.status = status;
+
+			});
+
+/*
+			var reader = new FileReader();
+			reader.readAsBinaryString(element.files[i]);
+
+			reader.onload = function(e){
+
+				$scope.fileContent = e.target.result;
+			
+				$http({
+					url: 'getSignedPolicy',
+					method: "POST",
+					data: "policyBase64=" + $scope.policyBase64,
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).success(function (data, status, headers, config) {
+			
+					$scope.signature = data.trim();
+
+					if ($scope.signature) {
+			
+						$timeout(function() {
+							$("#uploadform").submit();
+						});
+
+					}
+	
+				}).error(function (data, status, headers, config) {
+			
+					$scope.status = status;
+
+				});
+
+			};			
+*/
+
+			break;
+
+		}
+
+	}
+
 	$('#uploadcompleteframe').load(function(event) {
 
 		try {
 			if (event.target.contentWindow.name) {
-				$("#uploadform").reset();
+//				$("#uploadform").reset();
 
 				return true;
 			}
@@ -239,67 +361,8 @@ function UploadController($scope, $http, $timeout) {
 			return false;
 		}
 
-
 	});
 
-	$scope.uploadFiles = function() {
-		//$("#uploadform").submit();
-
-		//$('#file').click();
-
-	}
-
-	$scope.loadFiles = function(element) {
-	//	$('#uploadcompleteframe').contentWindow.name = 'uploadCompleteFrame';
-
-		for (var i = 0; i < element.files.length; i++) {
-
-			$scope.fileName = element.files[i].name;
-			$scope.contentType = element.files[i].type;
-			break;
-
-		}
-
-		var policyString = '{' +
-			'  "expiration": "2020-01-01T12:00:00.000Z",' +
-			'  "conditions": [' +
-			'    {"bucket": "' + bucketName + '" },' +
-			'    {"acl": "public-read" },' +
-			'    ["eq", "$key", "' + $scope.fileName + '"],' +
-			'    ["starts-with", "$Content-Type", "' + $scope.contentType + '"],' +
-			'    ["starts-with", "$Cache-Control", "public, max-age=60"],' +
-			'    {"success_action_redirect": "' + $scope.responseUrl + '" },' +
-			'  ]' +
-			'}';
-
-		$scope.policyBase64 = utf8_to_b64(policyString);
-
-		$http({
-
-			url: 'getSignedPolicy',
-			method: "POST",
-			data: "policyBase64=" + $scope.policyBase64,
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-
-		}).success(function (data, status, headers, config) {
-			
-			$scope.signature = data.trim();
-
-			if ($scope.signature) {
-			
-				$timeout(function() {
-					$("#uploadform").submit();
-				});
-
-			}
-	
-		}).error(function (data, status, headers, config) {
-			
-			$scope.status = status;
-
-		});
-
-	}
 
 /*
 	$scope.uploadComplete = function(element) {
