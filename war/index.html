@@ -23,6 +23,7 @@
 <link href="css/rise.css" rel="stylesheet"/>
 <link href="lib/bootstrap-switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
 <link href="css/media_library.css" rel="stylesheet"/>
+<!-- <link href="http://s3.amazonaws.com/Common-Test/css/rise.css" rel="stylesheet" /> -->
 
 <script src="lib/angular/angular.js"></script>
 <script src="js/app.js"></script>
@@ -56,17 +57,16 @@
 </head>
 <body>
 
-  <div class="container select-presentation" id="media-library-container">
+	<div class="widget-overlay"></div>
+	<div class="widget-wrapper container modal-content">
+		<button id="settings-close" type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeButtonClick()">
+			<img src="../images/close.png" alt="Close">
+		</button>
 
-		<div id="storage-usage-details" class="right">
-			Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A 
-			<a href="" class="download-csv">
-				<i class="fa fa-cloud-download"></i>
-<!--		<span class="glyphicon glyphicon-cloud-download"></span>-->
-			</a>
-  	</div>
+<!--  <div class="container select-presentation" id="media-library-container"> -->
+
 		<div>
-  		<h1>Media Library</h1>
+  		<h2>Media Library</h2>
 		</div>
 
 
@@ -136,7 +136,19 @@
 
 				</div>
 
+		<div id="storage-usage-details" class="right">
+			Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A 
+			<a href="" class="download-csv">
+				<i class="fa fa-cloud-download"></i>
+<!--		<span class="glyphicon glyphicon-cloud-download"></span>-->
+			</a>
+  	</div>
+
+
 			</div>
+
+
+
 <!--
 			<div>
 				<div class="progress progress-striped active" ng-controller="ProgressController">
@@ -154,7 +166,7 @@
 
 		<!--Body content-->
 		<div ng-view></div>
-	</div>
+	<!-- </div> -->
 
 	<div class="container" id="terms-and-conditions-checkbox">
 
@@ -171,6 +183,8 @@
 
 	</div>
 	
+	</div>
+
 	<!-- Modal -->
   <div class="modal fade" id="uploaddialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UploadController">
     <div class="modal-dialog">

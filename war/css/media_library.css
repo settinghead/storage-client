@@ -1,4 +1,43 @@
+/* ==========================================================================
+   Document
+   ========================================================================== */
+html,
+body {
+	/* Display */
+	height: 100%;
 
+	/* Visual */
+	color: #555;
+	background: transparent;
+}
+
+
+/* ==========================================================================
+   Widgets
+   ========================================================================== */
+
+.widget-overlay {
+	/* Positioning */
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	/* Visual */
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.widget-wrapper {
+	/* Positioning */
+	z-index: 2;
+
+	/* Display & Box Model */
+	overflow: auto;
+	height: 90%;
+	margin: 40px auto 0;
+}
 
 
 /**********************************************************************************************************************************
@@ -7,10 +46,11 @@
 
  **********************************************************************************************************************************/
 
+/*
 #media-library-container {
-	/*padding-top: 140px;*/
 	padding-bottom: 100px;
 }
+*/
 
 .width80 {
 	width: 80%;
@@ -92,12 +132,12 @@
 
 
 
-
+/*
 .select-presentation {
 	background-color: #FFF;
 	padding-bottom: 100px;
 }
-
+*/
 
 
 
@@ -386,6 +426,7 @@ input.search {
 
 
 #terms-and-conditions-checkbox {
+	padding-top: 100px;
 	padding-bottom: 200px;
 }
 

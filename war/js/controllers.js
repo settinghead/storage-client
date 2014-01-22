@@ -129,6 +129,13 @@ function initActions($scope, $rootScope, $routeParams, $http) {
 
 	});
 
+	$rootScope.closeButtonClick = function() {
+
+		gadgets.rpc.call('', 'rscmd_closeSettings', null);
+
+	}
+
+
 }
 
 function getLibrarySize(mediaFiles) {
@@ -156,16 +163,10 @@ function ButtonsController($scope, $rootScope) {
 
 	});
 
-  $scope.uploadButtonClick = function() {
+	$scope.uploadButtonClick = function() {
 	
 //		$('#uploaddialog').modal('show');
 		$('#selectedFile').click();
-
-  }
-
-	$scope.closeButtonClick = function() {
-
-		gadgets.rpc.call('', 'rscmd_closeSettings', null);
 
 	}
 
