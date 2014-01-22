@@ -4,6 +4,11 @@
 
 function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFiles, LocalFiles) {
 
+	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
+	var bucketName = 'risemedialibrary-' + $routeParams.companyId;
+
+	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + bucketName + '/';
+
 	$scope.updateList = function() {
 		if ($routeParams.companyId) {
 	  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
@@ -82,7 +87,10 @@ function initActions($scope, $rootScope, $routeParams, $http) {
 		}
 
 		if (file) {
-			alert(file.key + " selected!");
+			var fileUrl = $rootScope.bucketUrl + file.key;
+			var data = { params: fileUrl };
+			gadgets.rpc.call('', 'rscmd_saveSettings', null, data);
+
 		}
 
 	});
@@ -97,12 +105,12 @@ function initActions($scope, $rootScope, $routeParams, $http) {
 			}
 		}
 
-		if (confirm("Are you sure you want to delete the " + selectedFiles.length + " files selected?")) {
+		if (confirm('Are you sure you want to delete the ' + selectedFiles.length + ' files selected?')) {
 
 			$http({
 
 				url: 'deleteFiles',
-				method: "POST",
+				method: 'POST',
 				data: selectedFiles,
 				params:{companyId:$routeParams.companyId},
 				headers: {'Content-Type': 'application/octet-stream'}
@@ -154,6 +162,12 @@ function ButtonsController($scope, $rootScope) {
 		$('#selectedFile').click();
 
   }
+
+	$scope.closeButtonClick = function() {
+
+		gadgets.rpc.call('', 'rscmd_closeSettings', null);
+
+	}
 
 }
 
@@ -230,13 +244,11 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 	};
 */
 
-	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
-	var bucketName = 'risemedialibrary-' + '17899fe3-db05-4ecd-ade4-a7106fe53784';
 	$scope.googleAccessId = '452091732215@developer.gserviceaccount.com';
 	$scope.responseUrl = location.protocol + '//' + location.hostname + '/uploadComplete';
 	$scope.fileName = '';
 	$scope.contentType = '';
-	$('#uploadform').attr('action', MEDIA_LIBRARY_URL + bucketName + '/');
+	$('#uploadform').attr('action', $rootScope.bucketUrl);
 
 	$scope.uploadFiles = function() {
 

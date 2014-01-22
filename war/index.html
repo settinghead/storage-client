@@ -37,6 +37,8 @@
 <script type="text/javascrupt" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="lib/jquery.animate-colors-min.js"></script>
 
+<script type="text/javascript" src="http://rvaviewer-test.appspot.com/gadgets/gadgets.min.js"></script>
+
 <!-- <script type="text/javascript" src="lib/jquery.form.js"></script> -->
 
 <!--
@@ -100,6 +102,11 @@
 					<button class="btn btn-success" type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
 						<!-- Select -->
 						<i class="fa fa-check-circle size_24"></i>
+					</button>
+
+					<button class="btn btn-primary" type="button" ng-click="closeButtonClick()">
+						<!-- Close -->
+						<i class="fa fa-times-circle size_20"></i>
 					</button>
 
 					<!-- <button class="btn btn-primary" type="button"> -->
