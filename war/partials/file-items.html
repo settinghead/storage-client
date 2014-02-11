@@ -1,64 +1,88 @@
-
-<div class="media-item-headings row  padding-left-none" id="column-headers">
-
-    <div ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort" class="media-file-name left">
-      <a href="">File Name &nbsp; 
-        <span ng-show="orderByAttribute=='key'">
-          <span ng-show="reverseSort">
-            <i class="fa fa-sort-alpha-desc size_14"></i>
-          </span>
-          <span ng-show="!reverseSort">
-            <i class="fa fa-sort-alpha-asc size_14"></i>
-          </span>
-        </span>
-      </a>
-    </div>
-    <div ng-click="orderByAttribute = ''; reverseSort = !reverseSort" class="media-file-type left"><a href="">Type</a></div>
-    <div ng-click="orderByAttribute = 'size'; reverseSort = !reverseSort" class="media-file-size left">
-      <a href="">File Size &nbsp; 
-        <span ng-show="orderByAttribute=='size'">
-          <span ng-show="reverseSort">
-            <i class="fa fa-sort-desc size_14"></i>
-          </span>
-          <span ng-show="!reverseSort">
-            <i class="fa fa-sort-asc size_14"></i>
-          </span>
-        </span>
-      </a>
-    </div>
-    <div ng-click="orderByAttribute = 'lastModified'; reverseSort = !reverseSort" class="media-date-modified left">
-      <a href="">Date Modified &nbsp; 
-        <span ng-show="orderByAttribute=='lastModified'">
-          <span ng-show="reverseSort">
-            <i class="fa fa-sort-desc size_14"></i>
-          </span>
-          <span ng-show="!reverseSort">
-            <i class="fa fa-sort-asc size_14"></i>
-          </span>
-        </span>
-      </a>
-    </div>
-    <div class="media-check-box left"><input type="checkbox" ng-model="selectAll"></div>
-
+<!-- Thumbnail View -->
+<div id="thumbnails" class="thumbnails">
+	<div class="thumbnail" ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort">
+		<a href="#" ng-click="$emit('FileSelectAction', file)">
+			<img src="../images/presentation_thumb.jpg" width="120" height="80">
+		</a>
+		<div class="caption">
+			<label>
+				<input type="checkbox" ng-model="file.checked">
+			</label><br>
+			{{file.key}}<br>
+			{{file.key | fileTypeFilter}}<br>
+			{{file.size | fileSizeFilter}}<br>
+			{{file.lastModified | lastModifiedFilter}}
+		</div>
+	</div>
 </div>
 
-
-
-<div ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" class="media-item row padding-left-none" >
-  
-    <div class="media-thumb-image">
-			<a href="" ng-click="$emit('FileSelectAction', file)">
-				<img src="./images/presentation_thumb.jpg" width="120" height="80">
-			</a>
-		</div>
-    <div class="media-file-name left">
-			<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
-		</div>
-    <div class="media-file-type left">{{file.key | fileTypeFilter}}</div>
-    <div class="media-file-size left">{{file.size | fileSizeFilter}}</div>
-    <div class="media-date-modified left">{{file.lastModified | lastModifiedFilter}}</div>
-    <div class="media-check-box left"><input type="checkbox" class="select-file-checkbox" ng-model="file.checked"></div>
-    <div class="clear"></div>
-    
-  
+<!-- List View -->
+<div id="list" class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="col-md-5" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
+					<a href="">File Name
+						<span ng-show="orderByAttribute=='key'">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-alpha-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-alpha-asc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-1" ng-click="orderByAttribute = ''; reverseSort = !reverseSort">
+					<a href="">Type</a>
+				</th>
+				<th class="col-md-2" ng-click="orderByAttribute = 'size'; reverseSort = !reverseSort">
+					<a href="">File Size
+						<span ng-show="orderByAttribute=='size'">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-3" ng-click="orderByAttribute = 'lastModified'; reverseSort = !reverseSort">
+					<a href="">Date Modified
+						<span ng-show="orderByAttribute=='lastModified'">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-1">
+					<input type="checkbox" ng-model="selectAll">
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort">
+				<td>
+					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
+				</td>
+				<td>
+					{{file.key | fileTypeFilter}}
+				</td>
+				<td>
+					{{file.size | fileSizeFilter}}
+				</td>
+				<td>
+					{{file.lastModified | lastModifiedFilter}}
+				</td>
+				<td>
+					<input type="checkbox" ng-model="file.checked">
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>

@@ -189,48 +189,50 @@ function ViewController($scope) {
 
 	$('#view-toggle').bootstrapSwitch();
 
-  $('#view-toggle').on('switch-change', function (e, data) {
+	$('#view-toggle').on('switch-change', function (e, data) {
 		$scope.thumbnailView = data.value;
 		
 		if (data.value) {
-			showThumbView();
+			showListView();
 		}
 		else {
-			showListView();
+			showThumbView();
 		}
 	});
 	
 }
 
 function showThumbView() {
+	$('#thumbnails').show();
+	$('#list').hide();
+	// $('.media-thumb-image').show();
 
-	$('.media-thumb-image').show();
+	// $('.media-file-name').addClass('media-file-name-thumbnail');
+	// $('.media-file-type').addClass('media-file-type-thumbnail');
+	// $('.media-file-size').addClass('media-file-size-thumbnail');
+	// $('.media-date-modified').addClass('media-date-thumbnail');
+	// $('.media-check-box').addClass('media-check-thumbnail');
 
-	$('.media-file-name').addClass('media-file-name-thumbnail');
-	$('.media-file-type').addClass('media-file-type-thumbnail');
-	$('.media-file-size').addClass('media-file-size-thumbnail');
-	$('.media-date-modified').addClass('media-date-thumbnail');
-	$('.media-check-box').addClass('media-check-thumbnail');
+	// $('.media-item').addClass('media-item-thumbnail');
 
-	$('.media-item').addClass('media-item-thumbnail');
-
-	$('#column-headers').hide();
+	// $('#column-headers').hide();
 
 }
 
 function showListView() {
+	$('#thumbnails').hide();
+	$('#list').show();
+	// $('.media-thumb-image').hide();
 
-	$('.media-thumb-image').hide();
+	// $('.media-file-name').removeClass('media-file-name-thumbnail');
+	// $('.media-file-type').removeClass('media-file-type-thumbnail');
+	// $('.media-file-size').removeClass('media-file-size-thumbnail');
+	// $('.media-date-modified').removeClass('media-date-thumbnail');
+	// $('.media-check-box').removeClass('media-check-thumbnail');
 
-	$('.media-file-name').removeClass('media-file-name-thumbnail');
-	$('.media-file-type').removeClass('media-file-type-thumbnail');
-	$('.media-file-size').removeClass('media-file-size-thumbnail');
-	$('.media-date-modified').removeClass('media-date-thumbnail');
-	$('.media-check-box').removeClass('media-check-thumbnail');
+	// $('.media-item').removeClass('media-item-thumbnail');
 
-	$('.media-item').removeClass('media-item-thumbnail');
-
-	$('#column-headers').show();
+	// $('#column-headers').show();
 
 }
 
