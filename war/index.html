@@ -3,13 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="http://joncoe.com/clients/risevision/favicon.ico">
 
 	<title>Rise Vision: Media Library</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link href="//s3.amazonaws.com/rise-common/styles/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
 	<link href="lib/bootstrap-switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" type="text/css">
 	<link href="css/media-library.css" rel="stylesheet" type="text/css">
 
@@ -21,12 +20,12 @@
 	<script type="text/javascript" src="lib/angular/angular-resource.js"></script>
 	<script type="text/javascript" src="lib/angular/angular-route.js"></script>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script type="text/javascrupt" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script type="text/javascrupt" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="lib/jquery.animate-colors-min.js"></script>
 
-	<script type="text/javascript" src="http://rvaviewer-test.appspot.com/gadgets/gadgets.min.js"></script>
+	<script type="text/javascript" src="//rvaviewer-test.appspot.com/gadgets/gadgets.min.js"></script>
 
 	<!-- <script type="text/javascript" src="lib/jquery.form.js"></script> -->
 
@@ -38,8 +37,10 @@
 <!-- <script type="text/javascript" src="./media.js"></script> -->
 </head>
 <body>
+	<!-- Donna: To remove the pop-up style, remove the widget-overlay element and the
+	widget-wrapper and modal-content classes from the container div. -->
 	<div class="widget-overlay"></div>
-	<div class="container">
+	<div class="widget-wrapper container modal-content">
 		<h1>Media Library</h1>
 		<div class="row filter">
 			<div class="col-xs-8 col-sm-9 col-md-10 search">
@@ -115,6 +116,7 @@
 		</div>
 	</div>
 
+	<!-- Donna: This doesn't look like it's being used so I didn't style it. -->
 	<!-- Modal -->
 	<div id="uploaddialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="UploadController">
 		<div class="modal-dialog">

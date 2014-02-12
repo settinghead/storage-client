@@ -18,9 +18,12 @@
 
 <!-- List View -->
 <div id="list" class="table-responsive">
-	<table class="table">
+	<table class="table table-hover">
 		<thead>
 			<tr>
+				<th class="col-md-1 text-center">
+					<input type="checkbox" ng-model="selectAll">
+				</th>
 				<th class="col-md-5" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
 					<a href="">File Name
 						<span ng-show="orderByAttribute=='key'">
@@ -60,13 +63,13 @@
 						</span>
 					</a>
 				</th>
-				<th class="col-md-1">
-					<input type="checkbox" ng-model="selectAll">
-				</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort">
+				<td class="text-center">
+					<input type="checkbox" ng-model="file.checked">
+				</td>
 				<td>
 					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
 				</td>
@@ -78,9 +81,6 @@
 				</td>
 				<td>
 					{{file.lastModified | lastModifiedFilter}}
-				</td>
-				<td>
-					<input type="checkbox" ng-model="file.checked">
 				</td>
 			</tr>
 		</tbody>

@@ -12,19 +12,10 @@
    ========================================================================== */
 .actions {
 	padding-bottom: 15px;
-}
 
-.actions .fa {
-	font-size: 18px;
-}
-
-.actions .fa-check-circle {
-	font-size: 24px;
-}
-
-/* TODO: Remove this from rise.css. */
-.btn .fa {
-	padding-left: 0 !important;
+	.fa {
+		font-size: 18px;
+	}
 }
 
 .storage {
@@ -43,7 +34,7 @@
    Thumbnail View
    ========================================================================== */
 /**
- * Single-column layout at phone resolutions.
+ * Single-column layout at mobile resolutions.
  */
 .thumbnails {
 	display: none;
@@ -59,13 +50,22 @@
 
 .thumbnail {
 	border: none;
+
+	.caption {
+		font-size: 12px;
+		text-align: center;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 }
 
-.thumbnail .caption {
-	font-size: 12px;
-	text-align: center;
-	text-overflow: ellipsis;
-	overflow: hidden;
+.thumbnail:hover,
+.thumbnail.active {
+	background-color: #f5f5f5;
+}
+
+.thumbnail.active:hover {
+	background-color: #e8e8e8;
 }
 
 /* Media queries
