@@ -203,36 +203,15 @@ function ViewController($scope) {
 }
 
 function showThumbView() {
+	$(".has-switch label").html("<i class='fa fa-th-list'></i>");
 	$('#thumbnails').show();
 	$('#list').hide();
-	// $('.media-thumb-image').show();
-
-	// $('.media-file-name').addClass('media-file-name-thumbnail');
-	// $('.media-file-type').addClass('media-file-type-thumbnail');
-	// $('.media-file-size').addClass('media-file-size-thumbnail');
-	// $('.media-date-modified').addClass('media-date-thumbnail');
-	// $('.media-check-box').addClass('media-check-thumbnail');
-
-	// $('.media-item').addClass('media-item-thumbnail');
-
-	// $('#column-headers').hide();
-
 }
 
 function showListView() {
+	$(".has-switch label").html("<i class='fa fa-th-large'></i>");
 	$('#thumbnails').hide();
 	$('#list').show();
-	// $('.media-thumb-image').hide();
-
-	// $('.media-file-name').removeClass('media-file-name-thumbnail');
-	// $('.media-file-type').removeClass('media-file-type-thumbnail');
-	// $('.media-file-size').removeClass('media-file-size-thumbnail');
-	// $('.media-date-modified').removeClass('media-date-thumbnail');
-	// $('.media-check-box').removeClass('media-check-thumbnail');
-
-	// $('.media-item').removeClass('media-item-thumbnail');
-
-	// $('#column-headers').show();
 
 }
 

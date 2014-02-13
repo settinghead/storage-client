@@ -8,8 +8,8 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link href="//s3.amazonaws.com/rise-common/styles/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="//s3.amazonaws.com/rise-common/styles/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
-	<link href="lib/bootstrap-switch/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" type="text/css">
 	<link href="css/media-library.css" rel="stylesheet" type="text/css">
 
 	<script type="text/javascript" src="lib/angular/angular.js"></script>
@@ -42,6 +42,16 @@
 	<div class="widget-overlay"></div>
 	<div class="widget-wrapper container modal-content">
 		<h1>Media Library</h1>
+		<div class="checkbox">
+			<label for="terms">
+				<input id="terms" name="terms" type="checkbox" value="terms">
+				I acknowledge that there is currently no
+				charge for the use of the Media Library and that at an as of yet to
+				be determined date in the future, there will be a cost and at that
+				time I will have 30 days to decide if I wish to continue using this
+				Media Library or not.
+			</label>
+		</div>
 		<div class="row filter">
 			<div class="col-xs-8 col-sm-9 col-md-10 search">
 				<div class="input-group">
@@ -53,8 +63,8 @@
 					</span>
 				</div>
 			</div>
-			<div class="col-xs-4 col-sm-3 col-md-2 text-right" ng-controller="ViewController"> <!-- text-right -->
-				<input id="view-toggle" type="checkbox" data-on-label="<i class='fa fa-th-large'></i>" data-off-label="<i class='fa fa-th-list'></i>" data-animated="false" data-on="primary" data-off="primary" checked>
+			<div class="col-xs-4 col-sm-3 col-md-2 text-right" ng-controller="ViewController">
+				<input id="view-toggle" type="checkbox" data-text-label="<i class='fa fa-th-large'></i>" data-on-label="<i class='fa fa-th-list'></i>" data-off-label="<i class='fa fa-th-large'></i>" data-animated="false" data-on="primary" data-off="primary" checked>
 			</div>
 		</div>
 		<div class="row">
@@ -104,16 +114,6 @@
 		-->
 		<!--Body content-->
 		<div ng-view></div>
-		<div class="checkbox">
-			<label for="terms">
-				I acknowledge that there is currently no
-				charge for the use of the Media Library and that at an as of yet to
-				be determined date in the future, there will be a cost and at that
-				time I will have 30 days to decide if I wish to continue using this
-				Media Library or not.
-			</label>
-			<input id="terms" name="terms" type="checkbox" value="terms">
-		</div>
 	</div>
 
 	<!-- Donna: This doesn't look like it's being used so I didn't style it. -->
@@ -163,8 +163,8 @@
 	</div>
 	
 	<!-- Latest compiled and minified JavaScript -->
-	<script type="text/javascript" src="//rise-common.s3.amazonaws.com/scripts/bootstrap/bootstrap.min.js"></script>
-	<script type="text/javascript" src="lib/bootstrap-switch/js/bootstrap-switch.js"></script>
+	<script type="text/javascript" src="//s3.amazonaws.com/rise-common/scripts/bootstrap/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//s3.amazonaws.com/rise-common/scripts/bootstrap-switch/bootstrap-switch.min.js"></script>
 	<!-- <script type="text/javascript" src="lib/media.js"></script> -->
 </body>
 </html>
