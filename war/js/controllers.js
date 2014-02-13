@@ -5,11 +5,11 @@
 function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFiles, LocalFiles) {
 
 	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
-	var bucketName = 'risemedialibrary-' + $routeParams.companyId;
 
-	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + bucketName + '/';
+	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
+	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
 
-	$scope.updateList = function() {
+	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
 	  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
 
@@ -28,7 +28,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 		}
 	};
 
-	$scope.updateList();
+	$rootScope.updateList();
 	
   $scope.orderByAttribute = 'key';
   $scope.reverseSort = false;
@@ -166,7 +166,7 @@ function ButtonsController($scope, $rootScope) {
 	$scope.uploadButtonClick = function() {
 	
 //		$('#uploaddialog').modal('show');
-		$('#selectedFile').click();
+		$('#file').click();
 
 	}
 
@@ -230,7 +230,6 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 	$scope.responseUrl = location.protocol + '//' + location.hostname + '/uploadComplete';
 	$scope.fileName = '';
 	$scope.contentType = '';
-	$('#uploadform').attr('action', $rootScope.bucketUrl);
 
 	$scope.uploadFiles = function() {
 
@@ -257,6 +256,8 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 	$scope.loadFiles = function(element) {
 	//	$('#uploadcompleteframe').contentWindow.name = 'uploadCompleteFrame';
+		
+		$('#uploadform').attr('action', $rootScope.bucketUrl);
 
 		for (var i = 0; i < element.files.length; i++) {
 
@@ -266,7 +267,7 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 			var policyString = '{' +
 				'  "expiration": "2020-01-01T12:00:00.000Z",' +
 				'  "conditions": [' +
-				'    {"bucket": "' + bucketName + '" },' +
+				'    {"bucket": "' + $rootScope.bucketName + '" },' +
 				'    {"acl": "public-read" },' +
 				'    ["eq", "$key", "' + $scope.fileName + '"],' +
 				'    ["starts-with", "$Content-Type", "' + $scope.contentType + '"],' +
@@ -289,7 +290,9 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 				if ($scope.signature) {
 		
 					$timeout(function() {
+
 						$("#uploadform").submit();
+
 					});
 
 				}
@@ -344,7 +347,9 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 		try {
 			if (event.target.contentWindow.name) {
-//				$("#uploadform").reset();
+				$("#uploadform").trigger("reset");
+
+				$rootScope.updateList();
 
 				return true;
 			}

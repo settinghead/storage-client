@@ -131,7 +131,7 @@
 					<input type="hidden" name="policy" ng-value="policyBase64">
 					<input type="hidden" name="signature" ng-value="signature">
 					<!-- <input type="hidden" name="file" ng-value="fileContent"> -->
-					<input type="file" name="selectedFile" id="selectedFile" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/>
+					<input type="file" name="file" id="file" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/>
 				</form>
 				<iframe id="uploadcompleteframe" style="position:absolute;left:0px;top:0px;width:0px;height:0px;visibility:hidden;"></iframe>
 				<div class="modal-header">
