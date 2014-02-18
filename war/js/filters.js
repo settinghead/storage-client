@@ -24,16 +24,18 @@ angular.module('medialibraryFilters', [])
 			return monthNames[oldDate.getMonth()] + " " + oldDate.getDate();
 		}
 		else {
-			var hour = Math.abs(oldDate.getHours() - 12);
-			hour = !hour ? 12 : hour;
+			var hours = oldDate.getHours();
+			hours = !hours ? 12 : hours > 12 ? hours - 12 : hours;
 			var ampm = "AM";
 			if (oldDate.getHours() > 11) {
 				ampm = "PM";
 			}
 		
 			var minutes = oldDate.getMinutes();
-			minutes = minutes > 9 ? minutes : "0" + minutes; 	
-			return hour + ":" + minutes + " " + ampm;
+//			if ( hours < 10 ) { hours   = "0" + hours; }
+			if ( minutes < 10 ) { minutes = "0" + minutes; }
+
+			return hours + ":" + minutes + " " + ampm;
 
 			//return oldDate.toLocaleTimeString();
 		}
