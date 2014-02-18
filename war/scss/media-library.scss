@@ -1,6 +1,17 @@
 @import "//s3.amazonaws.com/rise-common/styles/rise/css/rise.css";
 
 /* ==========================================================================
+   General Styles
+   ========================================================================== */
+ul {
+	/* Display & Box Model */
+	padding: 0;
+
+	/* Visual */
+	list-style: none;
+}
+
+/* ==========================================================================
    Search Bar & Toggle Buttons
    ========================================================================== */
 .filter {
@@ -10,24 +21,65 @@
 /* ==========================================================================
    Buttons
    ========================================================================== */
-.actions {
-	padding-bottom: 15px;
+.glyphicons:before {
+	/* Display & Box Model */
+	width: 48px;
+	height: 48px;
 
-	.fa {
-		font-size: 18px;
+	/* Visual */
+	font-size: 18px;
+	font-size: 1.8rem;
+}
+
+.actions {
+	/* Display & Box Model */
+	margin-bottom: 15px;
+
+	/* Visual */
+	text-align: center;
+
+	ul {
+		li {
+			/* Positioning */
+			float: left;
+
+			/* Display & Box Model */
+			width: 48px;
+			height: 48px;
+			margin-right: 10px;
+
+			a:hover {
+				background: #f4f4f4;
+			}
+		}
+	}
+
+	.glyphicons:before {
+		color: #777;
+		line-height: 48px;
 	}
 }
 
 .storage {
 	font-size: 10px;
+	text-align: right;
+
+	ul {
+		li {
+			float: right;
+		}
+	}
+
+	.glyphicons:before {
+		color: #2d71c3;
+	}
 }
 
-.cloud-download {
-	/* Display & Box Model */
-	padding-left: 10px;
-
-	/* Visual */
-	font-size: 18px;
+.actions a,
+.storage a {
+	display: block;
+	width: 48px;
+	height: 48px;
 }
 
 /* ==========================================================================

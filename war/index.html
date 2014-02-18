@@ -9,6 +9,7 @@
 	<!-- Latest compiled and minified CSS -->
 	<link href="//s3.amazonaws.com/rise-common/styles/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="//s3.amazonaws.com/rise-common/styles/bootstrap-switch/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+	<link href="//s3.amazonaws.com/rise-common/styles/glyphicons/glyphicons.css" rel="stylesheet" type="text/css">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
 	<link href="css/media-library.css" rel="stylesheet" type="text/css">
 
@@ -37,72 +38,77 @@
 <!-- <script type="text/javascript" src="./media.js"></script> -->
 </head>
 <body>
-	<!-- Donna: To remove the pop-up style, remove the widget-overlay element and the
-	widget-wrapper and modal-content classes from the container div. -->
-	<div class="widget-overlay"></div>
-	<div class="widget-wrapper container modal-content">
-		<h1>Media Library</h1>
-		<div class="checkbox">
-			<label for="terms">
-				<input id="terms" name="terms" type="checkbox" value="terms">
-				I acknowledge that there is currently no
-				charge for the use of the Media Library and that at an as of yet to
-				be determined date in the future, there will be a cost and at that
-				time I will have 30 days to decide if I wish to continue using this
-				Media Library or not.
-			</label>
-		</div>
-		<div class="row filter">
-			<div class="col-xs-8 col-sm-9 col-md-10 search">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search Media" ng-model="query">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-				</div>
-			</div>
-			<div class="col-xs-4 col-sm-3 col-md-2 text-right" ng-controller="ViewController">
-				<input id="view-toggle" type="checkbox" data-text-label="<i class='fa fa-th-large'></i>" data-on-label="<i class='fa fa-th-list'></i>" data-off-label="<i class='fa fa-th-large'></i>" data-animated="false" data-on="primary" data-off="primary" checked>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-7">
-				<div id="buttons-action" class="actions" ng-controller="ButtonsController">
-					<!-- Select -->
-					<button class="btn btn-success" type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
-						<i class="fa fa-check-circle"></i>
-					</button>
-					<!-- Close -->
-					<button class="btn btn-primary" type="button" ng-click="closeButtonClick()">
-						<i class="fa fa-times-circle"></i>
-					</button>
-					<!-- Upload -->
-					<button class="btn btn-primary" type="button" ng-click="uploadButtonClick()">
-						<i class="fa fa-upload"></i>
-					</button>
-					<!-- Download -->
-					<button class="btn btn-primary" type="button" ng-disabled="downloadDisabled">
-						<i class="fa fa-download"></i>
-					</button>
-					<!-- Link -->
-					<button class="btn btn-primary" type="button">
-						<i class="fa fa-link"></i>
-					</button>
-					<!-- Delete -->
-					<button class="btn btn-primary" type="button" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
-						<i class="fa fa-trash-o"></i>
-					</button>
-				</div>
-			</div>
-			<div class="col-sm-5 storage text-right">
-				Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A 
-				<a href="" class="cloud-download">
-					<i class="fa fa-cloud-download"></i>
-				</a>
-			</div>
-		</div>
+	<!-- Donna: To remove the pop-up style, remove the widget-overlay element,
+ 	the widget-wrapper and modal-content classes from the container div, and
+ 	the close button. -->
+ 	<div class="widget-overlay"></div>
+ 	<div class="widget-wrapper container modal-content">
+ 		<div class="modal-header">
+ 			<h1>Media Library
+ 				<button type="button" class="close" aria-hidden="true">
+ 					<img src="//s3.amazonaws.com/rise-common/images/close.png" alt="Close">
+ 				</button>
+ 			</h1>
+ 		</div>
+ 		<div class="checkbox">
+ 			<label for="terms">
+ 				<input id="terms" name="terms" type="checkbox" value="terms">
+ 				I acknowledge that there is currently no
+ 				charge for the use of the Media Library and that at an as of yet to
+ 				be determined date in the future, there will be a cost and at that
+ 				time I will have 30 days to decide if I wish to continue using this
+ 				Media Library or not.
+ 			</label>
+ 		</div>
+ 		<div class="row filter">
+ 			<div class="col-xs-8 col-sm-9 col-md-10 search">
+ 				<div class="input-group">
+ 					<input type="text" class="form-control" placeholder="Search Media" ng-model="query">
+ 					<span class="input-group-btn">
+ 						<button class="btn btn-primary" type="button">
+ 							<i class="fa fa-search"></i>
+ 						</button>
+ 					</span>
+ 				</div>
+ 			</div>
+ 			<div class="col-xs-4 col-sm-3 col-md-2 text-right" ng-controller="ViewController">
+ 				<input id="view-toggle" type="checkbox" data-text-label="<i class='fa fa-th-large'></i>" data-on-label="<i class='fa fa-th-list'></i>" data-off-label="<i class='fa fa-th-large'></i>" data-animated="false" data-on="primary" data-off="primary" checked>
+ 			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div id="buttons-action" class="col-sm-7 actions" ng-controller="ButtonsController">
+ 				<ul>
+ 					<li>
+ 						<a href="#" class="glyphicons ok" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled"></a>
+ 					</li>
+ 					<li>
+ 						<a href="#" class="glyphicons remove" ng-click="closeButtonClick()"></a>
+ 					</li>
+ 					<li>
+ 						<a href="#" class="glyphicons cloud-upload" ng-click="uploadButtonClick()"></a>
+ 					</li>
+ 					<li>
+ 						<a href="#" class="glyphicons cloud-download" ng-disabled="downloadDisabled"></a>
+ 					</li>
+ 					<li>
+ 						<a href="#" class="glyphicons link"></a>
+ 					</li>
+ 					<li>
+ 						<a href="#" class="glyphicons bin" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled"></a>
+ 					</li>
+ 				</ul>
+ 			</div>
+ 			<div class="col-sm-5 storage">
+ 				<ul>
+ 					<li>
+ 						<a href="#" class="glyphicons cloud-download"></a>
+ 					</li>
+ 					<li>
+ 						<span>Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A</span>
+ 					</li>
+ 				</ul>
+ 			</div>
+ 		</div>
 <!--
 			<div>
 				<div class="progress progress-striped active" ng-controller="ProgressController">
