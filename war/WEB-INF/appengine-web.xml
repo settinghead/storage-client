@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-  <application>rvacore-test2</application>
+  <application>rva-test</application>
   <module>medialibrary</module>
-  <version>1-01-0019</version>
+  <version>1-01-021</version>
   <instance-class>F1</instance-class>
   <precompilation-enabled>true</precompilation-enabled>
   <ssl-enabled>true</ssl-enabled>
