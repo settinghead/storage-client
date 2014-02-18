@@ -17,45 +17,45 @@ ul {
 /* ==========================================================================
    Buttons
    ========================================================================== */
-.glyphicons:before {
-  /* Display & Box Model */
-  width: 48px;
-  height: 48px;
-  /* Visual */
-  font-size: 18px;
-  font-size: 1.8rem; }
-
-.actions {
-  /* Display & Box Model */
-  margin-bottom: 15px;
-  /* Visual */
-  text-align: center; }
-  .actions ul li {
-    /* Positioning */
-    float: left;
+.actions > li {
+  display: inline-block; }
+  .actions > li a {
     /* Display & Box Model */
-    width: 48px;
-    height: 48px;
-    margin-right: 10px; }
-    .actions ul li a:hover {
-      background: #f4f4f4; }
-  .actions .glyphicons:before {
-    color: #777;
-    line-height: 48px; }
+    display: block;
+    padding: 3px 10px;
+    border: #fff solid 1px;
+    /* Visual */
+    font-size: 23px;
+    line-height: 30px; }
+  .actions > li a:hover {
+    /* Display & Box Model */
+    border: #e5e5e5 solid 1px;
+    /* Visual */
+    background-color: #f4f4f4; }
+    .actions > li a:hover i:before {
+      color: #383838; }
+
+.glyphicons {
+  padding-left: 0; }
+
+.glyphicons:before {
+  /* Positioning */
+  position: relative;
+  top: -3px;
+  /* Display & Box Model */
+  margin: 0;
+  /* Visual */
+  color: #777; }
 
 .storage {
   font-size: 10px;
   text-align: right; }
-  .storage ul li {
+  .storage > li {
     float: right; }
+  .storage .glyphicons {
+    padding-left: 5px; }
   .storage .glyphicons:before {
     color: #2d71c3; }
-
-.actions a,
-.storage a {
-  display: block;
-  width: 48px;
-  height: 48px; }
 
 /* ==========================================================================
    Thumbnail View
