@@ -462,12 +462,16 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 }
 
-function UploadInfoController($rootScope) {
+function UploadInfoController($scope, $rootScope) {
 	$rootScope.uploadFileName = "";
 	$rootScope.uploadFileSize = "";
 	$rootScope.uploadComplete = false;
 	$rootScope.uploadActive = false;
 	$rootScope.uploadError = false;
+
+	$scope.uploadInfoClose = function() {
+		$rootScope.uploadActive = false;
+	};
 }
 
 function utf8_to_b64( str ) {

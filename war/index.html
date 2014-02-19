@@ -119,8 +119,8 @@
  			</div>
  		</div>
 		<div class="alert alert-info alert-dismissable" ng-controller="UploadInfoController" ng-show="uploadActive">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="uploadActive = false;">&times;</button>
-			Uploading {{uploadFileName}} ({{uploadFileSize | fileSizeFilter}} bytes)... 
+			<button type="button" class="close" aria-hidden="true" ng-click="uploadInfoClose()">&times;</button>
+			Uploading {{uploadFileName}} ({{uploadFileSize | fileSizeFilter}})... 
 			<span ng-show="uploadComplete">Complete</span>
 			<span ng-show="uploadError">Error</span>
 		</div>
@@ -143,7 +143,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form id="uploadform" target="uploadcompleteframe" action="" enctype="multipart/form-data" method="post">
-					<input type="hidden" name="key" ng-value="fileName">
+					<input type="hidden" name="key" ng-value="uploadFileName">
 					<input type="hidden" name="success_action_redirect" ng-value="responseUrl">
 					<input type="hidden" name="acl" value="public-read">
 					<input type="hidden" name="content-type" ng-value="contentType">
