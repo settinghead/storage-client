@@ -261,15 +261,21 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 		for (var i = 0; i < element.files.length; i++) {
 
-			$scope.fileName = element.files[i].name;
+			$rootScope.uploadFileName = element.files[i].name;
+			$rootScope.uploadFileSize = element.files[i].size;
 			$scope.contentType = element.files[i].type;
+
+			$rootScope.uploadActive = true;
+			$rootScope.uploadComplete = false;
+			$rootScope.uploadError = false;
+
 
 			var policyString = '{' +
 				'  "expiration": "2020-01-01T12:00:00.000Z",' +
 				'  "conditions": [' +
 				'    {"bucket": "' + $rootScope.bucketName + '" },' +
 				'    {"acl": "public-read" },' +
-				'    ["eq", "$key", "' + $scope.fileName + '"],' +
+				'    ["eq", "$key", "' + $rootScope.uploadFileName + '"],' +
 				'    ["starts-with", "$Content-Type", "' + $scope.contentType + '"],' +
 				'    ["starts-with", "$Cache-Control", "public, max-age=60"],' +
 				'    {"success_action_redirect": "' + $scope.responseUrl + '" },' +
@@ -299,7 +305,7 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 			}).error(function (data, status, headers, config) {
 		
-				$scope.status = status;
+				$scope.uploadError(status);
 
 			});
 
@@ -347,21 +353,33 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 
 		try {
 			if (event.target.contentWindow.name) {
-				$("#uploadform").trigger("reset");
-
-				$rootScope.updateList();
-
-				return true;
+				$scope.uploadComplete();
 			}
 			else {
-				return false;
+				$scope.uploadError();
 			}
 		} catch (err) {
-			return false;
+			$scope.uploadError();
 		}
 
 	});
 
+	$scope.uploadComplete = function() {
+
+		$("#uploadform").trigger("reset");
+
+		$rootScope.updateList();
+		$rootScope.uploadComplete = true;
+
+	}
+
+	$scope.uploadError = function() {
+
+		$("#uploadform").trigger("reset");
+	
+		$rootScope.uploadError = true;
+
+	}
 
 /*
 	$scope.uploadComplete = function(element) {
@@ -442,6 +460,14 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 */
 
 
+}
+
+function UploadInfoController($rootScope) {
+	$rootScope.uploadFileName = "";
+	$rootScope.uploadFileSize = "";
+	$rootScope.uploadComplete = false;
+	$rootScope.uploadActive = false;
+	$rootScope.uploadError = false;
 }
 
 function utf8_to_b64( str ) {

@@ -118,6 +118,12 @@
  				</ul>
  			</div>
  		</div>
+		<div class="alert alert-info alert-dismissable" ng-controller="UploadInfoController" ng-show="uploadActive">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="uploadActive = false;">&times;</button>
+			Uploading {{uploadFileName}} ({{uploadFileSize | fileSizeFilter}} bytes)... 
+			<span ng-show="uploadComplete">Complete</span>
+			<span ng-show="uploadError">Error</span>
+		</div>
 <!--
 			<div>
 				<div class="progress progress-striped active" ng-controller="ProgressController">
