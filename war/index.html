@@ -45,7 +45,7 @@
  	<div class="widget-wrapper container modal-content">
  		<div class="modal-header">
  			<h1>Media Library
- 				<button type="button" class="close" aria-hidden="true">
+ 				<button type="button" class="close" aria-hidden="true" ng-click="closeButtonClick()">
  					<img src="//s3.amazonaws.com/rise-common/images/close.png" alt="Close">
  				</button>
  			</h1>
@@ -79,27 +79,27 @@
  			<div id="buttons-action" class="col-sm-7" ng-controller="ButtonsController">
  				<ul class="actions">
  					<li>
- 						<button type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
+ 						<button class="btn" type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
  							<i class="glyphicons ok"></i>
  						</button>
  					</li>
  					<li>
- 						<button type="button" ng-click="uploadButtonClick()">
+ 						<button class="btn" type="button" ng-click="uploadButtonClick()">
  							<i class="glyphicons cloud-upload"></i>
  						</button>
  					</li>
  					<li>
- 						<button type="button" ng-disabled="downloadDisabled">
+ 						<button class="btn" type="button" ng-disabled="downloadDisabled">
  							<i class="glyphicons cloud-download"></i>
  						</button>
  					</li>
  					<li>
- 						<button type="button">
+ 						<button class="btn" type="button" disabled>
  							<i class="glyphicons link"></i>
  						</button>
  					</li>
  					<li>
- 						<button type="button" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
+ 						<button class="btn" type="button" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
  							<i class="glyphicons bin"></i>
  						</button>
  					</li>
