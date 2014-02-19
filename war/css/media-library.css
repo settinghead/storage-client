@@ -19,20 +19,20 @@ ul {
    ========================================================================== */
 .actions > li {
   display: inline-block; }
-  .actions > li a {
+  .actions > li button {
     /* Display & Box Model */
     display: block;
     padding: 3px 10px;
-    border: #fff solid 1px;
+    border: 1px solid white;
     /* Visual */
     font-size: 23px;
-    line-height: 30px; }
-  .actions > li a:hover {
+    background-color: transparent; }
+  .actions > li button:hover {
     /* Display & Box Model */
-    border: #e5e5e5 solid 1px;
+    border: 1px solid #e5e5e5;
     /* Visual */
     background-color: #f4f4f4; }
-    .actions > li a:hover i:before {
+    .actions > li button:hover i:before {
       color: #383838; }
 
 .glyphicons {

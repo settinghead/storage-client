@@ -24,20 +24,20 @@ ul {
 .actions > li {
 	display: inline-block;
 
-	a {
+	button {
 		/* Display & Box Model */
 		display: block;
 		padding: 3px 10px;
-		border: #fff solid 1px;
+		border: 1px solid #fff ;
 
 		/* Visual */
 		font-size: 23px;
-		line-height: 30px;
+		background-color: transparent;
 	}
 
-	a:hover {
+	button:hover {
 		/* Display & Box Model */
-		border: #e5e5e5 solid 1px;
+		border: 1px solid #e5e5e5 ;
 
 		/* Visual */
 		background-color: #f4f4f4;
