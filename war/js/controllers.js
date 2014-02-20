@@ -8,14 +8,21 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
 	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
+	$scope.mediaFiles = {};
 
 	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
-	  	$scope.mediaFiles = MediaFiles.query({companyId: $routeParams.companyId}, function(mediaFiles) {
+	  	MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
 
-//			$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);  
+//			$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
 
-				$rootScope.librarySize = getLibrarySize(mediaFiles);
+				if (response.status == 200) {  
+					$scope.mediaFiles = response.mediaFiles;
+					$rootScope.librarySize = getLibrarySize(response.mediaFiles);
+				}
+				else {
+
+				}
 
 	  	});
 		}
