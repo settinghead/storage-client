@@ -36,8 +36,17 @@
 						</span>
 					</a>
 				</th>
-				<th class="col-md-1" ng-click="orderByAttribute = ''; reverseSort = !reverseSort">
-					<a href="">Type</a>
+				<th class="col-md-1" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
+					<a href="">Type
+						<span ng-show="orderByAttribute=='key'">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+						</span>
+					</a>
 				</th>
 				<th class="col-md-2" ng-click="orderByAttribute = 'size'; reverseSort = !reverseSort">
 					<a href="">File Size
