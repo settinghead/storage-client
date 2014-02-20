@@ -12,11 +12,14 @@ ul {
    Search Bar & Toggle Buttons
    ========================================================================== */
 .filter {
-  padding: 15px 0; }
+  padding: 10px 0; }
 
 /* ==========================================================================
    Buttons
    ========================================================================== */
+.commands {
+  position: relative; }
+
 .actions > li {
   display: inline-block; }
   .actions > li button {
@@ -26,6 +29,7 @@ ul {
     border: 1px solid white;
     /* Visual */
     font-size: 23px;
+    border-radius: 0;
     background-color: transparent; }
   .actions > li button:hover {
     /* Display & Box Model */
@@ -48,14 +52,15 @@ ul {
   color: #777; }
 
 .storage {
+  /* Positioning */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* Display & Box Model */
+  margin-bottom: 10px;
+  /* Visual */
   font-size: 10px;
   text-align: right; }
-  .storage > li {
-    float: right; }
-  .storage .glyphicons {
-    padding-left: 5px; }
-  .storage .glyphicons:before {
-    color: #2d71c3; }
 
 /* ==========================================================================
    Thumbnail View

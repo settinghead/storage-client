@@ -75,7 +75,7 @@
  				<input id="view-toggle" type="checkbox" data-text-label="<i class='fa fa-th-large'></i>" data-on-label="<i class='fa fa-th-list'></i>" data-off-label="<i class='fa fa-th-large'></i>" data-animated="false" data-on="primary" data-off="primary" checked>
  			</div>
  		</div>
- 		<div class="row">
+ 		<div class="row commands">
  			<div id="buttons-action" class="col-sm-7" ng-controller="ButtonsController">
  				<ul class="actions">
  					<li>
@@ -105,17 +105,8 @@
  					</li>
  				</ul>
  			</div>
- 			<div class="col-sm-5">
- 				<ul class="storage">
- 					<li>
- 						<a href="">
- 							<i class="glyphicons cloud-download"></i>
- 						</a>
- 					</li>
- 					<li>
- 						<span>Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A</span>
- 					</li>
- 				</ul>
+ 			<div class="col-sm-5 storage">
+ 				<div>Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A</div>
  			</div>
  		</div>
 		<div class="alert alert-info alert-dismissable" ng-controller="UploadInfoController" ng-show="uploadActive">
