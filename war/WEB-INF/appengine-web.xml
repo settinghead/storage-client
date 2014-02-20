@@ -2,7 +2,7 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <application>rva-test</application>
   <module>medialibrary</module>
-  <version>1-01-022</version>
+  <version>1-01-023</version>
   <instance-class>F1</instance-class>
   <precompilation-enabled>true</precompilation-enabled>
   <ssl-enabled>true</ssl-enabled>
