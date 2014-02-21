@@ -50,9 +50,12 @@
  				</button>
  			</h1>
  		</div>
+		<div class="alert alert-danger" ng-show="authenticationError">
+			You are not authorized to view this Company's files...
+		</div>
  		<div class="checkbox">
- 			<label for="terms">
- 				<input id="terms" name="terms" type="checkbox" value="terms">
+ 			<label for="termsCheckbox">
+ 				<input id="termsCheckbox" type="checkbox">
  				I acknowledge that there is currently no
  				charge for the use of the Media Library and that at an as of yet to
  				be determined date in the future, there will be a cost and at that

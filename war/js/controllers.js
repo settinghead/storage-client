@@ -19,6 +19,9 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 				if (response.status == 200) {  
 
+					$('#termsCheckbox').attr('checked', true);
+					$('#termsCheckbox').attr('disabled', true);
+
 					$scope.mediaFiles = response.mediaFiles;
 					$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
 
@@ -33,7 +36,10 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 		else {
 
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
-	
+
+				$('#termsCheckbox').attr('checked', true);
+				$('#termsCheckbox').attr('disabled', true);
+
 				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
 			});
