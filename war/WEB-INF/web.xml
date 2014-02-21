@@ -9,7 +9,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>GetFiles</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.GetFilesServlet</servlet-class>
+		<servlet-class>com.risevision.medialibrary.server.api.GetFilesServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetFiles</servlet-name>
@@ -18,7 +18,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   
 	<servlet>
 		<servlet-name>DeleteFiles</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.DeleteFilesServlet</servlet-class>
+		<servlet-class>com.risevision.medialibrary.server.api.DeleteFilesServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DeleteFiles</servlet-name>
@@ -27,7 +27,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   
   	<servlet>
 		<servlet-name>GetSignedPolicy</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.GetSignedPolicyServlet</servlet-class>
+		<servlet-class>com.risevision.medialibrary.server.api.GetSignedPolicyServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetSignedPolicy</servlet-name>
@@ -36,7 +36,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>UploadComplete</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.UploadCompleteServlet</servlet-class>
+		<servlet-class>com.risevision.medialibrary.server.api.UploadCompleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadComplete</servlet-name>
