@@ -9,7 +9,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
 	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
 	$scope.mediaFiles = [];
-	$rootScope.actionsDisabled = false;
+	$rootScope.actionsDisabled = true;
 
 	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
@@ -21,6 +21,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 				if (response.status == 200) {  
 
 					checkTermsCheckbox();
+					$rootScope.actionsDisabled = false;
 
 					$scope.mediaFiles = response.mediaFiles;
 					$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
@@ -30,19 +31,19 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 				else if (response.status == 403 || response.status == 401) {
 
 					$rootScope.authenticationError = true;
-					$rootScope.actionsDisabled = true;
 
 				}
 				// Bucket not found
 				else if (response.status == 404) {
 
 					checkTermsCheckbox();
+					$rootScope.actionsDisabled = false;
 
 				}
 				// Media Library feature not enabled
 				else if (response.status == 412) {
 				
-					$rootScope.actionsDisabled = true;
+					
 
 				}
 
