@@ -78,35 +78,39 @@
  		<div class="row commands">
  			<div id="buttons-action" class="col-sm-7" ng-controller="ButtonsController">
  				<ul class="actions">
+<!--
  					<li>
- 						<button class="btn" type="button" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
+ 						<button class="btn" type="button" title="Select" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled">
  							<i class="glyphicons ok"></i>
  						</button>
  					</li>
+-->
  					<li>
- 						<button class="btn" type="button" ng-click="uploadButtonClick()">
+ 						<button class="btn" type="button" title="Upload" ng-click="uploadButtonClick()">
  							<i class="glyphicons cloud-upload"></i>
  						</button>
  					</li>
  					<li>
- 						<button class="btn" type="button" ng-disabled="downloadDisabled">
+ 						<button class="btn" type="button" title="Download" ng-disabled="downloadDisabled">
  							<i class="glyphicons cloud-download"></i>
  						</button>
  					</li>
+<!--
  					<li>
- 						<button class="btn" type="button" disabled>
+ 						<button class="btn" type="button" title="Link" disabled>
  							<i class="glyphicons link"></i>
  						</button>
  					</li>
+-->
  					<li>
- 						<button class="btn" type="button" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
+ 						<button class="btn" type="button" title="Delete" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled">
  							<i class="glyphicons bin"></i>
  						</button>
  					</li>
  				</ul>
  			</div>
  			<div class="col-sm-5 storage">
- 				<div>Storage Used: {{librarySize | fileSizeFilter}} / Bandwidth Used: N/A</div>
+ 				<div>Storage Used: {{librarySize | fileSizeFilter}} <!-- / Bandwidth Used: N/A --></div>
  			</div>
  		</div>
 		<div class="alert alert-info alert-dismissable" ng-controller="UploadInfoController" ng-show="uploadActive">
