@@ -51,6 +51,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>EnableMediaLibrary</servlet-name>
 		<url-pattern>/enableMediaLibrary</url-pattern>
 	</servlet-mapping>  
+	
+	<servlet>
+		<servlet-name>CreateBucket</servlet-name>
+		<servlet-class>com.risevision.medialibrary.server.api.CreateBucketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateBucket</servlet-name>
+		<url-pattern>/createBucket</url-pattern>
+	</servlet-mapping>  
   
   <servlet>
     <servlet-name>ReadLogs</servlet-name>

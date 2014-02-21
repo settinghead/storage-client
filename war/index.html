@@ -150,16 +150,16 @@
 					<input type="hidden" name="policy" ng-value="policyBase64">
 					<input type="hidden" name="signature" ng-value="signature">
 					<!-- <input type="hidden" name="file" ng-value="fileContent"> -->
-					<input type="file" name="file" id="file" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/>
+					<input type="file" name="file" id="file" multiple="multiple" onchange="angular.element(this).scope().filesSelected(this)"/>
 				</form>
 				<iframe id="uploadcompleteframe" style="position:absolute;left:0px;top:0px;width:0px;height:0px;visibility:hidden;"></iframe>
 				<div class="modal-header">
 <!--					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 	<img src="./images/close-btn-black.png" alt="close button" class="cancel-and-close"></button> -->
-	<h2 class="modal-title" id="myModalLabel">
-		Upload Files</h4>
-	</div>
-	<div class="modal-body shopping-cart-modal-body">
+					<h2 class="modal-title" id="myModalLabel">
+					Upload Files</h4>
+				</div>
+				<div class="modal-body shopping-cart-modal-body">
 		<!--					<input type="file" name="selectedFile" id="selectedFile" multiple="multiple" onchange="angular.element(this).scope().loadFiles(this)"/> -->
 <!--	
 					<form action="##" class="dropzone" id="my-awesome-dropzone">
@@ -168,8 +168,8 @@
 						</div>
 					</form>
 				-->
-			</div>
-			<div class="modal-footer">
+				</div>
+				<div class="modal-footer">
 <!--					<button class="btn btn-primary" type="button" ng-click="uploadFiles()" ng-disabled="fileCount > 0">
 						Upload <i class='fa fa-check-circle'></i>
 					</button> -->

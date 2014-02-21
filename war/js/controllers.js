@@ -340,6 +340,40 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 	});
 */
 
+	$scope.filesSelected = function(element) {
+
+		if ($rootScope.requireBucketCreation) {
+		
+			$http({
+				url: 'createBucket',
+				method: "POST",
+				data: "bucketName=" + $rootScope.bucketName,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+		
+				if (data.status == 200) {
+
+					$rootScope.requireBucketCreation = false;
+					$scope.loadFiles(element);				
+
+				}
+				else {
+
+				}
+
+			}).error(function (data, status, headers, config) {
+		
+			});
+
+		}
+		else {
+		
+			$scope.loadFiles(element);
+
+		}
+
+	}
+
 	$scope.loadFiles = function(element) {
 	//	$('#uploadcompleteframe').contentWindow.name = 'uploadCompleteFrame';
 		
