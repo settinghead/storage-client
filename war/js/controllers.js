@@ -8,30 +8,36 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
 	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
-	$scope.mediaFiles = {};
+	$scope.mediaFiles = [];
 
 	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
-	  	MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
+
+			MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
 
 //			$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
 
 				if (response.status == 200) {  
+
 					$scope.mediaFiles = response.mediaFiles;
-					$rootScope.librarySize = getLibrarySize(response.mediaFiles);
+					$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
+
 				}
 				else {
 
 				}
 
 	  	});
+
 		}
 		else {
+
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
 	
 				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
 			});
+
 		}
 	};
 
@@ -158,13 +164,13 @@ function getLibrarySize(mediaFiles) {
 
 function ButtonsController($scope, $rootScope) {
 
-	$scope.selectDisabled = true;	
+//	$scope.selectDisabled = true;	
 	$scope.downloadDisabled = true;
 	$scope.deleteDisabled = true;	
 	
 	$rootScope.$on('CheckedCountChange', function(event, count)	 {
 
-		$scope.selectDisabled = count != 1;
+//		$scope.selectDisabled = count != 1;
 		$scope.downloadDisabled = !count;
 		$scope.deleteDisabled = !count;
 
