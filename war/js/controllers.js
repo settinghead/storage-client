@@ -10,6 +10,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
 	$scope.mediaFiles = [];
 	$rootScope.actionsDisabled = true;
+	$rootScope.requireBucketCreation = false;
 
 	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
@@ -28,7 +29,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 				}
 				// Authentication failed
-				else if (response.status == 403 || response.status == 401) {
+				else if (response.status == 403 || response.status == 401 || response.status == 400) {
 
 					$rootScope.authenticationError = true;
 
@@ -38,12 +39,14 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 					checkTermsCheckbox();
 					$rootScope.actionsDisabled = false;
+					$rootScope.requireBucketCreation = true;
 
 				}
 				// Media Library feature not enabled
 				else if (response.status == 412) {
 				
-					
+					$rootScope.requireBucketCreation = true;
+					initTermsCheckbox($rootScope, $routeParams, $http);
 
 				}
 
@@ -153,7 +156,9 @@ function initActions($scope, $rootScope, $routeParams, $http) {
 
 			}).success(function (data, status, headers, config) {
 			
-				$scope.mediaFiles = data;
+				if (data.status == 200) {
+					$scope.mediaFiles = data.mediaFiles;
+				}
 		
 			}).error(function (data, status, headers, config) {
 				
@@ -177,6 +182,45 @@ function checkTermsCheckbox() {
 
 	$('#termsCheckbox').attr('checked', true);
 	$('#termsCheckbox').attr('disabled', true);
+
+}
+
+function initTermsCheckbox($rootScope, $routeParams, $http) {
+
+	$('#termsCheckbox').attr('disabled', false);
+	$('#termsCheckbox').click(function() {
+
+		if (this.checked) {
+			
+			$http({
+				url: 'enableMediaLibrary',
+				method: "POST",
+				data: "companyId=" + $routeParams.companyId,
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).success(function (data, status, headers, config) {
+		
+				if (data.status == 200) {
+
+					$('#termsCheckbox').unbind('click');
+					checkTermsCheckbox();
+					$rootScope.actionsDisabled = false;
+
+				}
+				else {
+
+					$('#termsCheckbox').attr('checked', false);
+
+				}
+
+			}).error(function (data, status, headers, config) {
+		
+				$('#termsCheckbox').attr('checked', false);
+
+			});
+
+		}
+
+	});
 
 }
 
@@ -310,7 +354,6 @@ function UploadController($scope, $rootScope, $http, $timeout) {
 			$rootScope.uploadActive = true;
 			$rootScope.uploadComplete = false;
 			$rootScope.uploadError = false;
-
 
 			var policyString = '{' +
 				'  "expiration": "2020-01-01T12:00:00.000Z",' +

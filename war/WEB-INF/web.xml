@@ -42,6 +42,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>UploadComplete</servlet-name>
 		<url-pattern>/uploadComplete</url-pattern>
 	</servlet-mapping>  
+	
+	<servlet>
+		<servlet-name>EnableMediaLibrary</servlet-name>
+		<servlet-class>com.risevision.medialibrary.server.api.EnableMediaLibraryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnableMediaLibrary</servlet-name>
+		<url-pattern>/enableMediaLibrary</url-pattern>
+	</servlet-mapping>  
   
   <servlet>
     <servlet-name>ReadLogs</servlet-name>
