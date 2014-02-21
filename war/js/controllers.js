@@ -9,6 +9,7 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
 	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
 	$scope.mediaFiles = [];
+	$rootScope.actionsDisabled = false;
 
 	$rootScope.updateList = function() {
 		if ($routeParams.companyId) {
@@ -19,14 +20,29 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 				if (response.status == 200) {  
 
-					$('#termsCheckbox').attr('checked', true);
-					$('#termsCheckbox').attr('disabled', true);
+					checkTermsCheckbox();
 
 					$scope.mediaFiles = response.mediaFiles;
 					$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
 
 				}
-				else {
+				// Authentication failed
+				else if (response.status == 403 || response.status == 401) {
+
+					$rootScope.authenticationError = true;
+					$rootScope.actionsDisabled = true;
+
+				}
+				// Bucket not found
+				else if (response.status == 404) {
+
+					checkTermsCheckbox();
+
+				}
+				// Media Library feature not enabled
+				else if (response.status == 412) {
+				
+					$rootScope.actionsDisabled = true;
 
 				}
 
@@ -37,8 +53,8 @@ function FileListCtrl($scope, $rootScope, $routeParams, $filter, $http, MediaFil
 
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
 
-				$('#termsCheckbox').attr('checked', true);
-				$('#termsCheckbox').attr('disabled', true);
+				checkTermsCheckbox();
+				$rootScope.actionsDisabled = true;
 
 				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
@@ -154,6 +170,12 @@ function initActions($scope, $rootScope, $routeParams, $http) {
 
 	}
 
+}
+
+function checkTermsCheckbox() {
+
+	$('#termsCheckbox').attr('checked', true);
+	$('#termsCheckbox').attr('disabled', true);
 
 }
 
