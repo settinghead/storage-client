@@ -1,7 +1,7 @@
 "use strict"
 
-mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "$http", "apiStorage", "MediaFiles", "LocalFiles", 
-	function ($scope, $rootScope, $routeParams, $filter, $http, apiStorage, MediaFiles, LocalFiles) {
+mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "apiStorage", "apiAuth", "MediaFiles", "LocalFiles", 
+	function ($scope, $rootScope, $routeParams, $filter, apiStorage, apiAuth, MediaFiles, LocalFiles) {
 
 	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
 
@@ -12,6 +12,88 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	
 	$scope.orderByAttribute = 'key';
 	$scope.reverseSort = false;
+	
+    $scope.$on("userCompany.loaded", function (event) {
+
+    	updateAuthStatus();
+
+    });
+    
+//	$rootScope.updateList();
+
+//  $scope.$on("storageApi.loaded", updateAuthStatus);
+//	updateAuthStatus();
+	
+    function updateAuthStatus() {
+        $scope.authStatus = apiAuth.authStatus;
+        
+        if ($scope.mediaFiles.length == 0) {
+        	$rootScope.updateList();
+        }
+    };
+    
+	$rootScope.updateList = function() {
+        
+		if ($scope.authStatus !== 1) {
+            return;
+        }
+        
+		if ($routeParams.companyId) {
+
+			MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
+				onGetFiles(response);
+			});
+
+		}
+		else {
+
+			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
+
+				$rootScope.setTermsCheckbox(true);
+				$rootScope.actionsDisabled = true;
+
+				$rootScope.librarySize = getLibrarySize(mediaFiles);
+
+			});
+
+		}
+	};
+	
+	function onGetFiles(response) {
+//		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
+
+		if (response.status == 200) {  
+
+			$rootScope.setTermsCheckbox(true);
+			$rootScope.actionsDisabled = false;
+
+			$scope.mediaFiles = response.mediaFiles;
+			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
+
+		}
+		// Authentication failed
+		else if (response.status == 403 || response.status == 401 || response.status == 400) {
+
+			$rootScope.authenticationError = true;
+
+		}
+		// Bucket not found
+		else if (response.status == 404) {
+
+			$rootScope.setTermsCheckbox(true);
+			$rootScope.actionsDisabled = false;
+			$rootScope.requireBucketCreation = true;
+
+		}
+		// Media Library feature not enabled
+		else if (response.status == 412) {
+		
+			$rootScope.requireBucketCreation = true;
+			$rootScope.setTermsCheckbox(false);
+
+		}
+		
+	}
 	
 	$scope.$watch('mediaFiles', function(items) {
 
@@ -40,10 +122,10 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 		if (!file) {
 
 		  for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
-        if ($scope.mediaFiles[ i ].checked) {
-					file = $scope.mediaFiles[ i ];
-				}
-			}
+			  if ($scope.mediaFiles[ i ].checked) {
+				  file = $scope.mediaFiles[ i ];
+			  }
+		  }
 	
 		}
 
@@ -94,66 +176,6 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 
 	});
 
-	$rootScope.updateList();
-	
-	$rootScope.updateList = function() {
-		if ($routeParams.companyId) {
-
-			MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
-				onGetFiles(response);
-			});
-
-		}
-		else {
-
-			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
-
-				$rootScope.setTermsCheckbox(true);
-				$rootScope.actionsDisabled = true;
-
-				$rootScope.librarySize = getLibrarySize(mediaFiles);
-
-			});
-
-		}
-	};
-
-	function onGetFiles(response) {
-//		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
-
-		if (response.status == 200) {  
-
-			$rootScope.setTermsCheckbox(true);
-			$rootScope.actionsDisabled = false;
-
-			$scope.mediaFiles = response.mediaFiles;
-			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
-
-		}
-		// Authentication failed
-		else if (response.status == 403 || response.status == 401 || response.status == 400) {
-
-			$rootScope.authenticationError = true;
-
-		}
-		// Bucket not found
-		else if (response.status == 404) {
-
-			$rootScope.setTermsCheckbox(true);
-			$rootScope.actionsDisabled = false;
-			$rootScope.requireBucketCreation = true;
-
-		}
-		// Media Library feature not enabled
-		else if (response.status == 412) {
-		
-			$rootScope.requireBucketCreation = true;
-			$rootScope.setTermsCheckbox(false);
-
-		}
-		
-	}
-	
 	function getLibrarySize(mediaFiles) {
 
 		var size = 0;

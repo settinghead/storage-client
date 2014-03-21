@@ -1,7 +1,7 @@
 "use strict"
 
-mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeParams", "$http", "$timeout", "apiStorage", 
-	function ($scope, $rootScope, $routeParams, $http, $timeout, apiStorage) {
+mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeParams", "$http", "$timeout", "apiStorage", "apiAuth", 
+	function ($scope, $rootScope, $routeParams, $http, $timeout, apiStorage, apiAuth) {
 
 /*
 	Dropzone.options.myAwesomeDropzone = {
@@ -23,6 +23,12 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	$scope.fileName = '';
 	$scope.contentType = '';
 
+	updateAuthStatus();
+
+    function updateAuthStatus() {
+        $scope.authStatus = apiAuth.authStatus;
+    };
+	
 	$scope.uploadFiles = function() {
 
 		//$("#uploadform").submit();
@@ -48,6 +54,10 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 
 	$scope.filesSelected = function(element) {
 
+        if ($scope.authStatus !== 1) {
+            return;
+        }
+		
 		if ($rootScope.requireBucketCreation) {
 		
 			apiStorage.createBucket($routeParams.companyId).then(loadFiles(element));
