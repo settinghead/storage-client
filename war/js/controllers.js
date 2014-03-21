@@ -2,6 +2,77 @@
 
 /* Controllers */
 
+// Initialize the app
+mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routeParams", "$http", 
+    function ($scope, $rootScope, $routeParams, $http) {
+
+	$rootScope.actionsDisabled = true;
+
+
+	$rootScope.closeButtonClick = function() {
+
+		gadgets.rpc.call('', 'rscmd_closeSettings', null);
+
+	}
+	
+	$rootScope.setTermsCheckbox = function (value) {
+		if (value) {
+			checkTermsCheckbox();
+		}
+		else {
+			initTermsCheckbox();
+		}
+	};
+	
+	function checkTermsCheckbox() {
+
+		$('#termsCheckbox').attr('checked', true);
+		$('#termsCheckbox').attr('disabled', true);
+
+	}
+
+	function initTermsCheckbox() {
+
+		$('#termsCheckbox').attr('disabled', false);
+		$('#termsCheckbox').click(function() {
+
+			if (this.checked) {
+				
+				$http({
+					url: 'enableMediaLibrary',
+					method: "POST",
+					data: "companyId=" + $routeParams.companyId,
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				}).success(function (data, status, headers, config) {
+			
+					if (data.status == 200) {
+
+						$('#termsCheckbox').unbind('click');
+						checkTermsCheckbox();
+						$rootScope.actionsDisabled = false;
+
+					}
+					else {
+
+						$('#termsCheckbox').attr('checked', false);
+
+					}
+
+				}).error(function (data, status, headers, config) {
+			
+					$('#termsCheckbox').attr('checked', false);
+
+				});
+
+			}
+
+		});
+
+	}
+	
+}
+
+]);
 
 //FileListCtrl.$inject = ['$scope', 'Phone'];
 
