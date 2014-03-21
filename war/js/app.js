@@ -9,6 +9,9 @@ var mediaLibraryApp = angular.module('medialibrary', [
   'common'
 ])
 
+mediaLibraryApp.run(function (apiAuth) { apiAuth.init(); });
+
+
 mediaLibraryApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
 //      when('/files/grid', {templateUrl: 'partials/file-grid.html',   controller: FileListCtrl}).

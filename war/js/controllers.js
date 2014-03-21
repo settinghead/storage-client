@@ -8,7 +8,6 @@ mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routePar
 
 	$rootScope.actionsDisabled = true;
 
-
 	$rootScope.closeButtonClick = function() {
 
 		gadgets.rpc.call('', 'rscmd_closeSettings', null);
