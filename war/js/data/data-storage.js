@@ -1,15 +1,9 @@
 "use strict";
 
-commonModule.service("apiStorage", ["$q", "$rootScope", "$routeParams", "$timeout", "apiAuth", 
-    function ($q, $rootScope, $routeParams, $timeout, apiAuth) {
+commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", 
+    function ($q, $rootScope, $timeout, apiAuth) {
 
     var self = this;
-
-	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
-
-	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
-	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
-	$rootScope.requireBucketCreation = false;
     
     var getCompanyId = function () {
         var res = "";
@@ -128,11 +122,10 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$routeParams", "$timeou
         return deferred.promise;
     };
 
-    this.createBucket = function (companyId, bucketName) {
+    this.createBucket = function (companyId) {
         var deferred = $q.defer();
         var obj = {
             "companyId": companyId,
-            "bucketName": bucketName,
         };
         var request = gapi.client.storage.createBucket(obj);
         request.execute(function (resp) {

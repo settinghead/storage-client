@@ -3,7 +3,14 @@
 mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "apiStorage", "apiAuth", "LocalFiles", 
 	function ($scope, $rootScope, $routeParams, $filter, apiStorage, apiAuth, LocalFiles) {
 
+	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
+
+	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
+	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
+	$rootScope.requireBucketCreation = false;
+	
 	$scope.mediaFiles = [];
+	$rootScope.librarySize = 0;
 	
 	$scope.orderByAttribute = 'key';
 	$scope.reverseSort = false;
@@ -53,11 +60,15 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	function onGetFiles(resp) {
 //		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
 		
-        if (resp.code === 200) {
+        if (resp && resp.files) {
 		
         	$scope.mediaFiles = resp.files;
 			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
         
+        }
+        else {
+        	$scope.mediaFiles = [];
+        	$rootScope.librarySize = 0;
         }
 			
 //		if (response.code == 200) {  
