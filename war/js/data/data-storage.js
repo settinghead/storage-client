@@ -1,8 +1,15 @@
 "use strict";
 
-commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", function ($q, $rootScope, $timeout, apiAuth) {
+commonModule.service("apiStorage", ["$q", "$rootScope", "$routeParams", "$timeout", "apiAuth", 
+    function ($q, $rootScope, $routeParams, $timeout, apiAuth) {
 
     var self = this;
+
+	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
+
+	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
+	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
+	$rootScope.requireBucketCreation = false;
     
     var getCompanyId = function () {
         var res = "";
@@ -41,10 +48,39 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", f
         var request = gapi.client.storage.files.get(obj);
         request.execute(function (resp) {
             console && console.log(resp);
-            if (resp.code !== 200) {
-                console && console.error("Error retrieving files: ", resp);
-                resp = null;
-            }
+//            if (resp.code !== 200) {
+//                console && console.error("Error retrieving files: ", resp);
+//                resp = null;
+//            }
+            
+    		if (resp.code === 200) {  
+
+    			$rootScope.setTermsCheckbox(true);
+    			$rootScope.actionsDisabled = false;
+
+    		}
+    		// Authentication failed
+    		else if (resp.code === 403 || resp.code === 401 || resp.code === 400) {
+
+    			$rootScope.authenticationError = true;
+
+    		}
+    		// Bucket not found
+    		else if (resp.code == 404) {
+
+    			$rootScope.setTermsCheckbox(true);
+    			$rootScope.actionsDisabled = false;
+    			$rootScope.requireBucketCreation = true;
+
+    		}
+    		// Media Library feature not enabled
+    		else if (resp.code == 412) {
+    		
+    			$rootScope.requireBucketCreation = true;
+    			$rootScope.setTermsCheckbox(false);
+
+    		}
+            
             deferred.resolve(resp);
         });
         

@@ -3,26 +3,10 @@
 mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "apiStorage", "apiAuth", "LocalFiles", 
 	function ($scope, $rootScope, $routeParams, $filter, apiStorage, apiAuth, LocalFiles) {
 
-	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
-
-	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
-	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
 	$scope.mediaFiles = [];
-	$rootScope.requireBucketCreation = false;
 	
 	$scope.orderByAttribute = 'key';
 	$scope.reverseSort = false;
-	
-//    $scope.$on("userCompany.loaded", function (event) {
-//
-//    	updateAuthStatus();
-//
-//    });
-    
-//	$rootScope.updateList();
-
-//  $scope.$on("storageApi.loaded", updateAuthStatus);
-//	updateAuthStatus();
 	
     function updateAuthStatus() {
         $scope.authStatus = apiAuth.authStatus;
@@ -66,39 +50,46 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 		}
 	};
 	
-	function onGetFiles(response) {
+	function onGetFiles(resp) {
 //		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
-
-		if (response.code == 200) {  
-
-			$rootScope.setTermsCheckbox(true);
-			$rootScope.actionsDisabled = false;
-
-			$scope.mediaFiles = response.files;
-			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
-
-		}
-		// Authentication failed
-		else if (response.code == 403 || response.code == 401 || response.code == 400) {
-
-			$rootScope.authenticationError = true;
-
-		}
-		// Bucket not found
-		else if (response.code == 404) {
-
-			$rootScope.setTermsCheckbox(true);
-			$rootScope.actionsDisabled = false;
-			$rootScope.requireBucketCreation = true;
-
-		}
-		// Media Library feature not enabled
-		else if (response.code == 412) {
 		
-			$rootScope.requireBucketCreation = true;
-			$rootScope.setTermsCheckbox(false);
-
-		}
+        if (resp.code === 200) {
+		
+        	$scope.mediaFiles = resp.files;
+			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
+        
+        }
+			
+//		if (response.code == 200) {  
+//
+//			$rootScope.setTermsCheckbox(true);
+//			$rootScope.actionsDisabled = false;
+//
+//			$scope.mediaFiles = response.files;
+//			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
+//
+//		}
+//		// Authentication failed
+//		else if (response.code == 403 || response.code == 401 || response.code == 400) {
+//
+//			$rootScope.authenticationError = true;
+//
+//		}
+//		// Bucket not found
+//		else if (response.code == 404) {
+//
+//			$rootScope.setTermsCheckbox(true);
+//			$rootScope.actionsDisabled = false;
+//			$rootScope.requireBucketCreation = true;
+//
+//		}
+//		// Media Library feature not enabled
+//		else if (response.code == 412) {
+//		
+//			$rootScope.requireBucketCreation = true;
+//			$rootScope.setTermsCheckbox(false);
+//
+//		}
 		
 	}
 	
