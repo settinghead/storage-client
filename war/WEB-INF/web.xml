@@ -10,24 +10,6 @@
 		<servlet-name>GetFiles</servlet-name>
 		<url-pattern>/getFiles</url-pattern>
 	</servlet-mapping>
-  
-	<servlet>
-		<servlet-name>DeleteFiles</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.api.DeleteFilesServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DeleteFiles</servlet-name>
-		<url-pattern>/deleteFiles</url-pattern>
-	</servlet-mapping>  
-  
-  	<servlet>
-		<servlet-name>GetSignedPolicy</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.api.GetSignedPolicyServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GetSignedPolicy</servlet-name>
-		<url-pattern>/getSignedPolicy</url-pattern>
-	</servlet-mapping>  
 	
 	<servlet>
 		<servlet-name>UploadComplete</servlet-name>
@@ -45,15 +27,6 @@
 	<servlet-mapping>
 		<servlet-name>EnableMediaLibrary</servlet-name>
 		<url-pattern>/enableMediaLibrary</url-pattern>
-	</servlet-mapping>  
-	
-	<servlet>
-		<servlet-name>CreateBucket</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.api.CreateBucketServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CreateBucket</servlet-name>
-		<url-pattern>/createBucket</url-pattern>
 	</servlet-mapping>  
   
   <servlet>
