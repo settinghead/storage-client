@@ -1,6 +1,6 @@
 "use strict";
 
-commonModule.service("apiStorage", ["$q", "$timeout", "$http", "apiAuth", function ($q, $timeout, $http, apiAuth) {
+commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", function ($q, $rootScope, $timeout, apiAuth) {
 
     var self = this;
     
@@ -11,38 +11,83 @@ commonModule.service("apiStorage", ["$q", "$timeout", "$http", "apiAuth", functi
         }
         return res;
     };
+    
+    var loadStorageAPI = function () {
+        gapi.client.load("storage", "v0.01", function () {
+            if (gapi.client.storage) {
+                console && console.log("Storage API is loaded");
+//                self.isStoreApi = true;
+                $rootScope.$broadcast("storageApi.loaded");
+            } else {
+                console && console.error("Store API is NOT loaded");
+            }
+        }, rvGlobals.STORAGE_URL_TEST);
+    };
+    
+    $rootScope.$on("userCompany.loaded", function (event) {
+
+        loadStorageAPI();
+
+    });
 
     // Storage API access 
-
-    this.deleteFiles = function (company, files, validationRequired) {
+    
+    this.getFiles = function (companyId) {
         var deferred = $q.defer();
 
-//        var request = gapi.client.storage.deleteFiles(files);
-//        request.execute(function (resp) {
-//            console && console.log(resp);
-//            deferred.resolve(resp);
-//        });
+        var obj = {
+        		"companyId": companyId
+        	};
+        var request = gapi.client.storage.files.get(obj);
+        request.execute(function (resp) {
+            console && console.log(resp);
+            if (resp.code !== 200) {
+                console && console.error("Error retrieving files: ", resp);
+                resp = null;
+            }
+            deferred.resolve(resp);
+        });
         
-		$http({
-    	
-    		url: 'deleteFiles',
-  			method: 'POST',
-  			data: selectedFiles,
-   			params:{companyId:$routeParams.companyId},
-   			headers: {'Content-Type': 'application/octet-stream'}
-    	
-   		}).success(function (data, status, headers, config) {
-   			if (data.status == 200) {
-//				$scope.mediaFiles = data.mediaFiles;
-				deferred.resolve(data.mediaFiles);
+        return deferred.promise;
+    };
 
-    		}
-  		}).error(function (data, status, headers, config) {
-    					
-//  		$scope.status = status;
-  			return null;
-  			
-   		});
+    this.deleteFiles = function (companyId, files, validationRequired) {
+        var deferred = $q.defer();
+
+        var obj = {
+        		"companyId": companyId,
+                "files": files
+            };
+        var request = gapi.client.storage.files.delete(obj);
+        request.execute(function (resp) {
+            console && console.log(resp);
+            if (resp.code !== 200) {
+                console && console.error("Error deleting files: ", resp);
+                resp = null;
+            }
+            deferred.resolve(resp);
+        });
+        
+//		$http({
+//    	
+//    		url: 'deleteFiles',
+//  			method: 'POST',
+//  			data: selectedFiles,
+//   			params:{companyId:$routeParams.companyId},
+//   			headers: {'Content-Type': 'application/octet-stream'}
+//    	
+//   		}).success(function (data, status, headers, config) {
+//   			if (data.status == 200) {
+////				$scope.mediaFiles = data.mediaFiles;
+//				deferred.resolve(data.mediaFiles);
+//
+//    		}
+//  		}).error(function (data, status, headers, config) {
+//    					
+////  		$scope.status = status;
+//  			return null;
+//  			
+//   		});
         
         return deferred.promise;
     };
@@ -56,7 +101,7 @@ commonModule.service("apiStorage", ["$q", "$timeout", "$http", "apiAuth", functi
         var request = gapi.client.storage.createBucket(obj);
         request.execute(function (resp) {
             console && console.log(resp);
-            if (resp.code !== 0) {
+            if (resp.code !== 200) {
                 console && console.error("Error creating bucket: ", resp);
                 resp = null;
             }
@@ -111,34 +156,48 @@ commonModule.service("apiStorage", ["$q", "$timeout", "$http", "apiAuth", functi
     this.getSignedPolicy = function (companyId, policyBase64) {
         var deferred = $q.defer();
 
-		$http({
-			url: 'getSignedPolicy',
-			method: "POST",
-			data: "policyBase64=" + policyBase64,
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).success(function (data, status, headers, config) {
-	
-//			$scope.signature = data.trim();
+        var obj = {
+        		"companyId": companyId,
+                "policyBase64": policyBase64
+            };
+        var request = gapi.client.storage.signPolicy(obj);
+        request.execute(function (resp) {
+            console && console.log(resp);
+            if (resp.code !== 200) {
+                console && console.error("Error retrieving policy: ", resp);
+                resp = null;
+            }
+            deferred.resolve(resp.signedPolicy);
+        });
+        
+//		$http({
+//			url: 'getSignedPolicy',
+//			method: "POST",
+//			data: "policyBase64=" + policyBase64,
+//			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+//		}).success(function (data, status, headers, config) {
 //	
-//			if ($scope.signature) {
+////			$scope.signature = data.trim();
+////	
+////			if ($scope.signature) {
+////	
+////				$timeout(function() {
+////	
+////					$("#uploadform").submit();
+////	
+////				});
+////	
+////			}
+//			
+//            deferred.resolve( data.trim() );
 //	
-//				$timeout(function() {
+//		}).error(function (data, status, headers, config) {
 //	
-//					$("#uploadform").submit();
+////			$scope.uploadError(status);
+//			
+//			return null;
 //	
-//				});
-//	
-//			}
-			
-            deferred.resolve( data.trim() );
-	
-		}).error(function (data, status, headers, config) {
-	
-//			$scope.uploadError(status);
-			
-			return null;
-	
-		});
+//		});
 		
         return deferred.promise;
 

@@ -1,7 +1,7 @@
 "use strict"
 
-mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "apiStorage", "apiAuth", "MediaFiles", "LocalFiles", 
-	function ($scope, $rootScope, $routeParams, $filter, apiStorage, apiAuth, MediaFiles, LocalFiles) {
+mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$filter", "apiStorage", "apiAuth", "LocalFiles", 
+	function ($scope, $rootScope, $routeParams, $filter, apiStorage, apiAuth, LocalFiles) {
 
 	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
 
@@ -13,11 +13,11 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	$scope.orderByAttribute = 'key';
 	$scope.reverseSort = false;
 	
-    $scope.$on("userCompany.loaded", function (event) {
-
-    	updateAuthStatus();
-
-    });
+//    $scope.$on("userCompany.loaded", function (event) {
+//
+//    	updateAuthStatus();
+//
+//    });
     
 //	$rootScope.updateList();
 
@@ -26,11 +26,16 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	
     function updateAuthStatus() {
         $scope.authStatus = apiAuth.authStatus;
-        
+    };
+    
+    $scope.$on("storageApi.loaded", function(event) {
+    	updateAuthStatus();
+    	
         if ($scope.mediaFiles.length == 0) {
         	$rootScope.updateList();
         }
-    };
+        
+    });
     
 	$rootScope.updateList = function() {
         
@@ -40,9 +45,11 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
         
 		if ($routeParams.companyId) {
 
-			MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
-				onGetFiles(response);
-			});
+//			MediaFiles.query({companyId: $routeParams.companyId}, function(response) {
+//				onGetFiles(response);
+//			});
+			
+			apiStorage.getFiles($routeParams.companyId).then(onGetFiles);
 
 		}
 		else {
@@ -50,7 +57,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
 
 				$rootScope.setTermsCheckbox(true);
-				$rootScope.actionsDisabled = true;
+				$rootScope.actionsDisabled = false;
 
 				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
@@ -62,23 +69,23 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	function onGetFiles(response) {
 //		$scope.phonesGroupBy4 = $filter('groupBy')(phones, 4);
 
-		if (response.status == 200) {  
+		if (response.code == 200) {  
 
 			$rootScope.setTermsCheckbox(true);
 			$rootScope.actionsDisabled = false;
 
-			$scope.mediaFiles = response.mediaFiles;
+			$scope.mediaFiles = response.files;
 			$rootScope.librarySize = getLibrarySize($scope.mediaFiles);
 
 		}
 		// Authentication failed
-		else if (response.status == 403 || response.status == 401 || response.status == 400) {
+		else if (response.code == 403 || response.code == 401 || response.code == 400) {
 
 			$rootScope.authenticationError = true;
 
 		}
 		// Bucket not found
-		else if (response.status == 404) {
+		else if (response.code == 404) {
 
 			$rootScope.setTermsCheckbox(true);
 			$rootScope.actionsDisabled = false;
@@ -86,7 +93,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 
 		}
 		// Media Library feature not enabled
-		else if (response.status == 412) {
+		else if (response.code == 412) {
 		
 			$rootScope.requireBucketCreation = true;
 			$rootScope.setTermsCheckbox(false);
@@ -180,7 +187,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 
 		var size = 0;
 		for ( var i = 0; i < mediaFiles.length; ++i ) {
-			size += mediaFiles[ i ].size;
+			size += parseInt(mediaFiles[ i ].size);
 		}
 
 		return size;
