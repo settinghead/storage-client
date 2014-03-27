@@ -3,8 +3,8 @@
 /* Controllers */
 
 // Initialize the app
-mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routeParams", "$http", 
-    function ($scope, $rootScope, $routeParams, $http) {
+mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routeParams", "apiStorage", 
+    function ($scope, $rootScope, $routeParams, apiStorage) {
 
 	$rootScope.actionsDisabled = true;
 
@@ -37,36 +37,27 @@ mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routePar
 
 			if (this.checked) {
 				
-				$http({
-					url: 'enableMediaLibrary',
-					method: "POST",
-					data: "companyId=" + $routeParams.companyId,
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).success(function (data, status, headers, config) {
-			
-					if (data.status == 200) {
-
-						$('#termsCheckbox').unbind('click');
-						checkTermsCheckbox();
-						$rootScope.actionsDisabled = false;
-
-					}
-					else {
-
-						$('#termsCheckbox').attr('checked', false);
-
-					}
-
-				}).error(function (data, status, headers, config) {
-			
-					$('#termsCheckbox').attr('checked', false);
-
-				});
+				apiStorage.enableFeature($routeParams.companyId).then(onFeatureEnabled);
 
 			}
 
 		});
 
+	}
+	
+	function onFeatureEnabled(resp) {
+		if (resp) {
+			
+			$('#termsCheckbox').unbind('click');
+			checkTermsCheckbox();
+			$rootScope.actionsDisabled = false;
+			
+		}
+		else {
+
+			$('#termsCheckbox').attr('checked', false);
+
+		}
 	}
 	
 }
