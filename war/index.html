@@ -62,7 +62,15 @@
  	the close button. -->
  	<div class="widget-overlay"></div>
  	<div class="widget-wrapper container modal-content">
-		<div ng-include="'//s3.amazonaws.com/rise-common-test/partials/header.html'" ng-controller="commonController"></div>
+	 	<div class="modal-header">
+			<h1>Rise Storage
+			<button type="button" class="close" aria-hidden="true" ng-click="closeButtonClick()">
+				<img src="//s3.amazonaws.com/rise-common/images/close.png" alt="Close">
+			</button>
+			</h1>
+		</div>
+
+<!-- 		<div ng-include="'//s3.amazonaws.com/rise-common-test/partials/header.html'" ng-controller="commonController"></div> -->
  	
 		<div class="alert alert-danger" ng-show="authenticationError">
 			You are not authorized to view this Company's files...
