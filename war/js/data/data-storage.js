@@ -49,7 +49,7 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
             
     		if (resp.code === 200) {  
 
-    			$rootScope.setTermsCheckbox(true);
+//    			$rootScope.setTermsCheckbox(true);
     			$rootScope.actionsDisabled = false;
 
     		}
@@ -62,18 +62,18 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
     		// Bucket not found
     		else if (resp.code == 404) {
 
-    			$rootScope.setTermsCheckbox(true);
+//    			$rootScope.setTermsCheckbox(true);
     			$rootScope.actionsDisabled = false;
     			$rootScope.requireBucketCreation = true;
 
     		}
     		// Media Library feature not enabled
-    		else if (resp.code == 412) {
-    		
-    			$rootScope.requireBucketCreation = true;
-    			$rootScope.setTermsCheckbox(false);
-
-    		}
+//    		else if (resp.code == 412) {
+//    		
+//    			$rootScope.requireBucketCreation = true;
+//    			$rootScope.setTermsCheckbox(false);
+//
+//    		}
             
             deferred.resolve(resp);
         });
@@ -232,47 +232,47 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
 
     };
    
-    this.enableFeature = function (companyId) {
-        var deferred = $q.defer();
-        var obj = {
-            "companyId": companyId,
-        };
-        var request = gapi.client.storage.enable(obj);
-        request.execute(function (resp) {
-            console && console.log(resp);
-            if (resp.code !== 200) {
-                console && console.error("Error enabling Media Library feature: ", resp);
-                resp = null;
-            }
-            deferred.resolve(resp);
-        });
-        return deferred.promise;
-    	
-//		$http({
-//			url: 'enableMediaLibrary',
-//			method: "POST",
-//			data: "companyId=" + $routeParams.companyId,
-//			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-//		}).success(function (data, status, headers, config) {
-//	
-//			if (data.status == 200) {
-//
-//				$('#termsCheckbox').unbind('click');
-//				checkTermsCheckbox();
-//				$rootScope.actionsDisabled = false;
-//
-//			}
-//			else {
-//
-//				$('#termsCheckbox').attr('checked', false);
-//
-//			}
-//
-//		}).error(function (data, status, headers, config) {
-//	
-//			$('#termsCheckbox').attr('checked', false);
-//
-//		});
-    };
+//    this.enableFeature = function (companyId) {
+//        var deferred = $q.defer();
+//        var obj = {
+//            "companyId": companyId,
+//        };
+//        var request = gapi.client.storage.enable(obj);
+//        request.execute(function (resp) {
+//            console && console.log(resp);
+//            if (resp.code !== 200) {
+//                console && console.error("Error enabling Media Library feature: ", resp);
+//                resp = null;
+//            }
+//            deferred.resolve(resp);
+//        });
+//        return deferred.promise;
+//    	
+////		$http({
+////			url: 'enableMediaLibrary',
+////			method: "POST",
+////			data: "companyId=" + $routeParams.companyId,
+////			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+////		}).success(function (data, status, headers, config) {
+////	
+////			if (data.status == 200) {
+////
+////				$('#termsCheckbox').unbind('click');
+////				checkTermsCheckbox();
+////				$rootScope.actionsDisabled = false;
+////
+////			}
+////			else {
+////
+////				$('#termsCheckbox').attr('checked', false);
+////
+////			}
+////
+////		}).error(function (data, status, headers, config) {
+////	
+////			$('#termsCheckbox').attr('checked', false);
+////
+////		});
+//    };
 
 } ]);

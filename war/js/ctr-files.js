@@ -47,7 +47,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
 
-				$rootScope.setTermsCheckbox(true);
+//				$rootScope.setTermsCheckbox(true);
 				$rootScope.actionsDisabled = false;
 
 				$rootScope.librarySize = getLibrarySize(mediaFiles);

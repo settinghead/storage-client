@@ -14,51 +14,51 @@ mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routePar
 
 	}
 	
-	$rootScope.setTermsCheckbox = function (value) {
-		if (value) {
-			checkTermsCheckbox();
-		}
-		else {
-			initTermsCheckbox();
-		}
-	};
+//	$rootScope.setTermsCheckbox = function (value) {
+//		if (value) {
+//			checkTermsCheckbox();
+//		}
+//		else {
+//			initTermsCheckbox();
+//		}
+//	};
 	
-	function checkTermsCheckbox() {
+//	function checkTermsCheckbox() {
+//
+//		$('#termsCheckbox').attr('checked', true);
+//		$('#termsCheckbox').attr('disabled', true);
+//
+//	}
 
-		$('#termsCheckbox').attr('checked', true);
-		$('#termsCheckbox').attr('disabled', true);
-
-	}
-
-	function initTermsCheckbox() {
-
-		$('#termsCheckbox').attr('disabled', false);
-		$('#termsCheckbox').click(function() {
-
-			if (this.checked) {
-				
-				apiStorage.enableFeature($routeParams.companyId).then(onFeatureEnabled);
-
-			}
-
-		});
-
-	}
+//	function initTermsCheckbox() {
+//
+//		$('#termsCheckbox').attr('disabled', false);
+//		$('#termsCheckbox').click(function() {
+//
+//			if (this.checked) {
+//				
+//				apiStorage.enableFeature($routeParams.companyId).then(onFeatureEnabled);
+//
+//			}
+//
+//		});
+//
+//	}
 	
-	function onFeatureEnabled(resp) {
-		if (resp) {
-			
-			$('#termsCheckbox').unbind('click');
-			checkTermsCheckbox();
-			$rootScope.actionsDisabled = false;
-			
-		}
-		else {
-
-			$('#termsCheckbox').attr('checked', false);
-
-		}
-	}
+//	function onFeatureEnabled(resp) {
+//		if (resp) {
+//			
+//			$('#termsCheckbox').unbind('click');
+//			checkTermsCheckbox();
+//			$rootScope.actionsDisabled = false;
+//			
+//		}
+//		else {
+//
+//			$('#termsCheckbox').attr('checked', false);
+//
+//		}
+//	}
 	
 }
 
