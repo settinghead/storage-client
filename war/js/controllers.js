@@ -14,6 +14,19 @@ mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routePar
 
 	}
 	
+
+    $scope.$on("user.signout", function (event) {
+
+    	$('#signindialog').modal('show');
+
+    });
+
+    $scope.$on("profile.loaded", function (event) {
+
+    	$('#signindialog').modal('hide');
+
+    });
+    
 //	$rootScope.setTermsCheckbox = function (value) {
 //		if (value) {
 //			checkTermsCheckbox();
