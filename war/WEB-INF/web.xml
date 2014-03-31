@@ -2,7 +2,7 @@
 
 	<servlet>
 		<servlet-name>GetFiles</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.api.GetFilesServlet</servlet-class>
+		<servlet-class>com.risevision.storage.api.GetFilesServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetFiles</servlet-name>
@@ -11,7 +11,7 @@
 	
 	<servlet>
 		<servlet-name>UploadComplete</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.api.UploadCompleteServlet</servlet-class>
+		<servlet-class>com.risevision.storage.api.UploadCompleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UploadComplete</servlet-name>
@@ -20,7 +20,7 @@
   
   <servlet>
     <servlet-name>ReadLogs</servlet-name>
-    <servlet-class>com.risevision.medialibrary.server.ReadLogsServlet</servlet-class>
+    <servlet-class>com.risevision.storage.ReadLogsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReadLogs</servlet-name>
@@ -35,7 +35,7 @@
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
 		<init-param>
 			<param-name>services</param-name>
-			<param-value>com.risevision.medialibrary.server.api.StorageAPI</param-value>
+			<param-value>com.risevision.storage.api.StorageAPI</param-value>
 		</init-param>
 	</servlet>
 	
