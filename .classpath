@@ -18,5 +18,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.ext.xml.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/signpost-core.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/com.risevision.directory.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
