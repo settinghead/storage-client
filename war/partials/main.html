@@ -13,8 +13,8 @@
 <!--  		</div> -->
 
 <div class="row">
-			<div class="col-md-12">
-				There is currently no charge for the use of Storage, however at an as of yet to be 
+	<div class="col-md-12">
+		There is currently no charge for the use of Storage, however at an as of yet to be 
 		determined date in the future, there will be a cost and at that time you will have 30 days 
 		to decide if you wish to continue using Storage or not.
 	</div>
@@ -50,7 +50,7 @@
 					</button>
 				</li>
 				<li>
-					<button class="btn" type="button" title="Download" ng-disabled="downloadDisabled || actionsDisabled">
+					<button class="btn" type="button" title="Download" ng-click="downloadButtonClick()" ng-disabled="downloadDisabled || actionsDisabled">
 						<i class="glyphicons cloud-download"></i>
 					</button>
 				</li>
@@ -62,7 +62,7 @@
  					</li>
 -->
 				<li>
-					<button class="btn" type="button" title="Delete" ng-click="$emit('FileDeleteAction')" ng-disabled="deleteDisabled || actionsDisabled">
+					<button class="btn" type="button" title="Delete" ng-click="deleteButtonClick()" ng-disabled="deleteDisabled || actionsDisabled">
 						<i class="glyphicons bin"></i>
 					</button>
 				</li>
@@ -72,14 +72,14 @@
 			<div>Storage Used: {{librarySize | fileSizeFilter}} <!-- / Bandwidth Used: N/A --></div>
 		</div>
 	</div>
-		<div class="row" ng-controller="UploadController">
-	<div class="alert alert-info alert-dismissable" ng-show="uploadActive">
-		<button type="button" class="close" aria-hidden="true" ng-click="uploadActive = false">&times;</button>
-		Uploading {{uploadFileName}} ({{uploadFileSize | fileSizeFilter}})... 
-		<span ng-show="uploadComplete">Complete</span>
-		<span ng-show="uploadError">Error</span>
+	<div class="row" ng-controller="UploadController">
+		<div class="alert alert-info alert-dismissable" ng-show="uploadActive">
+			<button type="button" class="close" aria-hidden="true" ng-click="uploadActive = false">&times;</button>
+			Uploading {{uploadFileName}} ({{uploadFileSize | fileSizeFilter}})... 
+			<span ng-show="uploadComplete">Complete</span>
+			<span ng-show="uploadError">Error</span>
+		</div>
 	</div>
-</div>
 <!--
 			<div>
 				<div class="progress progress-striped active" ng-controller="ProgressController">
@@ -92,7 +92,7 @@
 <!--Body content-->
 <div ng-include="'partials/file-items.html'" ng-controller="FileListCtrl"></div>
 
-<div  class="modal fade" tabindex="-1" ng-controller="UploadController">
+<div class="modal fade" tabindex="-1" ng-controller="UploadController">
 	<form id="uploadform" target="uploadcompleteframe" action="" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="key" ng-value="uploadFileName">
 		<input type="hidden" name="success_action_redirect" ng-value="responseUrl">

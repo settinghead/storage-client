@@ -95,10 +95,10 @@ function ButtonsController($scope, $rootScope) {
 	$scope.downloadDisabled = true;
 	$scope.deleteDisabled = true;	
 	
-	$rootScope.$on('CheckedCountChange', function(event, count)	 {
+	$scope.$on('CheckedCountChange', function(event, count)	 {
 
 //		$scope.selectDisabled = count != 1;
-		$scope.downloadDisabled = !count;
+		$scope.downloadDisabled = count != 1;
 		$scope.deleteDisabled = !count;
 
 	});
@@ -108,6 +108,14 @@ function ButtonsController($scope, $rootScope) {
 //		$('#uploaddialog').modal('show');
 		$('#file').click();
 
+	}
+	
+	$scope.downloadButtonClick = function() {
+		$rootScope.$broadcast('FileDownloadAction');
+	}
+	
+	$scope.deleteButtonClick = function() {
+		$rootScope.$broadcast('FileDeleteAction');
 	}
 
 }

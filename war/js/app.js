@@ -18,8 +18,9 @@ mediaLibraryApp.config(['$routeProvider', function($routeProvider) {
 //	when('/files/:companyId', {templateUrl: 'partials/file-items.html',   controller: "FileListCtrl"}).
 //	when('/files/:companyId/:fileType', {templateUrl: 'partials/file-items.html', controller: "FileListCtrl"}).
 
-	when('/files/', {templateUrl: 'partials/main.html',   controller: "MainController"}).
-	when('/files/:companyId', {templateUrl: 'partials/main.html',   controller: "MainController"}).
+	when('/files/', {templateUrl: 'partials/main.html',   controller: "MainController"})
+	.when('/files/:companyId', {templateUrl: 'partials/main.html',   controller: "MainController"})
+	
 
-      otherwise({redirectTo: '/files/'});
+	.otherwise({redirectTo: '/files/'});
 }]);

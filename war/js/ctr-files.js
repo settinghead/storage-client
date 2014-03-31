@@ -48,7 +48,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 			$scope.mediaFiles = LocalFiles.query(function(mediaFiles) {
 
 //				$rootScope.setTermsCheckbox(true);
-				$rootScope.actionsDisabled = false;
+				$rootScope.actionsDisabled = true;
 
 				$rootScope.librarySize = getLibrarySize(mediaFiles);
 
@@ -126,36 +126,40 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 
 	});
 
-	$rootScope.$on('FileSelectAction', function(event, file) {
+	$scope.$on('FileSelectAction', function(event, file) {
 
 		if (!file) {
 
-		  for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
-			  if ($scope.mediaFiles[ i ].checked) {
-				  file = $scope.mediaFiles[ i ];
-			  }
-		  }
+			file = getSelectedFile();
 	
 		}
 
 		if (file) {
-			var fileUrl = $rootScope.bucketUrl + file.key;
+			var fileUrl = $rootScope.bucketUrl + file;
 			var data = { params: fileUrl };
 			gadgets.rpc.call('', 'rscmd_saveSettings', null, data);
 
 		}
 
 	});
+	
+	$scope.$on('FileDownloadAction', function(event, file) {
 
-	$rootScope.$on('FileDeleteAction', function(event) {
+		if (!file) {
 
-		var selectedFiles = new Array();
-
-		for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
-			if ($scope.mediaFiles[ i ].checked) {
-				selectedFiles.push($scope.mediaFiles[ i ].key);
-			}
+			file = getSelectedFile();
+	
 		}
+
+		if (file) {
+			var fileUrl = $rootScope.bucketUrl + file;
+			window.open(fileUrl, "_blank");
+		}
+
+	});
+
+	$scope.$on('FileDeleteAction', function(event) {
+		var selectedFiles = getSelectedFiles();
 
 		if (confirm('Are you sure you want to delete the ' + selectedFiles.length + ' files selected?')) {
 
@@ -184,6 +188,32 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 		}
 
 	});
+	
+	function getSelectedFile() {
+		
+		var file;
+		var files = getSelectedFiles();
+		if (files && files.length > 0) {
+			file = files[0];
+		}
+		
+		return file;
+
+	}
+	
+	function getSelectedFiles() {
+		
+		var selectedFiles = new Array();
+
+		for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
+			if ($scope.mediaFiles[ i ].checked) {
+				selectedFiles.push($scope.mediaFiles[ i ].key);
+			}
+		}
+		
+		return selectedFiles;
+
+	}
 
 	function getLibrarySize(mediaFiles) {
 
