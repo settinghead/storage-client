@@ -12,8 +12,8 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	$scope.mediaFiles = [];
 	$rootScope.librarySize = 0;
 	
-	$scope.orderByAttribute = 'key';
-	$scope.reverseSort = false;
+	$scope.orderByAttribute = 'lastModified';
+	$scope.reverseSort = true;
 	
     function updateAuthStatus() {
         $scope.authStatus = apiAuth.authStatus;
