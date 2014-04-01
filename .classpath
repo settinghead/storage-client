@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-appengine-1.17.0-rc.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-servlet-1.17.0-rc.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/com.risevision.directory.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
