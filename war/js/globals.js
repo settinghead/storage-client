@@ -6,7 +6,7 @@ var rvGlobals = {
     CORE_URL_TEST: "https://store-dot-rvacore-test.appspot.com/_ah/api",
     CORE_URL_PRODUCTION: "https://store-dot-rvaserver2.appspot.com/_ah/api",
 //    STORAGE_URL_TEST: "https://medialibrary-dot-rva-test.appspot.com/_ah/api",
-    STORAGE_URL_TEST: "https://storage-dot-rvacore-test2.appspot.com/_ah/api",
+    STORAGE_URL_TEST: "https://storage-dot-rvacore-test.appspot.com/_ah/api",
     RVA_URL: "",
     RVA_URL_TEST: "http://rdn-test.appspot.com/",
     RVA_URL_PRODUCTION: "http://rvauser.appspot.com/",
