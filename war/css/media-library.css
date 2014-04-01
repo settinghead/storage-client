@@ -39,18 +39,6 @@ ul {
     .actions > li button:hover i:before {
       color: #383838; }
 
-.glyphicons {
-  padding-left: 0; }
-
-.glyphicons:before {
-  /* Positioning */
-  position: relative;
-  top: -3px;
-  /* Display & Box Model */
-  margin: 0;
-  /* Visual */
-  color: #777; }
-
 .storage {
   /* Positioning */
   position: absolute;
