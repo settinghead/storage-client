@@ -1,32 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns="http://java.sun.com/xml/ns/javaee"
-xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-
-	
 	<servlet>
 		<servlet-name>GetFiles</servlet-name>
-		<servlet-class>com.risevision.medialibrary.server.GetFilesServlet</servlet-class>
+		<servlet-class>com.risevision.storage.api.GetFilesServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetFiles</servlet-name>
 		<url-pattern>/getFiles</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UploadComplete</servlet-name>
+		<servlet-class>com.risevision.storage.api.UploadCompleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadComplete</servlet-name>
+		<url-pattern>/uploadComplete</url-pattern>
+	</servlet-mapping>  
   
   <servlet>
     <servlet-name>ReadLogs</servlet-name>
-    <servlet-class>com.risevision.medialibrary.server.ReadLogsServlet</servlet-class>
+    <servlet-class>com.risevision.storage.ReadLogsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ReadLogs</servlet-name>
     <url-pattern>/readLogs</url-pattern>
   </servlet-mapping>
+  
+  
+  	<!-- SystemServiceServlet -->
+
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+		<init-param>
+			<param-name>services</param-name>
+			<param-value>com.risevision.storage.api.StorageAPI</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<url-pattern>/_ah/spi/*</url-pattern>
+	</servlet-mapping>
+  
 	  
   	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+<!-- 	<security-constraint> -->
+<!-- 		<web-resource-collection> -->
+<!-- 			<url-pattern>/*</url-pattern> -->
+<!-- 		</web-resource-collection> -->
+<!-- 		<auth-constraint> -->
+<!-- 			<role-name>*</role-name> -->
+<!-- 		</auth-constraint> -->
+<!-- 	</security-constraint> -->
+
 </web-app>

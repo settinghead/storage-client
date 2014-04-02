@@ -1,0 +1,117 @@
+@import "//s3.amazonaws.com/rise-common-test/styles/feature-v2/rise/css/rise.css";
+/* ==========================================================================
+   General Styles
+   ========================================================================== */
+ul {
+  /* Display & Box Model */
+  padding: 0;
+  /* Visual */
+  list-style: none; }
+
+/* ==========================================================================
+   Search Bar & Toggle Buttons
+   ========================================================================== */
+.filter {
+  padding: 10px 0; }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.commands {
+  position: relative; }
+
+.actions > li {
+  display: inline-block; }
+  .actions > li button {
+    /* Display & Box Model */
+    display: block;
+    padding: 3px 10px;
+    border: 1px solid white;
+    /* Visual */
+    font-size: 23px;
+    border-radius: 0;
+    background-color: transparent; }
+  .actions > li button:hover {
+    /* Display & Box Model */
+    border: 1px solid #e5e5e5;
+    /* Visual */
+    background-color: #f4f4f4; }
+    .actions > li button:hover i:before {
+      color: #383838; }
+
+.storage {
+  /* Positioning */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* Display & Box Model */
+  margin-bottom: 10px;
+  /* Visual */
+  font-size: 10px;
+  text-align: right; }
+
+/* ==========================================================================
+   Thumbnail View
+   ========================================================================== */
+/**
+ * Single-column layout at mobile resolutions.
+ */
+.thumbnails {
+  display: none;
+  cursor: pointer; }
+
+/* Clearfix */
+.thumbnails:after {
+  clear: both;
+  display: block;
+  content: ""; }
+
+.thumbnail {
+  border: none; }
+  .thumbnail .caption {
+    font-size: 12px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden; }
+
+.thumbnail:hover,
+.thumbnail.active {
+  background-color: #f5f5f5; }
+
+.thumbnail.active:hover {
+  background-color: #e8e8e8; }
+
+/* Media queries
+   ========================================================================== */
+/**
+ * Three-column layout at tablet resolutions.
+ */
+@media (min-width: 768px) {
+  .thumbnail {
+    /* Positioning */
+    float: left;
+    /* Display & Box Model */
+    width: 33.33333333333333%;
+    padding-left: 5px;
+    padding-right: 5px; }
+
+  .thumbnail:nth-child(3n+1) {
+    clear: left; } }
+/**
+ * Six-column layout at desktop resolutions.
+ */
+@media (min-width: 992px) {
+  .thumbnail {
+    width: 16.66666666666667%; }
+
+  .thumbnail:nth-child(3n+1) {
+    clear: none; }
+
+  .thumbnail:nth-child(6n) {
+    padding-right: 0; }
+
+  .thumbnail:nth-child(6n+1) {
+    /* Positioning */
+    clear: left;
+    /* Display & Box Model */
+    padding-left: 0; } }
