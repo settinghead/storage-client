@@ -144,19 +144,27 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	});
 	
 	$scope.$on('FileDownloadAction', function(event, file) {
-
 		if (!file) {
 
 			file = getSelectedFile();
 	
 		}
 
-		if (file) {
-			var fileUrl = $rootScope.bucketUrl + file;
-			window.open(fileUrl, "_blank");
-		}
+		$scope.selectedFile = file;
 
+		if ($scope.selectedFile) {
+
+			apiStorage.getFileUrl($routeParams.companyId, encodeURIComponent($scope.selectedFile)).then(onFileUrlResponse);
+
+		}
+		
 	});
+	
+	function onFileUrlResponse(response) {
+
+		window.location.assign(response);
+		
+	}
 
 	$scope.$on('FileDeleteAction', function(event) {
 		var selectedFiles = getSelectedFiles();

@@ -122,7 +122,6 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
         return deferred.promise;
     };
     
-    
     this.getFileUrl = function (companyId, key) {
         var deferred = $q.defer();
 
