@@ -121,6 +121,28 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
         
         return deferred.promise;
     };
+    
+    
+    this.getFileUrl = function (companyId, key) {
+        var deferred = $q.defer();
+
+        var obj = {
+        		"companyId": companyId,
+                "key": key
+            };
+        var request = gapi.client.storage.file.url(obj);
+        request.execute(function (resp) {
+            console && console.log(resp);
+            if (resp.code !== 200) {
+                console && console.error("Error retrieving policy: ", resp);
+                resp = null;
+            }
+            deferred.resolve(resp.response);
+        });
+		
+        return deferred.promise;
+
+    };
 
     this.createBucket = function (companyId) {
         var deferred = $q.defer();
@@ -160,7 +182,7 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
 //		});
     };
     
-    this.getPolicyBase64 = function (bucketName, uploadFileName, contentType, responseUrl) {
+    this.getUploadPolicyBase64 = function (bucketName, uploadFileName, contentType, responseUrl) {
     	
 		var policyString = '{' +
 		'  "expiration": "2020-01-01T12:00:00.000Z",' +
@@ -196,7 +218,7 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
                 console && console.error("Error retrieving policy: ", resp);
                 resp = null;
             }
-            deferred.resolve(resp.signedPolicy);
+            deferred.resolve(resp.response);
         });
         
 //		$http({

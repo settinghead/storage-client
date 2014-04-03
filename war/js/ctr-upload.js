@@ -113,7 +113,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 			$scope.uploadComplete = false;
 			$scope.uploadError = false;
 			
-			$scope.policyBase64 = apiStorage.getPolicyBase64($rootScope.bucketName, $scope.uploadFileName, $scope.contentType, $scope.responseUrl);
+			$scope.policyBase64 = apiStorage.getUploadPolicyBase64($rootScope.bucketName, $scope.uploadFileName, $scope.contentType, $scope.responseUrl);
 			
 			apiStorage.getSignedPolicy($routeParams.companyId, $scope.policyBase64).then(onSignedPolicy);
 
