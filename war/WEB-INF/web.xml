@@ -27,6 +27,15 @@
     <url-pattern>/readLogs</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>LogsJob</servlet-name>
+    <servlet-class>com.risevision.storage.LogsJobServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogsJob</servlet-name>
+    <url-pattern>/LogsJob</url-pattern>
+  </servlet-mapping>
+  
   
   	<!-- SystemServiceServlet -->
 
