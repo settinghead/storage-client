@@ -17,5 +17,13 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/google-oauth-client-servlet-1.17.0-rc.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/com.risevision.directory.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-services-bigquery-v2-rev138-1.18.0-rc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-client-gson-1.17.0-rc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-http-client-gson-1.17.0-rc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gson-2.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-services-storage-v1beta2-rev44-1.18.0-rc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-core-2.2.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-api-client-jackson2-1.18.0-rc.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/google-http-client-jackson2-1.18.0-rc.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
