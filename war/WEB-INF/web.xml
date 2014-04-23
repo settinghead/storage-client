@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+	<!-- Servlets -->
 	<servlet>
 		<servlet-name>GetFiles</servlet-name>
 		<servlet-class>com.risevision.storage.api.GetFilesServlet</servlet-class>
@@ -8,7 +13,7 @@
 		<servlet-name>GetFiles</servlet-name>
 		<url-pattern>/getFiles</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>UploadComplete</servlet-name>
 		<servlet-class>com.risevision.storage.api.UploadCompleteServlet</servlet-class>
@@ -16,46 +21,45 @@
 	<servlet-mapping>
 		<servlet-name>UploadComplete</servlet-name>
 		<url-pattern>/uploadComplete</url-pattern>
-	</servlet-mapping>  
-  
-  <servlet>
-    <servlet-name>ReadLogs</servlet-name>
-    <servlet-class>com.risevision.storage.ReadLogsServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ReadLogs</servlet-name>
-    <url-pattern>/readLogs</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>LogsJob</servlet-name>
-    <servlet-class>com.risevision.storage.LogsJobServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LogsJob</servlet-name>
-    <url-pattern>/job/LogsJob</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>LoggingServlet</servlet-name>
-    <servlet-class>com.risevision.storage.gcs.LoggingServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoggingServlet</servlet-name>
-    <url-pattern>/job/LoggingJob</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>AuthCallbackServlet</servlet-name>
-    <servlet-class>com.risevision.storage.gcs.AuthCallbackServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AuthCallbackServlet</servlet-name>
-    <url-pattern>/job/oauth2callback</url-pattern>
-  </servlet-mapping>
-  
-  	<!-- Queued tasks support -->
+	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ReadLogs</servlet-name>
+		<servlet-class>com.risevision.storage.ReadLogsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReadLogs</servlet-name>
+		<url-pattern>/readLogs</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LogsJob</servlet-name>
+		<servlet-class>com.risevision.storage.LogsJobServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogsJob</servlet-name>
+		<url-pattern>/job/LogsJob</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoggingServlet</servlet-name>
+		<servlet-class>com.risevision.storage.gcs.LoggingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoggingServlet</servlet-name>
+		<url-pattern>/job/LoggingJob</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AuthCallbackServlet</servlet-name>
+		<servlet-class>com.risevision.storage.gcs.AuthCallbackServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthCallbackServlet</servlet-name>
+		<url-pattern>/job/oauth2callback</url-pattern>
+	</servlet-mapping>
+
+	<!-- Queued tasks support -->
 	<servlet>
 		<servlet-name>Queue</servlet-name>
 		<servlet-class>com.risevision.storage.queue.QueueServlet</servlet-class>
@@ -66,6 +70,7 @@
 		<url-pattern>/queue</url-pattern>
 	</servlet-mapping>
 
+	<!-- Security -->
 	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>/queue</url-pattern>
@@ -74,7 +79,7 @@
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<web-resource-collection>
 			<url-pattern>/job/*</url-pattern>
@@ -82,10 +87,9 @@
 		<auth-constraint>
 			<role-name>*</role-name>
 		</auth-constraint>
-	</security-constraint>  
-  
-  	<!-- SystemServiceServlet -->
+	</security-constraint>
 
+	<!-- SystemServiceServlet -->
 	<servlet>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
@@ -94,25 +98,15 @@
 			<param-value>com.risevision.storage.api.StorageAPI</param-value>
 		</init-param>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>SystemServiceServlet</servlet-name>
 		<url-pattern>/_ah/spi/*</url-pattern>
 	</servlet-mapping>
-  
-	  
-  	<!-- Default page to serve -->
+
+	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
-<!-- 	<security-constraint> -->
-<!-- 		<web-resource-collection> -->
-<!-- 			<url-pattern>/*</url-pattern> -->
-<!-- 		</web-resource-collection> -->
-<!-- 		<auth-constraint> -->
-<!-- 			<role-name>*</role-name> -->
-<!-- 		</auth-constraint> -->
-<!-- 	</security-constraint> -->
 
 </web-app>
