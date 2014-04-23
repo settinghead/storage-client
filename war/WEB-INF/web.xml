@@ -36,14 +36,22 @@
     <url-pattern>/job/LogsJob</url-pattern>
   </servlet-mapping>
   
-  
   <servlet>
-    <servlet-name>EnableLogging</servlet-name>
-    <servlet-class>com.risevision.storage.BucketLoggingServlet</servlet-class>
+    <servlet-name>LoggingServlet</servlet-name>
+    <servlet-class>com.risevision.storage.gcs.LoggingServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>EnableLogging</servlet-name>
+    <servlet-name>LoggingServlet</servlet-name>
     <url-pattern>/job/LoggingJob</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AuthCallbackServlet</servlet-name>
+    <servlet-class>com.risevision.storage.gcs.AuthCallbackServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthCallbackServlet</servlet-name>
+    <url-pattern>/job/oauth2callback</url-pattern>
   </servlet-mapping>
   
   	<!-- Queued tasks support -->
@@ -60,14 +68,21 @@
 
 	<security-constraint>
 		<web-resource-collection>
-			<url-pattern>/job</url-pattern>
 			<url-pattern>/queue</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
-  
+	
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/job/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>  
   
   	<!-- SystemServiceServlet -->
 
