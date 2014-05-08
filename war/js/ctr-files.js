@@ -135,7 +135,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 		}
 
 		if (file) {
-			var fileUrl = $rootScope.bucketUrl + file;
+			var fileUrl = $rootScope.bucketUrl + file.key;
 			var data = { params: fileUrl };
 			gadgets.rpc.call('', 'rscmd_saveSettings', null, data);
 
