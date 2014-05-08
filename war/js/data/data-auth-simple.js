@@ -18,11 +18,11 @@ commonModule.service("apiAuth", ["$timeout", "$rootScope", "$http", function api
 
     this.authStatus = this.AUTH_STATUS_UNDEFINED;     //-1=unknown, 0=not authenticated, 1=authenticated
     this.isAuthed = false;    //true if authenticated
-    this.isOAuth2Api = false; //true if isOAuth2Api is loaded
+    // this.isOAuth2Api = false; //true if isOAuth2Api is loaded
 
-    this.userProfileName = "";
-    this.userProfileEmail = "";
-    this.userProfilePicture = this.DEFAULT_PROFILE_PICTURE;
+    // this.userProfileName = "";
+    // this.userProfileEmail = "";
+    // this.userProfilePicture = this.DEFAULT_PROFILE_PICTURE;
 
     var self = this;
     var access_token;
@@ -34,17 +34,19 @@ commonModule.service("apiAuth", ["$timeout", "$rootScope", "$http", function api
             self.isAuthed = (self.authStatus === self.AUTH_STATUS_AUTHENTICATED);
             if (self.isAuthed) {
                 console && console.log("user is authenticated");
-                loadOAuth2API();
+                // loadOAuth2API();
 
+                $rootScope.$broadcast("profile.loaded");
                 $rootScope.$broadcast("userCompany.loaded");
 
             } else {
                 console && console.log("user is not authenticated");
 
-                self.isOAuth2Api = false;
-                self.userProfileName = "";
-                self.userProfileEmail = "";
-                self.userProfilePicture = self.DEFAULT_PROFILE_PICTURE;
+                self.isAuthed = false;
+                // self.isOAuth2Api = false;
+                // self.userProfileName = "";
+                // self.userProfileEmail = "";
+                // self.userProfilePicture = self.DEFAULT_PROFILE_PICTURE;
                 
                 $rootScope.$broadcast("user.signout");
 
@@ -71,27 +73,27 @@ commonModule.service("apiAuth", ["$timeout", "$rootScope", "$http", function api
         }
     };
 
-    var loadOAuth2API = function () {
-        //we need this API to access user profile
-        gapi.client.load("oauth2", "v2", function () {
-            console && console.log("OAuth2 API is loaded");
-            self.isOAuth2Api = true;
-            loadProfile();
-        });
-    };
+    // var loadOAuth2API = function () {
+    //     //we need this API to access user profile
+    //     gapi.client.load("oauth2", "v2", function () {
+    //         console && console.log("OAuth2 API is loaded");
+    //         self.isOAuth2Api = true;
+    //         loadProfile();
+    //     });
+    // };
 
-    var loadProfile = function () {
-        if (self.isOAuth2Api && self.isAuthed) {
-            var request = gapi.client.oauth2.userinfo.get({});
-            request.execute(function (resp) {
-                self.userProfileName = resp.name;
-                self.userProfileEmail = resp.email;
-                self.userProfilePicture = resp.picture;
-                console && console.log(resp);
-                $rootScope.$broadcast("profile.loaded");
-            });
-        }
-    };
+    // var loadProfile = function () {
+    //     if (self.isOAuth2Api && self.isAuthed) {
+    //         var request = gapi.client.oauth2.userinfo.get({});
+    //         request.execute(function (resp) {
+    //             self.userProfileName = resp.name;
+    //             self.userProfileEmail = resp.email;
+    //             self.userProfilePicture = resp.picture;
+    //             console && console.log(resp);
+    //             $rootScope.$broadcast("profile.loaded");
+    //         });
+    //     }
+    // };
 
     var getLogoutUrl = function () {
         var res = "";
