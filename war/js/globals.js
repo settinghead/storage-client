@@ -5,23 +5,22 @@ var rvGlobals = {
     CORE_URL: "",
     CORE_URL_TEST: "https://store-dot-rvacore-test.appspot.com/_ah/api",
     CORE_URL_PRODUCTION: "https://store-dot-rvaserver2.appspot.com/_ah/api",
-//    STORAGE_URL_TEST: "https://medialibrary-dot-rva-test.appspot.com/_ah/api",
+    STORAGE_URL: "",
     STORAGE_URL_TEST: "https://storage-dot-rvacore-test.appspot.com/_ah/api",
+    STORAGE_URL_PRODUCTION: "https://storage-dot-rvaserver2.appspot.com/_ah/api",
     RVA_URL: "",
     RVA_URL_TEST: "http://rdn-test.appspot.com/",
     RVA_URL_PRODUCTION: "http://rvauser.appspot.com/",
-    STRIPE_KEY: "pk_test_ORQJQQhZUpYBWjy8SigiYABQ",
-    //STRIPE_KEY: "sk_test_HTjqyfWzO7mNKWncT6aBwXal",
-    STRIPE_KEY_TEST: "sk_test_HTjqyfWzO7mNKWncT6aBwXal",
-    STRIPE_KEY_LIVE: "sk_live_cSdIqHd0brI4YQC5LYYhm1e2",
 
     init: function (isProduction) {
         if (isProduction) {
             this.RVA_URL = this.RVA_URL_PRODUCTION;
             this.CORE_URL = this.CORE_URL_PRODUCTION;
+            this.STORAGE_URL = this.STORAGE_URL_PRODUCTION;
         } else {
             this.RVA_URL = this.RVA_URL_TEST;
             this.CORE_URL = this.CORE_URL_TEST;
+            this.STORAGE_URL = this.STORAGE_URL_TEST;
         }
     },
 
