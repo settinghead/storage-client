@@ -22,7 +22,7 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
             } else {
                 console && console.error("Store API is NOT loaded");
             }
-        }, rvGlobals.STORAGE_URL_TEST);
+        }, rvGlobals.STORAGE_URL);
     };
     
     $rootScope.$on("userCompany.loaded", function (event) {
