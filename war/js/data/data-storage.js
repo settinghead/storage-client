@@ -150,12 +150,13 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
         };
         var request = gapi.client.storage.createBucket(obj);
         request.execute(function (resp) {
-            console && console.log(resp);
             if (resp.code !== 200) {
-                console && console.error("Error creating bucket: ", resp);
-                resp = null;
+              console && console.error("Error creating bucket: ", resp);
+              deferred.reject(resp);
+            } else {
+              console && console.log(resp);
+              deferred.resolve(resp);
             }
-            deferred.resolve(resp);
         });
         return deferred.promise;
     	
