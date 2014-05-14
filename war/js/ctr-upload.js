@@ -58,144 +58,51 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	});
 */
 
-	$scope.filesSelected = function(element) {
-
-        if ($scope.authStatus !== 1) {
+        $scope.filesSelected = function(element) {
+          if ($scope.authStatus !== 1) {
             return;
+          }
+
+          if ($rootScope.requireBucketCreation) {
+            apiStorage.createBucket($routeParams.companyId)
+              .then(function() {
+                $rootScope.requireBucketCreation=false; loadFiles(element);
+              }
+              , onUploadError);
+          }
+          else {
+            loadFiles(element);
+          }
         }
-		
-		if ($rootScope.requireBucketCreation) {
-		
-			apiStorage.createBucket($routeParams.companyId).then(loadFiles(element));
 
-//			$http({
-//				url: 'createBucket',
-//				method: "POST",
-//				data: "bucketName=" + $rootScope.bucketName,
-//				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-//			}).success(function (data, status, headers, config) {
-//		
-//				if (data.status == 200) {
-//
-//					$rootScope.requireBucketCreation = false;
-//					loadFiles(element);				
-//
-//				}
-//				else {
-//
-//				}
-//
-//			}).error(function (data, status, headers, config) {
-//		
-//			});
+        function loadFiles(element) {
+          $('#uploadform').attr('action', $rootScope.bucketUrl);
 
-		}
-		else {
-		
-			loadFiles(element);
+          for (var i = 0; i < element.files.length; i++) {
 
-		}
+            $scope.uploadFileName = element.files[i].name;
+            $scope.uploadFileSize = element.files[i].size;
+            $scope.contentType = element.files[i].type;
 
-	}
+            $scope.uploadActive = true;
+            $scope.uploadComplete = false;
+            $scope.uploadError = false;
 
-	function loadFiles(element) {
-	//	$('#uploadcompleteframe').contentWindow.name = 'uploadCompleteFrame';
-		
-		$('#uploadform').attr('action', $rootScope.bucketUrl);
+            $scope.policyBase64 = apiStorage.getUploadPolicyBase64($rootScope.bucketName, $scope.uploadFileName, $scope.contentType, $scope.responseUrl);
 
-		for (var i = 0; i < element.files.length; i++) {
-
-			$scope.uploadFileName = element.files[i].name;
-			$scope.uploadFileSize = element.files[i].size;
-			$scope.contentType = element.files[i].type;
-
-			$scope.uploadActive = true;
-			$scope.uploadComplete = false;
-			$scope.uploadError = false;
-			
-			$scope.policyBase64 = apiStorage.getUploadPolicyBase64($rootScope.bucketName, $scope.uploadFileName, $scope.contentType, $scope.responseUrl);
-			
-			apiStorage.getSignedPolicy($routeParams.companyId, $scope.policyBase64).then(onSignedPolicy);
+            apiStorage.getSignedPolicy($routeParams.companyId, $scope.policyBase64).then(onSignedPolicy);
 
 
-//			var policyString = '{' +
-//				'  "expiration": "2020-01-01T12:00:00.000Z",' +
-//				'  "conditions": [' +
-//				'    {"bucket": "' + $rootScope.bucketName + '" },' +
-//				'    {"acl": "public-read" },' +
-//				'    ["eq", "$key", "' + $scope.uploadFileName + '"],' +
-//				'    ["starts-with", "$Content-Type", "' + $scope.contentType + '"],' +
-//				'    ["starts-with", "$Cache-Control", "public, max-age=60"],' +
-//				'    {"success_action_redirect": "' + $scope.responseUrl + '" },' +
-//				'  ]' +
-//				'}';
-//
-//			$scope.policyBase64 = utf8_to_b64(policyString);
-//
-//			$http({
-//				url: 'getSignedPolicy',
-//				method: "POST",
-//				data: "policyBase64=" + $scope.policyBase64,
-//				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-//			}).success(function (data, status, headers, config) {
-//		
-//				$scope.signature = data.trim();
-//
-//				if ($scope.signature) {
-//		
-//					$timeout(function() {
-//
-//						$("#uploadform").submit();
-//
-//					});
-//
-//				}
-//
-//			}).error(function (data, status, headers, config) {
-//		
-//				$scope.uploadError(status);
-//
-//			});
+            break;
 
-/*
-			var reader = new FileReader();
-			reader.readAsBinaryString(element.files[i]);
+          }
 
-			reader.onload = function(e){
+        }
 
-				$scope.fileContent = e.target.result;
-			
-				$http({
-					url: 'getSignedPolicy',
-					method: "POST",
-					data: "policyBase64=" + $scope.policyBase64,
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-				}).success(function (data, status, headers, config) {
-			
-					$scope.signature = data.trim();
+        function logError(err) {
+          console.log(err);
+        }
 
-					if ($scope.signature) {
-			
-						$timeout(function() {
-							$("#uploadform").submit();
-						});
-
-					}
-	
-				}).error(function (data, status, headers, config) {
-			
-					$scope.status = status;
-
-				});
-
-			};			
-*/
-
-			break;
-
-		}
-
-	}
 	
 	function onSignedPolicy(response) {
 		$scope.signature = response;
@@ -232,6 +139,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 
 		$rootScope.updateList();
 		$scope.uploadComplete = true;
+		$scope.uploadError = false;
 
 	}
 
@@ -240,6 +148,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 		$("#uploadform").trigger("reset");
 	
 		$scope.uploadError = true;
+		$scope.uploadComplete = false;
 
 	}
 	
