@@ -1,8 +1,1 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.swp
-.gitkeep
+node_modules

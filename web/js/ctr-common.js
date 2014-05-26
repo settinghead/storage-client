@@ -45,3 +45,8 @@ commonModule.controller("commonController", ["$scope", "$rootScope", "$sce", "ap
 
 }
 ]);
+
+commonModule.controller("headerController", ["$scope", function ($scope) {
+	$(".selectpicker").selectpicker();
+}
+]);
