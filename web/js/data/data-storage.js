@@ -122,12 +122,12 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
         return deferred.promise;
     };
     
-    this.getFileUrl = function (companyId, key) {
+    this.getFileUrl = function (companyId, file) {
         var deferred = $q.defer();
 
         var obj = {
         		"companyId": companyId,
-                "key": key
+                "file": file
             };
         var request = gapi.client.storage.file.url(obj);
         request.execute(function (resp) {
