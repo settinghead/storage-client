@@ -21,7 +21,6 @@ var env = process.env.NODE_ENV || "dev",
     usemin = require("gulp-usemin"),
     htmlreplace = require("gulp-html-replace"),
     watch = require("gulp-watch"),
-    sass = require("gulp-sass"),
     minifyCSS = require("gulp-minify-css"),
     concat = require("gulp-concat"),
     clean = require("gulp-clean"),
@@ -33,13 +32,14 @@ var env = process.env.NODE_ENV || "dev",
 
     //Test files
     testFiles = [
-      "web/components/jQuery/dist/jquery.js",
+      "web/components/jQuery/jquery.js",
       "web/components/q/q.js",
       "https://js.stripe.com/v2/",
       "web/lib/spin.min.js",
       "web/components/angular/angular.js",
       "web/components/angular-bootstrap/ui-bootstrap-tpls.js",
       "web/components/angular-route/angular-route.js",
+      "web/components/angular-resource/angular-resource.js",
       "web/components/angular-mocks/angular-mocks.js",
       "http://s3.amazonaws.com/rise-common/scripts/modernizr/modernizr.js",
       "https://s3.amazonaws.com/rise-common-test/scripts/bootstrap/bootstrap.min.js",
@@ -55,10 +55,6 @@ var env = process.env.NODE_ENV || "dev",
     appJSFiles = [
       "web/script/**/*.js",
       "test/**/*.js"
-    ],
-
-    sassFiles = [
-      "web/scss/**/*.scss"
     ],
 
     cssFiles = [
@@ -133,13 +129,7 @@ gulp.task("img", function() {
     .pipe(gulp.dest("dist/img"));
 });
 
-gulp.task("sass", function () {
-    return gulp.src(sassFiles)
-      .pipe(sass())
-      .pipe(gulp.dest("web/css"));
-});
-
-gulp.task("css", ["sass"], function () {
+gulp.task("css", function () {
   return gulp.src(cssFiles)
     .pipe(minifyCSS({keepBreaks:true}))
     .pipe(concat("all.min.css"))
@@ -188,10 +178,6 @@ gulp.task("test-ci", function() {
     });
 });
 
-gulp.task("watch-dev", function() {
-  gulp.watch(sassFiles, ["sass"]);
-});
-
 gulp.task("watch-dist", function() {
   gulp.watch(htmlFiles, ["html"]);
   gulp.watch(viewFiles, ["view"]);
@@ -199,7 +185,7 @@ gulp.task("watch-dist", function() {
   gulp.watch(sassFiles, ["css"]);
 });
  
-gulp.task("server", ["sass", "watch-dev"], function() {
+gulp.task("server", function() {
   httpServer = connect.server({
     root: "web",
     port: 8000,

@@ -39,9 +39,9 @@
     "jshint-stylish": "^0.2.0"
   },
   "scripts": {
-    "dev-install": "npm install && bower install && gulp config && gulp sass",
+    "dev-install": "npm install && bower install && gulp config",
     "dev": "gulp server",
-    "ci-build": "npm install && bower install && gulp test-ci && gulp test-e2e && gulp build"
+    "ci-build": "npm install && bower install"
   },
   "author": "Rise",
   "license": "ISC"
