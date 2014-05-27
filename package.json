@@ -41,7 +41,7 @@
   "scripts": {
     "dev-install": "npm install && bower install && gulp config",
     "dev": "gulp server",
-    "ci-build": "npm install && bower install"
+    "ci-build": "npm install && bower install && gulp test-ci && gulp build"
   },
   "author": "Rise",
   "license": "ISC"
