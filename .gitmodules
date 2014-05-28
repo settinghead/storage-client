@@ -1,0 +1,3 @@
+[submodule "web/common"]
+	path = web/common
+	url = git@github.com:Rise-Vision/client-common.git
