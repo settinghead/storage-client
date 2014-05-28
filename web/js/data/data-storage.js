@@ -24,13 +24,11 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
             }
         }, rvGlobals.STORAGE_URL);
     };
-    
-    $rootScope.$on("userCompany.loaded", function (event) {
 
+    apiAuth.ensureAuth().then(function () {
         loadStorageAPI();
-
     });
-
+    
     // Storage API access 
     
     this.getFiles = function (companyId) {

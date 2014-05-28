@@ -1,11 +1,10 @@
 "use strict";
 
-var commonModule = angular.module("common", ["ngRoute"]);
+var commonModule = angular.module("common", ["ngRoute", "gapi-auth"]);
 
-commonModule.run(function (apiAuth) { apiAuth.init(); });
+// commonModule.run(function (apiAuth) { apiAuth.ensureAuth(); });
 
 commonModule.controller("commonController", ["$scope", "$rootScope", "$sce", "apiAuth", function ($scope, $rootScope, $sce, apiAuth) {
-	$scope.authStatus = apiAuth.AUTH_STATUS_UNDEFINED; //this value is linked to the UI
 	$scope.userProfilePicture = apiAuth.DEFAULT_PROFILE_PICTURE;
 	$scope.messages = [];
 	$scope.selectedCompanyName = "";
@@ -21,7 +20,6 @@ commonModule.controller("commonController", ["$scope", "$rootScope", "$sce", "ap
 
 	$scope.updateAuthStatus = function (value) {
 		if ($scope.authStatus !== value) {
-			$scope.authStatus = value;
 			$scope.userProfileName = apiAuth.userProfileName;
 			$scope.userProfileEmail = apiAuth.userProfileEmail;
 			$scope.userProfilePicture = apiAuth.userProfilePicture;
