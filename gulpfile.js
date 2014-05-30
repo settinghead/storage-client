@@ -21,6 +21,7 @@ var env = process.env.NODE_ENV || "dev",
     usemin = require("gulp-usemin"),
     htmlreplace = require("gulp-html-replace"),
     watch = require("gulp-watch"),
+    sass = require("gulp-sass"),
     minifyCSS = require("gulp-minify-css"),
     concat = require("gulp-concat"),
     clean = require("gulp-clean"),
@@ -40,6 +41,8 @@ var env = process.env.NODE_ENV || "dev",
       "web/components/angular-resource/angular-resource.js",
       "web/components/angular-mocks/angular-mocks.js",
       "https://s3.amazonaws.com/rise-common-test/scripts/bootstrap/bootstrap.min.js",
+      "web/common/gapi/svc-gapi.js",
+      "web/common/auth/svc-gapi-auth.js",
       "web/js/*.js",
       "web/js/*/*.js",
       "web/js/**/*.js",
@@ -52,6 +55,10 @@ var env = process.env.NODE_ENV || "dev",
     appJSFiles = [
       "web/js/**/*.js",
       "test/**/*.js"
+    ],
+
+    sassFiles = [
+      "web/scss/**/*.scss"
     ],
 
     cssFiles = [
@@ -67,7 +74,11 @@ var env = process.env.NODE_ENV || "dev",
     ],
 
     viewFiles = [
-      "web/view/**/*"
+      "web/partials/**/*",
+    ],
+
+    fileFiles = [
+      "web/files/**/*"
     ];
 
 gulp.task("clean", function() {
@@ -98,7 +109,8 @@ gulp.task("build-e2e", function () {
   gulp.src("test/gapi-mock.js")
   .pipe(gulp.dest("dist-e2e/"));
   
-  gulp.src(viewFiles).pipe(gulp.dest("dist-e2e/view"));
+  gulp.src(viewFiles).pipe(gulp.dest("dist-e2e/partials"));
+  gulp.src(fileFiles).pipe(gulp.dest("dist-e2e/files"));
   gulp.src(imgFiles).pipe(gulp.dest("dist-e2e/img"));
 
   return gulp.src(htmlFiles)
@@ -117,15 +129,28 @@ gulp.task("build-e2e", function () {
 
 gulp.task("view", function() {
   return gulp.src(viewFiles)
-    .pipe(gulp.dest("dist/view"));
+    .pipe(gulp.dest("dist/partials"));
 });
+
+
+gulp.task("files", function() {
+  return gulp.src(fileFiles)
+    .pipe(gulp.dest("dist/files"));
+});
+
 
 gulp.task("img", function() {
   return gulp.src(imgFiles)
     .pipe(gulp.dest("dist/img"));
 });
 
-gulp.task("css", function () {
+gulp.task("sass", function () {
+    return gulp.src(sassFiles)
+      .pipe(sass())
+      .pipe(gulp.dest("web/css"));
+});
+
+gulp.task("css", ["sass"], function () {
   return gulp.src(cssFiles)
     .pipe(minifyCSS({keepBreaks:true}))
     .pipe(concat("all.min.css"))
@@ -143,7 +168,7 @@ gulp.task("config", function() {
     .pipe(gulp.dest("./web/script/config"));
 });
 
-gulp.task("build", ["clean", "config", "html", "view", "img", "css"]);
+gulp.task("build", ["clean", "config", "html", "view", "files", "img", "css"]);
 
 
 gulp.task("test", function() {
@@ -174,14 +199,19 @@ gulp.task("test-ci", function() {
     });
 });
 
+gulp.task("watch-dev", function() {
+  gulp.watch(sassFiles, ["sass"]);
+});
+
 gulp.task("watch-dist", function() {
   gulp.watch(htmlFiles, ["html"]);
   gulp.watch(viewFiles, ["view"]);
+  gulp.watch(fileFiles, ["files"]);
   gulp.watch(imgFiles, ["img"]);
   gulp.watch(sassFiles, ["css"]);
 });
  
-gulp.task("server", function() {
+gulp.task("server", ["sass", "watch-dev"], function() {
   httpServer = connect.server({
     root: "web",
     port: 8000,

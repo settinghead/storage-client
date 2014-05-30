@@ -9,8 +9,8 @@ angular.module('medialibraryServices', ['ngResource']).
 			remove: {method:'POST', params:{companyId:''}, isArray:false}
   	});
 	}).
-	factory('LocalFiles', function($resource) {
-    return $resource('/files/files.json', {}, {
+	factory('LocalFiles', function($resource, $window) {
+    return $resource($window.location.pathname + 'files/files.json', {}, {
       query: {method:'GET', params:{}, isArray:true}
   	});
 	});
