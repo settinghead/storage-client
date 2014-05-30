@@ -23,7 +23,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	$scope.fileName = '';
 	$scope.contentType = '';
 
-    $scope.$on("userCompany.loaded", function (event) {
+    $scope.$on("user.authorized", function (event) {
 
     	updateAuthStatus();
 

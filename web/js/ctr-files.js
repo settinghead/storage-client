@@ -14,18 +14,11 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	
 	$scope.orderByAttribute = 'lastModified';
 	$scope.reverseSort = true;
-	
-    function updateAuthStatus() {
-        $scope.authStatus = apiAuth.authStatus;
-    };
-    
+	    
     $scope.$on("storageApi.loaded", function(event) {
-    	updateAuthStatus();
-    	
         if ($scope.mediaFiles.length == 0) {
         	$rootScope.updateList();
         }
-        
     });
     
 	$rootScope.updateList = function() {

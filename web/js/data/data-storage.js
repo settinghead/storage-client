@@ -22,12 +22,12 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "
       }, $routeParams.apiuri ? $routeParams.apiuri : rvGlobals.STORAGE_URL);
     };
 
-    $rootScope.$on("userCompany.loaded", function (event) {
-
-      loadStorageAPI();
-
+    apiAuth.ensureAuth().then(function () {
+        loadStorageAPI();
     });
-
+    
+    // Storage API access 
+    
     this.getFiles = function (companyId) {
       var deferred = $q.defer();
 
