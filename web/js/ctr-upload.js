@@ -1,7 +1,7 @@
 "use strict"
 
-mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeParams", "$http", "$timeout", "apiStorage", "apiAuth", 
-	function ($scope, $rootScope, $routeParams, $http, $timeout, apiStorage, apiAuth) {
+angular.module('medialibrary').controller("UploadController", ["$scope", "$rootScope", "$route", "$routeParams", "$http", "$timeout", "apiStorage", "apiAuth", 
+	function ($scope, $rootScope, $route, $routeParams, $http, $timeout, apiStorage, apiAuth) {
 
 /*
 	Dropzone.options.myAwesomeDropzone = {
@@ -19,7 +19,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	$scope.uploadError = false;
 	
 	$scope.googleAccessId = '452091732215@developer.gserviceaccount.com';
-	$scope.responseUrl = location.protocol + '//' + location.hostname + '/uploadComplete';
+	$scope.responseUrl = location.protocol + '//' + location.hostname + ':' + location.port + '/uploadComplete';
 	$scope.fileName = '';
 	$scope.contentType = '';
 	
@@ -107,7 +107,6 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	}
 
 	$('#uploadcompleteframe').load(function(event) {
-
 		try {
 			if (event.target.contentWindow.name) {
 				onUploadComplete();
@@ -128,6 +127,7 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 		$rootScope.updateList();
 		$scope.uploadComplete = true;
 		$scope.uploadError = false;
+    $scope.uploadActive = false;
 
 	}
 
@@ -137,7 +137,8 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	
 		$scope.uploadError = true;
 		$scope.uploadComplete = false;
-
+    $scope.uploadActive = false;
+    
 	}
 	
 //	$scope.uploadInfoClose = function() {

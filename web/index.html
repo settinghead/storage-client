@@ -37,6 +37,8 @@
 	<script type="text/javascript" src="common/gapi/svc-gapi.js"></script>
 	<script type="text/javascript" src="common/auth/svc-gapi-auth.js"></script>
 	<script type="text/javascript" src="js/data/data-storage.js"></script>
+  <script type="text/javascript" src="js/data/data-storage.js"></script>
+  <script type="text/javascript" src="js/files/svc-file-list.js"></script>
 	
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/controllers.js"></script>
@@ -70,7 +72,7 @@
 
 	<div ng-include="'//s3.amazonaws.com/rise-common-test/partials/header.html'" ng-controller="commonController"></div>
 
- 	<div class="container" ng-view>
+ 	<div class="container" ng-view ng-controller="MainController">
 	</div>
 
 	<!-- Latest compiled and minified JavaScript -->
