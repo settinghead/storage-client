@@ -163,9 +163,9 @@ gulp.task("css", ["sass"], function () {
    environment variable (default environment is dev)
 */
 gulp.task("config", function() {
-  gulp.src(["./web/script/config/" + env + ".js"])
+  gulp.src(["./web/js/config/" + env + ".js"])
     .pipe(rename("config.js"))
-    .pipe(gulp.dest("./web/script/config"));
+    .pipe(gulp.dest("./web/js/config"));
 });
 
 gulp.task("build", ["clean", "config", "html", "view", "files", "img", "css"]);

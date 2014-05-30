@@ -1,9 +1,9 @@
 /*jshint expr:true */
 "use strict";
 
-describe("Services: apiAuth", function() {
+xdescribe("Services: apiAuth", function() {
 
-  beforeEach(module("common"));
+  beforeEach(module("gapi-auth"));
 
   it("should exist", function(done) {
     inject(function(apiAuth) {

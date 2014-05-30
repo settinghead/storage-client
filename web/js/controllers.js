@@ -52,28 +52,28 @@ function NavController($scope, $location) {
 
 }
 
-function ViewController($scope) {
-  $('#view-toggle').bootstrapSwitch();
-  $('#view-toggle').on('switch-change', function (e, data) {
-    $scope.thumbnailView = data.value;
+// function ViewController($scope) {
+//   $('#view-toggle').bootstrapSwitch();
+//   $('#view-toggle').on('switch-change', function (e, data) {
+//     $scope.thumbnailView = data.value;
 
-    if (data.value) {
-      showListView();
-    }
-    else {
-      showThumbView();
-    }
-  });
+//     if (data.value) {
+//       showListView();
+//     }
+//     else {
+//       showThumbView();
+//     }
+//   });
 
-  function showThumbView() {
-    $(".has-switch label").html("<i class='fa fa-th-list'></i>");
-    $('#thumbnails').show();
-    $('#list').hide();
-  }
+//   function showThumbView() {
+//     $(".has-switch label").html("<i class='fa fa-th-list'></i>");
+//     $('#thumbnails').show();
+//     $('#list').hide();
+//   }
 
-  function showListView() {
-    $(".has-switch label").html("<i class='fa fa-th-large'></i>");
-    $('#thumbnails').hide();
-    $('#list').show();
-  }
-}
+//   function showListView() {
+//     $(".has-switch label").html("<i class='fa fa-th-large'></i>");
+//     $('#thumbnails').hide();
+//     $('#list').show();
+//   }
+// }
