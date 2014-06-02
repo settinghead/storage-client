@@ -1,7 +1,7 @@
 "use strict";
 
-commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", 
-  function ($q, $rootScope, $timeout, apiAuth) {
+commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", 
+  function ($q, $rootScope, $timeout, apiAuth, $routeParams) {
     var self = this;
     var getCompanyId = function () {
       var res = "";
@@ -19,7 +19,7 @@ commonModule.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
         } else {
           console && console.error("Store API is NOT loaded");
         }
-      }, rvGlobals.STORAGE_URL);
+      }, $routeParams.apiuri ? $routeParams.apiuri : rvGlobals.STORAGE_URL);
     };
 
     $rootScope.$on("userCompany.loaded", function (event) {
