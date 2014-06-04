@@ -24,7 +24,7 @@
 		<thead>
 			<tr>
 				<th class="col-md-1 text-center">
-					<input type="checkbox" ng-model="selectAll">
+					<input type="checkbox" ng-model="selectAll" ng-change="selectAllCheckboxes()">
 				</th>
 				<th class="col-md-5" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
 					<a href="">File Name

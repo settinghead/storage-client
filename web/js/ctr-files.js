@@ -11,6 +11,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	
 	$scope.mediaFiles = [];
 	$rootScope.librarySize = 0;
+        $scope.selectAll = false;
 	
 	$scope.orderByAttribute = 'lastModified';
         $scope.fileExtOrderFunction = function(file) {
@@ -125,7 +126,7 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 		$rootScope.$broadcast('CheckedCountChange', checkedCount);		
 
 	}, true);
-
+/*
 	$scope.$watch('selectAll', function(v) {
 
 	    for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
@@ -133,6 +134,16 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	    }
 
 	});
+
+        */
+
+	$scope.selectAllCheckboxes = function() {
+            $scope.selectAll = !$scope.selectAll;
+
+	    for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
+	        $scope.mediaFiles[ i ].checked = $scope.selectAll;
+	    }
+	};
 
 	$scope.$on('FileSelectAction', function(event, file) {
 
