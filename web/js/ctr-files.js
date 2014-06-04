@@ -13,6 +13,14 @@ mediaLibraryApp.controller("FileListCtrl", ["$scope", "$rootScope", "$routeParam
 	$rootScope.librarySize = 0;
 	
 	$scope.orderByAttribute = 'lastModified';
+        $scope.fileExtOrderFunction = function(file) {
+          return file.key.split('.').pop();
+        };
+
+        $scope.fileSizeOrderFunction = function(file) {
+          return Number(file.size);
+        };
+
 	$scope.reverseSort = true;
 	
     function updateAuthStatus() {
