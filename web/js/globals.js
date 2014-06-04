@@ -54,4 +54,4 @@ var rvGlobals = {
     }
 }
 
-rvGlobals.init(false);
+rvGlobals.init(true);
