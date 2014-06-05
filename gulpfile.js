@@ -20,7 +20,9 @@ var env = process.env.NODE_ENV || "dev",
     jshint = require("gulp-jshint"),
     usemin = require("gulp-usemin"),
     htmlreplace = require("gulp-html-replace"),
+    replace = require("gulp-replace"),
     watch = require("gulp-watch"),
+    gutil = require("gulp-util"),
     sass = require("gulp-sass"),
     minifyCSS = require("gulp-minify-css"),
     concat = require("gulp-concat"),
@@ -82,7 +84,7 @@ var env = process.env.NODE_ENV || "dev",
     ];
 
 gulp.task("clean", function() {
-  return gulp.src("dist")
+  return gulp.src("dist", {read: false})
     .pipe(clean({force: true}));
 });
 
@@ -102,6 +104,8 @@ gulp.task("html", ["lint"], function () {
     .pipe(usemin({
     js: [uglify({mangle:false, outSourceMap: true})] //disable mangle just for $routeProvider in controllers.js
   }))
+  .pipe(env === "prod" ? replace("rise-common-test", "rise-common") : gutil.noop())
+  .pipe(env === "prod" ? replace("rvaviewer-test", "rvashow2") : gutil.noop())
   .pipe(gulp.dest("dist/"));
 });
 
@@ -147,6 +151,7 @@ gulp.task("img", function() {
 gulp.task("sass", function () {
     return gulp.src(sassFiles)
       .pipe(sass())
+      .pipe(env === "prod" ? replace("rise-common-test", "rise-common") : gutil.noop())
       .pipe(gulp.dest("web/css"));
 });
 
@@ -154,6 +159,7 @@ gulp.task("css", ["sass"], function () {
   return gulp.src(cssFiles)
     .pipe(minifyCSS({keepBreaks:true}))
     .pipe(concat("all.min.css"))
+    .pipe(env === "prod" ? replace("rise-common-test", "rise-common") : gutil.noop())
     .pipe(gulp.dest("dist/css"));
 });
 
@@ -201,10 +207,6 @@ gulp.task("test-ci", function() {
 
 gulp.task("watch-dev", function() {
   gulp.watch(sassFiles, ["sass"]);
-  gulp.watch(htmlFiles);
-  gulp.watch(viewFiles);
-  gulp.watch(fileFiles);
-  gulp.watch(imgFiles);
 });
 
 gulp.task("watch-dist", function() {
