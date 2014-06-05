@@ -81,6 +81,20 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
     }
 
 	}, true);
+/*
+ *     Scope $watch won't work within a bootstrap modal unless it's an object
+ *     property that is being changed.  See the following issue:
+ *     https://github.com/angular-ui/bootstrap/issues/1680
+ *     
+	$scope.$watch('selectAll', function(v) {
+
+	    for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
+	        $scope.mediaFiles[ i ].checked = v;
+	    }
+
+	});
+
+        */
 
 	$scope.selectAllCheckboxes = function() {
     $scope.selectAll = !$scope.selectAll;

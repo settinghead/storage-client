@@ -201,6 +201,10 @@ gulp.task("test-ci", function() {
 
 gulp.task("watch-dev", function() {
   gulp.watch(sassFiles, ["sass"]);
+  gulp.watch(htmlFiles);
+  gulp.watch(viewFiles);
+  gulp.watch(fileFiles);
+  gulp.watch(imgFiles);
 });
 
 gulp.task("watch-dist", function() {
