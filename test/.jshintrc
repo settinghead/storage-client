@@ -19,6 +19,16 @@
     "browser" : false,
     "element" : false,
     "by" : false,
-    "Buffer": false
+    "Buffer": false,
+
+    /* angular */
+    "inject" : false,
+    "expect" : false,
+    "module" : false,
+    "Q" : false,
+    "console" : false,
+    "setTimeout": false
+
+    /* Test-specific globals */
   }
 }

@@ -1,5 +1,3 @@
-"use strict";
-
 /*global gapi,handleClientJSLoad: false */
 
 window.gapi = {};

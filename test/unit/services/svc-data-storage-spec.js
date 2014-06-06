@@ -1,7 +1,7 @@
 /*jshint expr:true */
-"use strict";
 
 describe("Services: apiStorage", function() {
+  "use strict";
 
   beforeEach(module("common"));
 
@@ -41,8 +41,8 @@ describe("Services: apiStorage", function() {
   }));
 
 
-  it("should exist", function(done) {
-    inject(function(apiStorage) {
+  it("should exist", function (done) {
+    inject(function (apiStorage) {
       expect(apiStorage).be.defined;
       done();
     });

@@ -1,7 +1,7 @@
-"use strict"
+"use strict";
 
-angular.module('medialibrary').controller("UploadController", ["$scope", "$rootScope", "$route", "$routeParams", "$http", "$timeout", "apiStorage", "apiAuth", 
-	function ($scope, $rootScope, $route, $routeParams, $http, $timeout, apiStorage, apiAuth) {
+angular.module("medialibrary").controller("UploadController", ["$scope", "$rootScope", "$route", "$routeParams", "$http", "$timeout", "apiStorage", 
+	function ($scope, $rootScope, $route, $routeParams, $http, $timeout, apiStorage) {
 
 /*
 	Dropzone.options.myAwesomeDropzone = {
@@ -18,20 +18,18 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 	$scope.uploadActive = false;
 	$scope.uploadError = false;
 	
-	$scope.googleAccessId = '452091732215@developer.gserviceaccount.com';
-	$scope.responseUrl = location.protocol + '//' + location.hostname + ':' + location.port + '/uploadComplete';
-	$scope.fileName = '';
-	$scope.contentType = '';
+	$scope.googleAccessId = "452091732215@developer.gserviceaccount.com";
+	$scope.responseUrl = location.protocol + "//" + location.hostname + ":" + location.port + "/uploadComplete";
+	$scope.fileName = "";
+	$scope.contentType = "";
 	
 	$scope.uploadFiles = function() {
-
 		//$("#uploadform").submit();
-		//$('#file').click();
-
-	}
+		//$("#file").click();
+	};
 
 /*
-	$('#uploadform').ajaxForm({
+	$("#uploadform").ajaxForm({
 		beforeSend: function() {
 			$rootScope.uploadProgress = 0;
 		},
@@ -55,16 +53,15 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
             apiStorage.createBucket($routeParams.companyId)
               .then(function() {
                 $rootScope.requireBucketCreation=false; loadFiles(element);
-              }
-              , onUploadError);
+              }, onUploadError);
           }
           else {
             loadFiles(element);
           }
-        }
+        };
 
         function loadFiles(element) {
-          $('#uploadform').attr('action', $rootScope.bucketUrl);
+          $("#uploadform").attr("action", $rootScope.bucketUrl);
 
           for (var i = 0; i < element.files.length; i++) {
 
@@ -87,10 +84,6 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 
         }
 
-        function logError(err) {
-          console.log(err);
-        }
-
 	
 	function onSignedPolicy(response) {
 		$scope.signature = response;
@@ -106,7 +99,7 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 		}
 	}
 
-	$('#uploadcompleteframe').load(function(event) {
+	$("#uploadcompleteframe").load(function(event) {
 		try {
 			if (event.target.contentWindow.name) {
 				onUploadComplete();
@@ -172,7 +165,7 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 	// below code requires OAuth token, which cannot be obtained for Anonymous uploads
 	$scope.tok = "<token>";
 	$scope.boundary = "---======= rv-upload12034245623562346 ====---";
-	$scope.consolidated_request = '';
+	$scope.consolidated_request = "";
 
 
 	$scope.fileCount = 0;
@@ -180,7 +173,7 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 
 	$scope.loadFiles = function(element) {
 
-//		var input = $('fileInput');
+//		var input = $("fileInput");
 		$scope.consolidated_request = "";
 
 		for (var i = 0; i < element.files.length; i++) {
@@ -195,17 +188,17 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 				var fbinary = e.target.result;
 				var fsize = f.size;
 
-				var url = '/upload/storage/v1beta2/b/' + 'risemedialibrary-' + '17899fe3-db05-4ecd-ade4-a7106fe53784/o?';
-				url += 'uploadType=media&name='+f.name+ ' HTTP/1.1';
+				var url = "/upload/storage/v1beta2/b/" + "risemedialibrary-" + "17899fe3-db05-4ecd-ade4-a7106fe53784/o?";
+				url += "uploadType=media&name="+f.name+ " HTTP/1.1";
 
 				var req = $scope.boundary + 
-				'\r\nContent-Type: application/http'+
-				'\r\nContent-Transfer-Encoding: binary'+
-				'\r\n\nPOST ' + url +
-				'\r\nContent-Type: image/jpeg'+
-				'\r\nContent-Length: '+ f.size +
-				'\r\nAuthorization: '+ $scope.tok +
-				'\r\n\n'+ fbinary + '\n';
+				"\r\nContent-Type: application/http"+
+				"\r\nContent-Transfer-Encoding: binary"+
+				"\r\n\nPOST " + url +
+				"\r\nContent-Type: image/jpeg"+
+				"\r\nContent-Length: "+ f.size +
+				"\r\nAuthorization: "+ $scope.tok +
+				"\r\n\n"+ fbinary + "\n";
 
 				$scope.consolidated_request += req;
 				$scope.fileCount++;
@@ -218,7 +211,7 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 
 	$scope.uploadFiles = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", 'https://www.googleapis.com/batch', true);
+    xhr.open("POST", "https://www.googleapis.com/batch", true);
     xhr.setRequestHeader("Authorization", $scope.tok);
     xhr.setRequestHeader("Content-Type", "multipart/mixed;boundary=" + $scope.boundary);
     xhr.send($scope.consolidated_request);

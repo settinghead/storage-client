@@ -1,12 +1,15 @@
-"use strict"
+"use strict";
 
-angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$filter", "apiStorage", "apiAuth", "LocalFiles", "$log", "storageAPILoader", "fileInfo", "FileList",
+/* global gadgets: true */
+
+angular.module("medialibrary").controller("FileListCtrl", 
+  ["$scope", "$rootScope", "$routeParams", "$route", "$filter", "apiStorage", "apiAuth", "LocalFiles", "$log", "storageAPILoader", "fileInfo", "FileList",
 	function ($scope, $rootScope, $routeParams, $route, $filter, apiStorage, apiAuth, LocalFiles, $log, storageAPILoader, fileInfo, FileList) {
 
-	var MEDIA_LIBRARY_URL = 'http://commondatastorage.googleapis.com/';
+	var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
-	$rootScope.bucketName = 'risemedialibrary-' + $routeParams.companyId;
-	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + '/';
+	$rootScope.bucketName = "risemedialibrary-" + $routeParams.companyId;
+	$rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + "/";
 	$rootScope.requireBucketCreation = false;
 	
 	$scope.mediaFiles = fileInfo.files || [];
@@ -29,10 +32,10 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
     }
   }
   
-	$scope.orderByAttribute = 'lastModified';
+	$scope.orderByAttribute = "lastModified";
   
   $scope.fileExtOrderFunction = function(file) {
-    return file.key.split('.').pop();
+    return file.key.split(".").pop();
   };
 
   $scope.fileSizeOrderFunction = function(file) {
@@ -45,7 +48,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 		if ($rootScope.authStatus !== 1) {
       return;
     }
-    FileList($routeParams.companyId).then($route.reload());
+    new FileList($routeParams.companyId).then($route.reload());
 	};
 	
 	function onGetFiles(resp) {
@@ -65,7 +68,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
     return size;
   }
 
-	$scope.$watch('mediaFiles', function(items) {
+	$scope.$watch("mediaFiles", function(items) {
     if(items) {
       var checkedCount = 0;
       items.forEach(function(item) {
@@ -74,7 +77,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
         }
         $rootScope.librarySize = getLibrarySize(items);
       });
-      $rootScope.$broadcast('CheckedCountChange', checkedCount);    
+      $rootScope.$broadcast("CheckedCountChange", checkedCount);    
     }
     else {
       $rootScope.librarySize = 0;
@@ -90,7 +93,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
     }
 	};
 
-	$scope.$on('FileSelectAction', function(event, file) {
+	$scope.$on("FileSelectAction", function(event, file) {
 
 		if (!file) {
 			file = getSelectedFile();
@@ -99,11 +102,11 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 		if (file) {
 			var fileUrl = $rootScope.bucketUrl + file.key;
 			var data = { params: fileUrl };
-			gadgets.rpc.call('', 'rscmd_saveSettings', null, data);
+			gadgets.rpc.call("", "rscmd_saveSettings", null, data);
 		}
 	});
 	
-	$scope.$on('FileDownloadAction', function(event, file) {
+	$scope.$on("FileDownloadAction", function(event, file) {
 		if (!file) {
 			file = getSelectedFile();
 		}
@@ -117,9 +120,9 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 		window.location.assign(response);
 	}
 
-	$scope.$on('FileDeleteAction', function(event) {
+	$scope.$on("FileDeleteAction", function() {
 		var selectedFiles = getSelectedFiles();
-		if (confirm('Are you sure you want to delete the ' + selectedFiles.length + ' files selected?')) {
+		if (confirm("Are you sure you want to delete the " + selectedFiles.length + " files selected?")) {
 			apiStorage.deleteFiles($routeParams.companyId, selectedFiles).then(onGetFiles);
 		}
 	});
@@ -135,7 +138,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 	
 	function getSelectedFiles() {
 		
-		var selectedFiles = new Array();
+		var selectedFiles = [];
 
 		for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
 			if ($scope.mediaFiles[ i ].checked) {

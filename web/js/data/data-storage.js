@@ -1,15 +1,15 @@
 "use strict";
 
 
-angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", "gapiLoader", "storageAPILoader", "STORAGE_URL",
-  function ($q, $rootScope, $timeout, apiAuth, $routeParams, gapiLoader, storageAPILoader, STORAGE_URL) {
+angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", "gapiLoader", "storageAPILoader", "STORAGE_URL", "$log",
+  function ($q, $rootScope, $timeout, apiAuth, $routeParams, gapiLoader, storageAPILoader, STORAGE_URL, $log) {
 
 
     apiAuth.checkAuth(true).then(function () {
         storageAPILoader.get();
     });
 
-    this.deleteFiles = function (companyId, files, validationRequired) {
+    this.deleteFiles = function (companyId, files) {
       var deferred = $q.defer();
 
       var obj = {
@@ -19,9 +19,9 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
       gapiLoader.get().then(function (gApi) {
         var request = gApi.client.storage.files.delete(obj);
         request.execute(function (resp) {
-          console && console.log(resp);
+          $log.debug(resp);
           if (resp.code !== 200) {
-            console && console.error("Error deleting files: ", resp);
+            $log.error("Error deleting files: ", resp);
             resp = null;
           }
           deferred.resolve(resp);
@@ -41,9 +41,9 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
       gapiLoader.get().then(function (gApi) {
         var request = gApi.client.storage.file.url(obj);
         request.execute(function (resp) {
-          console && console.log(resp);
+          $log.debug(resp);
           if (resp.code !== 200) {
-            console && console.error("Error retrieving policy: ", resp);
+            $log.error("Error retrieving policy: ", resp);
             resp = null;
           }
           deferred.resolve(resp.response);
@@ -63,10 +63,10 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
         var request = gApi.client.storage.createBucket(obj);
         request.execute(function (resp) {
           if (resp.code !== 200) {
-            console && console.error("Error creating bucket: ", resp);
+            $log.error("Error creating bucket: ", resp);
             deferred.reject(resp);
           } else {
-            console && console.log(resp);
+            $log.debug(resp);
             deferred.resolve(resp);
           }
         });
@@ -76,17 +76,17 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
 
     this.getUploadPolicyBase64 = function (bucketName, uploadFileName, contentType, responseUrl) {
 
-      var policyString = '{' +
-        '  "expiration": "2020-01-01T12:00:00.000Z",' +
-        '  "conditions": [' +
-        '    {"bucket": "' + bucketName + '" },' +
-        '    {"acl": "public-read" },' +
-        '    ["eq", "$key", "' + uploadFileName + '"],' +
-        '    ["starts-with", "$Content-Type", "' + contentType + '"],' +
-        '    ["starts-with", "$Cache-Control", "public, max-age=60"],' +
-        '    {"success_action_redirect": "' + responseUrl + '" },' +
-        '  ]' +
-        '}';
+      var policyString = "{" +
+        "  \"expiration\": \"2020-01-01T12:00:00.000Z\"," +
+        "  \"conditions\": [" +
+        "    {\"bucket\": \"" + bucketName + "\" }," +
+        "    {\"acl\": \"public-read\" }," +
+        "    [\"eq\", \"$key\", \"" + uploadFileName + "\"]," +
+        "    [\"starts-with\", \"$Content-Type\", \"" + contentType + "\"]," +
+        "    [\"starts-with\", \"$Cache-Control\", \"public, max-age=60\"]," +
+        "    {\"success_action_redirect\": \"" + responseUrl + "\" }," +
+        "  ]" +
+        "}";
 
       return utf8_to_b64(policyString);
 
@@ -106,9 +106,9 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
       gapiLoader.get().then(function (gApi) {
         var request = gApi.client.storage.signPolicy(obj);
         request.execute(function (resp) {
-          console && console.log(resp);
+          $log.debug(resp);
           if (resp.code !== 200) {
-            console && console.error("Error retrieving policy: ", resp);
+            $log.error("Error retrieving policy: ", resp);
             resp = null;
           }
           deferred.resolve(resp.response);
