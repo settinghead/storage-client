@@ -1,50 +1,96 @@
 "use strict";
 
-var commonModule = angular.module("common", ["ngRoute"]);
 
-commonModule.run(function (apiAuth) { apiAuth.init(); });
+var commonModule = angular.module("common", ["ngRoute", "gapi-auth", "common-config", "gapi"]);
 
-commonModule.controller("commonController", ["$scope", "$rootScope", "$sce", "apiAuth", function ($scope, $rootScope, $sce, apiAuth) {
-	$scope.authStatus = apiAuth.AUTH_STATUS_UNDEFINED; //this value is linked to the UI
-	$scope.userProfilePicture = apiAuth.DEFAULT_PROFILE_PICTURE;
-	$scope.messages = [];
-	$scope.selectedCompanyName = "";
-	$scope.selected = "list";
+// commonModule.run(function (apiAuth) { apiAuth.ensureAuth(); });
 
-	$scope.login = function () {
-		apiAuth.login();
-	};
+commonModule.controller("commonController", ["$scope", "$rootScope", "apiAuth", 
+         "$interval", "$q", "oauthAPILoader", "$window",
+        function ($scope, $rootScope, apiAuth, $interval, $q, oauthAPILoader, $window) {
 
-	$scope.logout = function () {
-		apiAuth.logout();
-	};
+  var AUTH_STATUS_UNDEFINED = -1;
+  var AUTH_STATUS_NOT_AUTHENTICATED = 0;
+  var AUTH_STATUS_AUTHENTICATED = 1;
+  var DEFAULT_PROFILE_PICTURE = "img/user-icon.png";
+  $rootScope.user = {
+      profile: {
+          name: "",
+          email: "",
+          picture: DEFAULT_PROFILE_PICTURE
+      }
+  };
+  $rootScope.authStatus = AUTH_STATUS_UNDEFINED;     //-1=unknown, 0=not authenticated, 1=authenticated
+  $rootScope.isAuthed = false;    //true if authenticated
 
-	$scope.updateAuthStatus = function (value) {
-		if ($scope.authStatus !== value) {
-			$scope.authStatus = value;
-			$scope.userProfileName = apiAuth.userProfileName;
-			$scope.userProfileEmail = apiAuth.userProfileEmail;
-			$scope.userProfilePicture = apiAuth.userProfilePicture;
-		}
-	};
+  $rootScope.isRiseAdmin = false; //Rise Vision Billing Administrator
+  $rootScope.isPurchaser = false;
 
-	$scope.$on("profile.loaded", function (event) {
-		$scope.updateAuthStatus(apiAuth.authStatus);
-		$scope.$apply();
-		//$scope.getSystemMessages();
-	});
+  $scope.thAutoRefresh = null;
+  $rootScope.authDeffered = $q.defer();
 
-	$scope.$on("user.signout", function (event) {
-		$scope.companyLoaded = false;
-		$scope.updateAuthStatus(apiAuth.authStatus);
-		//$apply is needed when user is not logged in when app loads
-		if (!$scope.$$phase) {
-			$scope.$apply();
-		}
-	});
+  // initial auth check (silent)
+  apiAuth.checkAuth(true).then(function (authResult) {
+    if (authResult && !authResult.error) {
+        $scope.thAutoRefresh = $interval(function(){
+          $interval.cancel($scope.thAutoRefresh);
+          apiAuth.checkAuth(true);
+        }, 55 * 60 * 1000); //refresh every 55 minutes
 
-}
-]);
+        $rootScope.authStatus = AUTH_STATUS_AUTHENTICATED;
+        $rootScope.isAuthed = true;
+        console.log("user is authenticated");
+        oauthAPILoader.get();
+
+        var profileDeferred = $q.defer();
+        apiAuth.getProfile().then(function (resp) {
+          $rootScope.user.profile.name = resp.name;
+          $rootScope.user.profile.email = resp.email;
+          $rootScope.user.profile.picture = resp.picture;
+          profileDeferred.resolve();
+          $rootScope.$broadcast("profile.loaded");
+        });
+
+        // this promise is for both the company and profile load, so it signifies complete auth.
+        $q.all([profileDeferred.promise]).then(function () { $rootScope.authDeffered.resolve(); });
+    } else {
+      $rootScope.authDeffered.resolve();
+      $scope.clearUser();
+      console.log("user is not authenticated");
+    }
+  });
+
+  $rootScope.authStatus = apiAuth.AUTH_STATUS_UNDEFINED; //this value is linked to the UI
+  $rootScope.selectedCompany = {};
+  $rootScope.shipTo = {};
+  $rootScope.isCAD = false;
+  $scope.user.profile.picture = apiAuth.DEFAULT_PROFILE_PICTURE;
+  $scope.messages = [];
+  $scope.companyLoaded = false;
+
+  $scope.login = function () {
+    apiAuth.checkAuth().then(function () {
+        $window.location.reload();
+    });
+};
+
+  $scope.logout = function () {
+      /* jshint ignore:start */
+      logoutFrame.location = "https://www.google.com/accounts/Logout";
+      /* jshint ignore:end */
+      $scope.clearUser();
+      $interval.cancel($scope.thAutoRefresh);
+      $rootScope.$broadcast("user.signout");
+  };
+
+  $scope.clearUser = function () {
+      $rootScope.authStatus = AUTH_STATUS_NOT_AUTHENTICATED;
+      $rootScope.isAuthed = false;
+      $rootScope.user.profile.name = "";
+      $rootScope.user.profile.email = "";
+      $rootScope.user.profile.picture = DEFAULT_PROFILE_PICTURE;
+  };
+}]);
 
 commonModule.controller("headerController", ["$scope", function ($scope) {
 	$(".selectpicker").selectpicker();

@@ -22,18 +22,6 @@ mediaLibraryApp.controller("UploadController", ["$scope", "$rootScope", "$routeP
 	$scope.responseUrl = location.protocol + '//' + location.hostname + '/uploadComplete';
 	$scope.fileName = '';
 	$scope.contentType = '';
-
-    $scope.$on("userCompany.loaded", function (event) {
-
-    	updateAuthStatus();
-
-    });
-    
-    function updateAuthStatus() {
-    
-    	$scope.authStatus = apiAuth.authStatus;
-    
-    };
 	
 	$scope.uploadFiles = function() {
 

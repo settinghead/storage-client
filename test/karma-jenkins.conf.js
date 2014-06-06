@@ -10,7 +10,7 @@ module.exports = function(config){
     browsers : ["PhantomJS"],
 
     preprocessors : {
-      "web/script/**/*.js": "coverage"
+      "web/js/**/*.js": "coverage"
     },
 
     reporters: ["progress", "junit", "coverage"],
