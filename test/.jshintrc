@@ -1,0 +1,24 @@
+{
+  "expr": true,
+  "globals" : {
+
+    "node": true,
+    /* mocha */
+
+    "require" : false,
+    "describe" : false,
+    "beforeEach" : false,
+    "afterEach" : false,
+    "it" : false,
+    "spyOn" : false,
+    "xit" : false,
+    "xdescribe" : false,
+
+    /* protractor */
+    "protractor" : false,
+    "browser" : false,
+    "element" : false,
+    "by" : false,
+    "Buffer": false
+  }
+}
