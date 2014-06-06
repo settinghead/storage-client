@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var mediaLibraryApp = angular.module('medialibrary', [
+angular.module('medialibrary', [
   'ngRoute',
   'medialibraryFilters', 
   'medialibraryServices',
@@ -10,7 +10,8 @@ var mediaLibraryApp = angular.module('medialibrary', [
   'gapi-auth'
 ]);
 
-mediaLibraryApp.config(['$routeProvider', function($routeProvider) {
+
+angular.module('medialibrary').config(['$routeProvider', function($routeProvider) {
   $routeProvider.
 //	when('/files/', {templateUrl: 'partials/file-items.html',   controller: "FileListCtrl"}).
 //	when('/files/:companyId', {templateUrl: 'partials/file-items.html',   controller: "FileListCtrl"}).
@@ -18,19 +19,27 @@ mediaLibraryApp.config(['$routeProvider', function($routeProvider) {
 
 	when('/files/', {
     templateUrl: 'partials/main.html',
-    controller: 'MainController',
+    controller: 'FileListCtrl',
     resolve: {
-      auth: function($rootScope) {
-        return $rootScope.authDeffered.promise;
+      fileInfo: function ($q, $rootScope, FileList) {
+        var deferred = $q.defer();
+        $rootScope.authDeffered.promise.then(function (){
+          FileList().then(deferred.resolve);
+        });
+        return deferred.promise;
       }
     }
   })
 	.when('/files/:companyId', {
     templateUrl: 'partials/main.html',
-    controller: 'MainController', 
+    controller: 'FileListCtrl', 
     resolve: {
-      auth: function($rootScope) {
-        return $rootScope.authDeffered.promise;
+      fileInfo: function ($q, $rootScope, FileList, $route) {
+        var deferred = $q.defer();
+        $rootScope.authDeffered.promise.then(function (){
+          FileList($route.current.params.companyId).then(deferred.resolve);
+        });
+        return deferred.promise;
       }
     }
   })

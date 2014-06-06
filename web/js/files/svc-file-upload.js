@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("file", [])
+angular.module("gapi-file", [])
   .service("fileUpload", [ function () {
     
   }]);

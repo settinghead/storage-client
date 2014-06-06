@@ -1,8 +1,6 @@
 "use strict";
 
-
-var commonModule = angular.module("common", ["ngRoute", "gapi-auth", "common-config", "gapi"]);
-
+var commonModule = angular.module("common", ["ngRoute", "gapi-auth", "common-config", "gapi", "gapi-file"]);
 // commonModule.run(function (apiAuth) { apiAuth.ensureAuth(); });
 
 commonModule.controller("commonController", ["$scope", "$rootScope", "apiAuth", 
@@ -50,13 +48,14 @@ commonModule.controller("commonController", ["$scope", "$rootScope", "apiAuth",
           profileDeferred.resolve();
           $rootScope.$broadcast("profile.loaded");
         });
-
         // this promise is for both the company and profile load, so it signifies complete auth.
         $q.all([profileDeferred.promise]).then(function () { $rootScope.authDeffered.resolve(); });
+
+
     } else {
+      console.log("user is not authenticated");
       $rootScope.authDeffered.resolve();
       $scope.clearUser();
-      console.log("user is not authenticated");
     }
   });
 

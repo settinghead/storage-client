@@ -15,6 +15,29 @@ describe("Services: apiStorage", function() {
         return deferred.promise;
       }
     });
+
+    $provide.value("gapiLoader", {get: function() {
+       var deffered = Q.defer();
+       var gapi = {
+        client: { 
+          storage: { 
+            files: {
+              get: function () {
+                return {
+                  execute: function (callback) {
+                    setTimeout(function () {
+                      callback(rvFixtures.companiesResp);
+                    }, 0);
+                  }
+                };
+              }
+            }
+          }
+        }
+       };
+       deffered.resolve(gapi);
+       return deffered.promise;
+    }});
   }));
 
 
@@ -22,15 +45,6 @@ describe("Services: apiStorage", function() {
     inject(function(apiStorage) {
       expect(apiStorage).be.defined;
       done();
-    });
-  });
-
-  describe("getFiles", function () {
-    it("should get files", function (done) {
-      inject(function (apiStorage) {
-        
-        done();
-      });
     });
   });
   
@@ -48,7 +62,7 @@ describe("Services: apiStorage", function() {
   describe("getFileUrl", function () {
     it("should get file URL", function (done) {
       done();
-    })
+    });
   });
 
   describe("createBucket", function () {

@@ -1,9 +1,9 @@
 /*jshint expr:true */
 "use strict";
 
-describe("Services: fileList", function() {
+describe("Services: FileList", function() {
 
-  beforeEach(module("file"));
+  beforeEach(module("gapi-file"));
 
   it("should exist", function(done) {
     inject(function(fileUpload) {

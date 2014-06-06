@@ -36,7 +36,8 @@
   <script type="text/javascript" src="common/gapi/svc-gapi.js"></script>
   <script type="text/javascript" src="common/auth/svc-gapi-auth.js"></script>
   <script type="text/javascript" src="js/data/data-storage.js"></script>
-  
+  <script type="text/javascript" src="js/files/svc-file-list.js"></script>
+
   <script type="text/javascript" src="js/app.js"></script>
   <script type="text/javascript" src="js/controllers.js"></script>
   <script type="text/javascript" src="js/ctr-files.js"></script>
@@ -99,7 +100,7 @@
 			</div>
 
 			<!--Body content-->
-			<div ng-view></div>
+			<div ng-view ng-controller="MainController"></div>
 		</div>
 
 		<!-- Latest compiled and minified JavaScript -->

@@ -8,36 +8,6 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
     apiAuth.checkAuth(true).then(function () {
         storageAPILoader.get();
     });
-    
-    // Storage API access 
-    
-    this.getFiles = function (companyId) {
-      var deferred = $q.defer();
-
-      var obj = {
-        "companyId": companyId
-      };
-
-      gapiLoader.get().then(function (gApi) {
-        var request = gApi.client.storage.files.get(obj);
-        request.execute(function (resp) {
-            console && console.log(resp);
-            if (resp.code === 200) {  
-              $rootScope.actionsDisabled = false;
-            }
-            else if (resp.code === 403 || resp.code === 401 || resp.code === 400) {
-              $rootScope.authenticationError = true;
-            }
-            else if (resp.code == 404) {
-              $rootScope.actionsDisabled = false;
-              $rootScope.requireBucketCreation = true;
-            }
-          deferred.resolve(resp);
-        });
-      });
-
-      return deferred.promise;
-    };
 
     this.deleteFiles = function (companyId, files, validationRequired) {
       var deferred = $q.defer();

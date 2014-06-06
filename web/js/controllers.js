@@ -1,6 +1,6 @@
 'use strict';
 
-mediaLibraryApp.controller("MainController", ["$scope", "$rootScope", "$routeParams", "apiStorage", 
+angular.module('medialibrary').controller("MainController", ["$scope", "$rootScope", "$routeParams", "apiStorage",
   function ($scope, $rootScope, $routeParams, apiStorage) {
     $rootScope.actionsDisabled = true;
     $rootScope.closeButtonClick = function() {

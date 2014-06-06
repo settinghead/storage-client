@@ -1,7 +1,8 @@
 /* jshint ignore:start */
-var isClientJS = false;
+
+window.isClientJS = false;
 function handleClientJSLoad() {
-    isClientJS = true;
+    window.isClientJS = true;
     console.log("ClientJS is loaded");
     //Ready: create a generic event
     var evt = document.createEvent("Events");
@@ -13,7 +14,7 @@ function handleClientJSLoad() {
 /* jshint ignore:end */
 
 angular.module("gapi", ["common-config"])
-  .factory("oauthAPILoader", ["gapiLoader", "$q", function (gapiLoader, $q) {
+  .factory("oauthAPILoader", ["gapiLoader", "$q", "$log", function (gapiLoader, $q, $log) {
     var deferred = $q.defer();
     var promise;
 
@@ -23,7 +24,7 @@ angular.module("gapi", ["common-config"])
           promise = deferred.promise;
           gapiLoader.get().then(function (gApi) {
             gApi.client.load("oauth2", "v2", function () {
-                console.log("OAuth2 API is loaded");
+                $log.info("OAuth2 API is loaded");
                 deferred.resolve(gApi);
             });
           });
@@ -34,42 +35,42 @@ angular.module("gapi", ["common-config"])
     return factory;
 
   }])  
-  .factory("storageAPILoader", ["$rootScope", "gapiLoader", "$q", "$routeParams", "CORE_URL", "STORAGE_URL", function ($rootScope, gapiLoader, $q, $routeParams, CORE_URL, STORAGE_URL) {
-    var deferred = $q.defer();
-    var promise;
 
-    var factory = {
+  .factory("storageAPILoader", ["$rootScope", "gapiLoader", "$q", "$routeParams", "CORE_URL", "STORAGE_URL", "$window", "$log", function ($rootScope, gapiLoader, $q, $routeParams, CORE_URL, STORAGE_URL, $window, $log) {
+    return {
       get: function () {
+        var deferred = $q.defer();
         var errMsg;
-        if (!promise) {
-          promise = deferred.promise;
-          gapiLoader.get().then(function (gApi) {
+        gapiLoader.get().then(function (gApi) {
+          if ($window.isStorageApi) {
+            deferred.resolve(gApi.client.storage);
+          }
+          else {
             gApi.client.load("storage", "v0.01", function () {
               if (gApi.client.storage) {
                 $rootScope.$broadcast("storageApi.loaded");
-                console.log("Storage API is loaded: gApi: ", gApi.client.storage);
+                $log.info("Storage API is loaded: gApi: ", gApi.client.storage);
+                $window.isStorageApi = true;
                 deferred.resolve(gApi.client.storage);
               } else {
                 errMsg = "Storage API is NOT loaded";
-                console.error(errMsg);
+                $log.error(errMsg);
                 deferred.reject(errMsg);
               }
             }, $routeParams.apiuri ? $routeParams.apiuri : STORAGE_URL);
-          });
-        }
-        return promise;
+          }
+        });
+        return deferred.promise;
       }
     };
-    return factory;
-
   }])
+
   .factory("gapiLoader", ["$q", "$window", function ($q, $window) {
     return {
       get: function () {
         var deferred = $q.defer(), gapiLoaded;
 
-        if($window.isClientJS) {
-          
+        if($window.isClientJS) { 
           deferred.resolve($window.gapi);
         }
 
