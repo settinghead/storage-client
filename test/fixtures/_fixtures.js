@@ -1,1 +1,1 @@
-window.rvFixtures = {};
+var rvFixtures = {};

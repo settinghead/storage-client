@@ -1,5 +1,4 @@
 "use strict";
-
 angular.module("gapi-file", ["gapi", "medialibraryServices"])
   .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", function ($q, $log, storageAPILoader, LocalFiles) {
     return function (companyId) {

@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
 /* Filters */
 
-angular.module('medialibraryFilters', [])
+angular.module("medialibraryFilters", [])
 
-.filter('lastModifiedFilter', function() {
+.filter("lastModifiedFilter", function() {
   return function(timestamp) {
-		if (timestamp == null) {
+		if (timestamp === null) {
 			return "";
 		}
 
@@ -42,10 +42,10 @@ angular.module('medialibraryFilters', [])
 		}
 		
 		return difference;
-	}
+	};
 })
 
-.filter('fileTypeFilter', function() {
+.filter("fileTypeFilter", function() {
 	return function(filename) {
 		var re = /(?:\.([^.]+))?$/;
 		var ext = re.exec(filename)[1];
@@ -56,10 +56,10 @@ angular.module('medialibraryFilters', [])
 		}
 
 		return "";
-	}
+	};
 })
 
-.filter('fileSizeFilter', function() {
+.filter("fileSizeFilter", function() {
 	return function(size) {
 		var sizeString = "";
 		
@@ -76,12 +76,11 @@ angular.module('medialibraryFilters', [])
 			sizeString = Math.floor(size / (Math.pow(1024, 3) / 10)) / 10.0 + " GB";
 		}
 		
-		return sizeString;	
-
-	}
+		return sizeString;
+	};
 })
 
-.filter('groupBy', function() {
+.filter("groupBy", function() {
     return function(items, groupedBy) {
         if (items) {
             var finalItems = [],
@@ -91,11 +90,11 @@ angular.module('medialibraryFilters', [])
                     thisGroup = [];
                 }
                 thisGroup.push(items[i]);
-                if (((i+1) % groupedBy) == 0) {
+                if (((i+1) % groupedBy) === 0) {
                     finalItems.push(thisGroup);
                     thisGroup = null;
                 }
-            };
+            }
             if (thisGroup) {
                 finalItems.push(thisGroup);
             }

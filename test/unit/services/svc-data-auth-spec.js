@@ -1,7 +1,7 @@
 /*jshint expr:true */
-"use strict";
 
-xdescribe("Services: apiAuth", function() {
+describe("Services: apiAuth", function() {
+  "use strict";
 
   beforeEach(module("gapi-auth"));
 
