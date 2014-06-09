@@ -56,6 +56,7 @@ commonModule.controller("commonController", ["$scope", "$rootScope", "apiAuth",
       console.log("user is not authenticated");
       $rootScope.authDeffered.resolve();
       $scope.clearUser();
+      $rootScope.$broadcast("user.signout"); 
     }
   });
 
