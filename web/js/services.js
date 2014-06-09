@@ -10,7 +10,7 @@ angular.module('medialibraryServices', ['ngResource']).
   	});
 	}).
 	factory('LocalFiles', function($resource, $window) {
-    return $resource($window.location.pathname + 'files/files.json', {}, {
+    return $resource('/files/files.json', {}, {
       query: {method:'GET', params:{}, isArray:true}
   	});
 	});
