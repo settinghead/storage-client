@@ -108,7 +108,7 @@ angular.module('medialibrary').controller("UploadController", ["$scope", "$rootS
 
 	$('#uploadcompleteframe').load(function(event) {
 		try {
-			if (event.target.contentWindow.name) {
+			if (event.target.contentWindow.name && $scope.uploadActive === true) {
 				onUploadComplete();
 			}
 			else {
