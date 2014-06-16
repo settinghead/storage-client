@@ -32,7 +32,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 	$scope.orderByAttribute = 'lastModified';
   
   $scope.fileExtOrderFunction = function(file) {
-    return file.key.split('.').pop();
+    return file.name.split('.').pop();
   };
 
   $scope.fileSizeOrderFunction = function(file) {
@@ -111,7 +111,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 		}
 
 		if (file) {
-			var fileUrl = $rootScope.bucketUrl + file.key;
+			var fileUrl = $rootScope.bucketUrl + file.name;
 			var data = { params: fileUrl };
 			gadgets.rpc.call('', 'rscmd_saveSettings', null, data);
 		}
@@ -161,7 +161,7 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 
 		for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
 			if ($scope.mediaFiles[ i ].checked) {
-				selectedFiles.push($scope.mediaFiles[ i ].key);
+				selectedFiles.push($scope.mediaFiles[ i ].name);
 			}
 		}
 		return selectedFiles;
