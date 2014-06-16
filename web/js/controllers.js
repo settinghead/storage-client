@@ -38,6 +38,9 @@ function ButtonsController($scope, $rootScope) {
     $rootScope.$broadcast('FileDeleteAction');
   }
 
+  $scope.newFolderButtonClick = function() {
+    $rootScope.$broadcast('NewFolderAction');
+  }
 }
 
 function ProgressController($scope, $rootScope) {

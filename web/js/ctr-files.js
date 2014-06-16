@@ -137,6 +137,14 @@ angular.module('medialibrary').controller("FileListCtrl", ["$scope", "$rootScope
 			apiStorage.deleteFiles($routeParams.companyId, selectedFiles).then(onGetFiles);
 		}
 	});
+
+	$scope.$on('NewFolderAction', function(event) {
+          var folderName = prompt('new folder');
+          if (folderName) {
+            apiStorage.createFolder($routeParams.companyId, folderName)
+                      .then(onGetFiles);
+          }
+	});
 	
 	function getSelectedFile() {
 		var file;
