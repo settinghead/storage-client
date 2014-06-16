@@ -13,7 +13,8 @@ angular.module('medialibraryFilters', [])
 		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
-		var oldDate = new Date(timestamp);
+		var oldDate = new Date();
+                    oldDate.setTime(timestamp.value);
 		var difference = "";
 		var newDate = new Date();
 		
