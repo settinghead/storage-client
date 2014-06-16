@@ -74,6 +74,27 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
       return deferred.promise;
     };
 
+    this.createFolder = function (companyId, folderName) {
+      var deferred = $q.defer();
+      var obj = {
+        "companyId": companyId,
+        "folder": folderName
+      };
+      gapiLoader.get().then(function (gApi) {
+        var request = gApi.client.storage.createFolder(obj);
+        request.execute(function (resp) {
+          if (resp.code !== 200) {
+            console && console.error("Error creating folder: ", resp);
+            deferred.reject(resp);
+          } else {
+            console && console.log(resp);
+            deferred.resolve(resp);
+          }
+        });
+      });
+      return deferred.promise;
+    };
+
     this.getUploadPolicyBase64 = function (bucketName, uploadFileName, contentType, responseUrl) {
 
       var policyString = '{' +

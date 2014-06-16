@@ -26,9 +26,9 @@
 				<th class="col-md-1 text-center">
 					<input type="checkbox" ng-model="selectAll" ng-change="selectAllCheckboxes()">
 				</th>
-				<th class="col-md-5" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
+				<th class="col-md-5" ng-click="orderByAttribute = 'name'; reverseSort = !reverseSort">
 					<a href="">File Name
-						<span ng-show="orderByAttribute=='key'">
+						<span ng-show="orderByAttribute=='name'">
 							<span ng-show="reverseSort">
 								<i class="fa fa-sort-alpha-desc"></i>
 							</span>
@@ -62,9 +62,9 @@
 						</span>
 					</a>
 				</th>
-				<th class="col-md-3" ng-click="orderByAttribute = 'lastModified'; reverseSort = !reverseSort">
+				<th class="col-md-3" ng-click="orderByAttribute = 'updated'; reverseSort = !reverseSort">
 					<a href="">Date Modified
-						<span ng-show="orderByAttribute=='lastModified'">
+						<span ng-show="orderByAttribute=='updated'">
 							<span ng-show="reverseSort">
 								<i class="fa fa-sort-desc"></i>
 							</span>
@@ -82,16 +82,16 @@
 					<input type="checkbox" ng-model="file.checked">
 				</td>
 				<td>
-					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
+					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.name}}</a>
 				</td>
 				<td>
-					{{file.key | fileTypeFilter}}
+					{{file.name | fileTypeFilter}}
 				</td>
 				<td>
 					{{file.size | fileSizeFilter}}
 				</td>
 				<td>
-					{{file.lastModified | lastModifiedFilter}}
+					{{file.updated | lastModifiedFilter}}
 				</td>
 			</tr>
 		</tbody>
