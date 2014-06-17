@@ -114,12 +114,16 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
       var fileUrl = $rootScope.bucketUrl + file.name;
       var data = { params: fileUrl };
 
-      if (file.name.substr(-1) === '/') {
-        $scope.currentFolder = file.name.substr(-1);
-        FileList($routeParams.companyId).then($route.reload());
+      if (fileIsFolder()) {
+        $rootScope.currentFolder = file.name;
+        $route.reload();
       } else {
         gadgets.rpc.call("", "rscmd_saveSettings", null, data);
       }
+    }
+
+    function fileIsFolder() {
+      return file.name.substr(-1) === '/';
     }
   });
 	

@@ -1,6 +1,6 @@
 "use strict";
 angular.module("gapi-file", ["gapi", "medialibraryServices"])
-  .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", function ($q, $log, storageAPILoader, LocalFiles) {
+  .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", "$rootScope", function ($q, $log, storageAPILoader, LocalFiles, $rootScope) {
     return function (companyId) {
       var deferred = $q.defer();
 
