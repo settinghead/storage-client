@@ -1,8 +1,8 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$filter", "apiStorage", "apiAuth", "LocalFiles", "$log", "storageAPILoader", "fileInfo", "FileList",
-	function ($scope, $rootScope, $routeParams, $route, $filter, apiStorage, apiAuth, LocalFiles, $log, storageAPILoader, fileInfo, FileList) {
+angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "apiStorage", "fileInfo", "FileList",
+	function ($scope, $rootScope, $routeParams, $route, apiStorage, fileInfo, FileList) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
