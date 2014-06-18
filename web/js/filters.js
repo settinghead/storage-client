@@ -77,6 +77,7 @@ angular.module("medialibraryFilters", [])
 .filter("fileSizeFilter", function() {
 	return function(size) {
 		var sizeString = "";
+                if (size === 0) {return "0 bytes";}
 
                 if (!size) { return "";}
 		

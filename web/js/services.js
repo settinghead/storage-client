@@ -1,4 +1,4 @@
-'use strict";
+"use strict";
 
 angular.module("medialibraryServices", ["ngResource"]).
 	factory("MediaFiles", function($resource) {

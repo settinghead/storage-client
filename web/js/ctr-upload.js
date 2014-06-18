@@ -9,7 +9,7 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
   $scope.uploadError = false;
 
   $scope.googleAccessId = "452091732215@developer.gserviceaccount.com";
-  $scope.responseUrl = location.protocol + "//" + location.hostname + ":" + location.port + "/uploadComplete';
+  $scope.responseUrl = location.protocol + "//" + location.hostname + ":" + location.port + "/uploadComplete";
   $scope.fileName = "";
   $scope.contentType = "";
 
