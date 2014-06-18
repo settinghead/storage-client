@@ -82,7 +82,7 @@
 					<input type="checkbox" ng-model="file.checked">
 				</td>
 				<td>
-					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.name}}</a>
+                                  <a href="" ng-click="$emit('FileSelectAction', file)">{{file.name | fileNameFilter}}</a>
 				</td>
 				<td>
 					{{file.name | fileTypeFilter}}

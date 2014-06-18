@@ -1,8 +1,8 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "apiStorage", "fileInfo", "FileList",
-	function ($scope, $rootScope, $routeParams, $route, apiStorage, fileInfo, FileList) {
+angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$location", "apiStorage", "fileInfo",
+	function ($scope, $rootScope, $routeParams, $route, $location, apiStorage, fileInfo) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
@@ -11,6 +11,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   $rootScope.requireBucketCreation = false;
 	
   $scope.mediaFiles = fileInfo.files || [];
+  $scope.$location = $location;
 
   if(fileInfo.authError) {
     $scope.authenticationError = true;
@@ -46,7 +47,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     if ($rootScope.authStatus !== 1) {
       return;
     }
-    new FileList($routeParams.companyId).then($route.reload());
+    $route.reload();
   };
 	
   function onGetFiles(resp) {
@@ -113,10 +114,14 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     if (file) {
       var fileUrl = $rootScope.bucketUrl + file.name;
       var data = { params: fileUrl };
+      var newPath;
 
-      if (fileIsFolder()) {
-        $rootScope.currentFolder = file.name;
-        $route.reload();
+      if (fileIsCurrentFolder()) {
+        $scope.$location.path("/files/" + $routeParams.companyId); 
+      } else if (fileIsFolder()) {
+        $scope.$location
+              .path("/files/" + $routeParams.companyId + 
+                    "/folder/" + file.name)
       } else {
         gadgets.rpc.call("", "rscmd_saveSettings", null, data);
       }
@@ -124,6 +129,10 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
     function fileIsFolder() {
       return file.name.substr(-1) === '/';
+    }
+
+    function fileIsCurrentFolder() {
+      return file.name === $routeParams.folder + "/"
     }
   });
 	

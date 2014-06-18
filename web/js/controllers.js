@@ -18,9 +18,12 @@ angular.module('medialibrary').controller("MainController", ["$scope", "$rootSco
   }
 ])
 
-.controller("ButtonsController", ["$scope", "$rootScope", function ($scope, $rootScope) {
+.controller("ButtonsController",
+            ["$scope", "$rootScope", "$routeParams",
+            function ($scope, $rootScope, $routeParams) {
   $scope.downloadDisabled = true;
   $scope.deleteDisabled = true;	
+  $scope.newFolderDisabled = ($routeParams.folder ? true : false);
 
   $scope.$on("CheckedCountChange", function(event, count) {
     $scope.downloadDisabled = count !== 1;

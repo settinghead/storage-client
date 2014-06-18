@@ -6,7 +6,7 @@ angular.module("medialibraryFilters", [])
 
 .filter("lastModifiedFilter", function() {
   return function(timestamp) {
-		if (timestamp === null) {
+		if (!timestamp) {
 			return "";
 		}
 
@@ -59,9 +59,26 @@ angular.module("medialibraryFilters", [])
 	};
 })
 
+.filter("fileNameFilter", ["$routeParams", function($routeParams) {
+	return function(filename) {
+		if ($routeParams.folder) {
+                  if (filename === $routeParams.folder ||
+                      filename === $routeParams.folder + "/") {
+                    return "/Previous Folder"
+                  } else {
+                    return filename.substr($routeParams.folder.length + 1);
+                  }
+		}
+
+		return filename;
+	};
+}])
+
 .filter("fileSizeFilter", function() {
 	return function(size) {
 		var sizeString = "";
+
+                if (!size) { return "";}
 		
 		if (size < 1000) {
 			sizeString = size + " bytes";

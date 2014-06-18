@@ -38,6 +38,10 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
       $scope.uploadFileSize = element.files[i].size;
       $scope.contentType = element.files[i].type;
 
+      if ($routeParams.folder) {
+        $scope.uploadFileName = $routeParams.folder + "/" + $scope.uploadFileName;
+      }
+
       $scope.uploadActive = true;
       $scope.uploadComplete = false;
       $scope.uploadError = false;
