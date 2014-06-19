@@ -68,7 +68,8 @@ Credentials: admin/admin
 Click on one of the tasks:
 - Deploy to FTP - Production
 - Deploy to FTp - Staging
+=======
 
-In the "Run Job" view, pick one of the Jenkins builds from the drop-down box, and click "Run Job". The selected build will be deployed to its corresponding server, specified by environment.
+If you are looking for user documentation on Rise Vision please see http://www.risevision.com/help/users/
 
-Miscellaneous
+If you would like more information on developing applications for Rise Vision please visit http://www.risevision.com/help/developers/. 
