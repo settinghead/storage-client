@@ -79,12 +79,12 @@
 		<tbody>
 			<tr ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" ng-class="{active: file.checked}">
 				<td class="text-center">
-					<input type="checkbox" ng-model="file.checked">
+					<input type="checkbox" ng-model="file.checked" ng-show="!fileIsCurrentFolder(file)">
 				</td>
 				<td>
                                   <a href="" ng-click="$emit('FileSelectAction', file)">{{file.name | fileNameFilter}}</a>
 				</td>
-				<td>
+                                <td>
 					{{file.name | fileTypeFilter}}
 				</td>
 				<td>

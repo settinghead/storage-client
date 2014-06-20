@@ -102,9 +102,19 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     $scope.selectAll = !$scope.selectAll;
 
     for ( var i = 0; i < $scope.mediaFiles.length; ++i ) {
+      if (!$scope.fileIsCurrentFolder($scope.mediaFiles[i])) {
         $scope.mediaFiles[ i ].checked = $scope.selectAll;
+      }
     }
   };
+
+  $scope.fileIsCurrentFolder = function(file) {
+      return file.name === $routeParams.folder + "/"
+    }
+
+  $scope.fileIsFolder = function(file) {
+      return file.name.substr(-1) === '/';
+    }
 
   $scope.$on("FileSelectAction", function(event, file) {
     if (!file) {
@@ -116,23 +126,15 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
       var data = { params: fileUrl };
       var newPath;
 
-      if (fileIsCurrentFolder()) {
+      if ($scope.fileIsCurrentFolder(file)) {
         $scope.$location.path("/files/" + $routeParams.companyId); 
-      } else if (fileIsFolder()) {
+      } else if ($scope.fileIsFolder(file)) {
         $scope.$location
               .path("/files/" + $routeParams.companyId + 
                     "/folder/" + file.name)
       } else {
         gadgets.rpc.call("", "rscmd_saveSettings", null, data);
       }
-    }
-
-    function fileIsFolder() {
-      return file.name.substr(-1) === '/';
-    }
-
-    function fileIsCurrentFolder() {
-      return file.name === $routeParams.folder + "/"
     }
   });
 	
@@ -153,20 +155,31 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   }
 
   $scope.$on("FileDeleteAction", function(event) {
-    var selectedFiles = getSelectedFiles();
-    if (confirm("Are you sure you want to delete the " + 
-       selectedFiles.length + " files selected?")) {
+    var selectedFiles = getSelectedFiles()
+       ,confirmationMessage = "Please confirm PERMANENT deletion of:\n\n";
+
+    selectedFiles.forEach(function(val) {
+      if (val.indexOf("/") > -1) {
+        confirmationMessage += "ENTIRE FOLDER: " + val + "\n";
+      } else {
+        confirmationMessage += "file: " + val + "\n";
+      }
+    });
+
+    if (confirm(confirmationMessage)) {
       apiStorage.deleteFiles($routeParams.companyId, selectedFiles)
+                .then(function() {$rootScope.updateList()})
                 .then(onGetFiles);
     }
   });
 
   $scope.$on("NewFolderAction", function(event) {
     var folderName = prompt("new folder");
-    if (folderName) {
-      apiStorage.createFolder($routeParams.companyId, folderName)
-    .then(onGetFiles);
-    }
+    if (!folderName) {return;}
+    if (folderName.indexOf("/") > -1) {return;}
+    apiStorage.createFolder($routeParams.companyId, folderName)
+              .then(function() {$rootScope.updateList()})
+              .then(onGetFiles);
   });
 
   function getSelectedFile() {
