@@ -69,14 +69,15 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
   $scope.$watch("mediaFiles", function(items) {
     if(items) {
-      var checkedCount = 0;
+      var checkedCount = 0, folderChecked = false;
       items.forEach(function(item) {
         if (item.checked) {
           checkedCount++;
+          if (item.name.substr(-1) === "/") { folderChecked = true;}
         }
         $rootScope.librarySize = getLibrarySize(items);
       });
-      $rootScope.$broadcast("CheckedCountChange", checkedCount);    
+      $rootScope.$broadcast("CheckedCountChange", checkedCount, folderChecked);    
     }
     else {
       $rootScope.librarySize = 0;
@@ -159,7 +160,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
        ,confirmationMessage = "Please confirm PERMANENT deletion of:\n\n";
 
     selectedFiles.forEach(function(val) {
-      if (val.indexOf("/") > -1) {
+      if (val.substr(-1) === "/") {
         confirmationMessage += "ENTIRE FOLDER: " + val + "\n";
       } else {
         confirmationMessage += "file: " + val + "\n";

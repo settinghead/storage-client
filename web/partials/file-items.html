@@ -85,13 +85,13 @@
                                   <a href="" ng-click="$emit('FileSelectAction', file)">{{file.name | fileNameFilter}}</a>
 				</td>
                                 <td>
-					{{file.name | fileTypeFilter}}
+                                  <span ng-show="!fileIsFolder(file)">{{file.name | fileTypeFilter}}</span>
 				</td>
 				<td>
-					{{file.size | fileSizeFilter}}
+                                  <span ng-show="!fileIsFolder(file)">{{file.size | fileSizeFilter}}</span>
 				</td>
 				<td>
-					{{file.updated | lastModifiedFilter}}
+                                  <span ng-show="!fileIsFolder(file)">{{file.updated | lastModifiedFilter}}</span>
 				</td>
 			</tr>
 		</tbody>

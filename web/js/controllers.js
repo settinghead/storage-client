@@ -22,12 +22,14 @@ angular.module('medialibrary').controller("MainController", ["$scope", "$rootSco
             ["$scope", "$rootScope", "$routeParams",
             function ($scope, $rootScope, $routeParams) {
   $scope.downloadDisabled = true;
+  $scope.uploadDisabled = false;
   $scope.deleteDisabled = true;	
   $scope.newFolderDisabled = ($routeParams.folder ? true : false);
 
-  $scope.$on("CheckedCountChange", function(event, count) {
-    $scope.downloadDisabled = count !== 1;
+  $scope.$on("CheckedCountChange", function(event, count, folder) {
+    $scope.downloadDisabled = count !== 1 || folder;
     $scope.deleteDisabled = !count;
+    $scope.uploadDisabled = count;
   });
 
   $scope.uploadButtonClick = function() {
