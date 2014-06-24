@@ -44,32 +44,3 @@ If you have any questions or problems please don't hesitate to join our lively a
 If you are looking for user documentation on Rise Vision please see http://www.risevision.com/help/users/
 
 If you would like more information on developing applications for Rise Vision please visit http://www.risevision.com/help/developers/. 
-=======
-Continuous Deployment
-----
-### Monitoring CI Builds
-
-The Jenkins CI portal is located at
-- [http://devtools1.risevision.com:8080/view/Storage%20Client/](http://devtools1.risevision.com:8080/view/Storage%20Client/)
-
-Three projects are present:
-- Storage-Client-PR-Tests, which tests commits to all branches, including forks specificed in the configuration.
-- Storage-Client-PR, which builds commits to all branches, including PR's
-- Storage-Client-Master-Stage, which builds all commits to the master and generate a distrubiton(or artifact) specific to production environment
-- Storage-Client-Master-Prod, which builds all commits to the master and generate a distrubiton(or artifact) specific to staging environment
-
-### Manual Deploy to Production and Staging Server
-
-Open Rundeck via the following address:
-- [http://devtools1.risevision.com:4440/project/rv-storage/jobs](http://devtools1.risevision.com:4440/project/rv-storage/jobs)
-
-Credentials: admin/admin
-
-Click on one of the tasks:
-- Deploy to FTP - Production
-- Deploy to FTp - Staging
-=======
-
-If you are looking for user documentation on Rise Vision please see http://www.risevision.com/help/users/
-
-If you would like more information on developing applications for Rise Vision please visit http://www.risevision.com/help/developers/. 
