@@ -165,7 +165,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
     selectedFiles.forEach(function(val) {
       if (val.substr(-1) === "/") {
-        confirmationMessage += "ENTIRE FOLDER: " + val + "\n";
+        confirmationMessage += "folder: " + val + " and all its contents" + "\n";
       } else {
         confirmationMessage += "file: " + val + "\n";
       }
@@ -179,7 +179,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   });
 
   $scope.$on("NewFolderAction", function(event) {
-    var folderName = prompt("new folder");
+    var folderName = prompt("Enter a folder name");
     if (!folderName) {return;}
     if (folderName.indexOf("/") > -1) {return;}
     apiStorage.createFolder($routeParams.companyId, folderName)
