@@ -33,6 +33,10 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   
   $scope.orderByAttribute = "lastModified";
   
+  $scope.dateModifiedOrderFunction = function(file) {
+    return file.updated ? file.updated.value : ""
+  };
+
   $scope.fileExtOrderFunction = function(file) {
     return file.name.split(".").pop();
   };

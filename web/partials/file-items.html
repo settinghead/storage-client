@@ -62,9 +62,9 @@
 						</span>
 					</a>
 				</th>
-				<th class="col-md-3" ng-click="orderByAttribute = 'updated'; reverseSort = !reverseSort">
+				<th class="col-md-3" ng-click="orderByAttribute = dateModifiedOrderFunction; reverseSort = !reverseSort">
 					<a href="">Date Modified
-						<span ng-show="orderByAttribute=='updated'">
+						<span ng-show="orderByAttribute==dateModifiedOrderFunction">
 							<span ng-show="reverseSort">
 								<i class="fa fa-sort-desc"></i>
 							</span>
