@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("gapi", [])
+angular.module("gapi")
   .factory("oauthAPILoader", ["gapiLoader", "$q", function (gApi, $q) {
     var deferred = $q.defer();
     var promise;

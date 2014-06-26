@@ -1,19 +1,20 @@
-'use strict';
+"use strict";
 
 /* Filters */
 
-angular.module('medialibraryFilters', [])
+angular.module("medialibraryFilters", [])
 
-.filter('lastModifiedFilter', function() {
+.filter("lastModifiedFilter", function() {
   return function(timestamp) {
-		if (timestamp == null) {
+		if (!timestamp) {
 			return "";
 		}
 
 		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
-		var oldDate = new Date(timestamp);
+		var oldDate = new Date();
+                    oldDate.setTime(timestamp.value);
 		var difference = "";
 		var newDate = new Date();
 		
@@ -41,10 +42,10 @@ angular.module('medialibraryFilters', [])
 		}
 		
 		return difference;
-	}
+	};
 })
 
-.filter('fileTypeFilter', function() {
+.filter("fileTypeFilter", function() {
 	return function(filename) {
 		var re = /(?:\.([^.]+))?$/;
 		var ext = re.exec(filename)[1];
@@ -55,12 +56,30 @@ angular.module('medialibraryFilters', [])
 		}
 
 		return "";
-	}
+	};
 })
 
-.filter('fileSizeFilter', function() {
+.filter("fileNameFilter", ["$routeParams", function($routeParams) {
+	return function(filename) {
+		if ($routeParams.folder) {
+                  if (filename === $routeParams.folder ||
+                      filename === $routeParams.folder + "/") {
+                    return "/Previous Folder"
+                  } else {
+                    return filename.substr($routeParams.folder.length + 1);
+                  }
+		}
+
+		return filename;
+	};
+}])
+
+.filter("fileSizeFilter", function() {
 	return function(size) {
 		var sizeString = "";
+                if (size === 0) {return "0 bytes";}
+
+                if (!size) { return "";}
 		
 		if (size < 1000) {
 			sizeString = size + " bytes";
@@ -75,12 +94,11 @@ angular.module('medialibraryFilters', [])
 			sizeString = Math.floor(size / (Math.pow(1024, 3) / 10)) / 10.0 + " GB";
 		}
 		
-		return sizeString;	
-
-	}
+		return sizeString;
+	};
 })
 
-.filter('groupBy', function() {
+.filter("groupBy", function() {
     return function(items, groupedBy) {
         if (items) {
             var finalItems = [],
@@ -90,11 +108,11 @@ angular.module('medialibraryFilters', [])
                     thisGroup = [];
                 }
                 thisGroup.push(items[i]);
-                if (((i+1) % groupedBy) == 0) {
+                if (((i+1) % groupedBy) === 0) {
                     finalItems.push(thisGroup);
                     thisGroup = null;
                 }
-            };
+            }
             if (thisGroup) {
                 finalItems.push(thisGroup);
             }

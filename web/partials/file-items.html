@@ -26,9 +26,9 @@
 				<th class="col-md-1 text-center">
 					<input type="checkbox" ng-model="selectAll" ng-change="selectAllCheckboxes()">
 				</th>
-				<th class="col-md-5" ng-click="orderByAttribute = 'key'; reverseSort = !reverseSort">
+				<th class="col-md-5" ng-click="orderByAttribute = 'name'; reverseSort = !reverseSort">
 					<a href="">File Name
-						<span ng-show="orderByAttribute=='key'">
+						<span ng-show="orderByAttribute=='name'">
 							<span ng-show="reverseSort">
 								<i class="fa fa-sort-alpha-desc"></i>
 							</span>
@@ -62,9 +62,9 @@
 						</span>
 					</a>
 				</th>
-				<th class="col-md-3" ng-click="orderByAttribute = 'lastModified'; reverseSort = !reverseSort">
+				<th class="col-md-3" ng-click="orderByAttribute = dateModifiedOrderFunction; reverseSort = !reverseSort">
 					<a href="">Date Modified
-						<span ng-show="orderByAttribute=='lastModified'">
+						<span ng-show="orderByAttribute==dateModifiedOrderFunction">
 							<span ng-show="reverseSort">
 								<i class="fa fa-sort-desc"></i>
 							</span>
@@ -79,19 +79,19 @@
 		<tbody>
 			<tr ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" ng-class="{active: file.checked}">
 				<td class="text-center">
-					<input type="checkbox" ng-model="file.checked">
+					<input type="checkbox" ng-model="file.checked" ng-show="!fileIsCurrentFolder(file)">
 				</td>
 				<td>
-					<a href="" ng-click="$emit('FileSelectAction', file)">{{file.key}}</a>
+                                  <a href="" ng-click="$emit('FileSelectAction', file)">{{file.name | fileNameFilter}}</a>
+				</td>
+                                <td>
+                                  <span ng-show="!fileIsFolder(file)">{{file.name | fileTypeFilter}}</span>
 				</td>
 				<td>
-					{{file.key | fileTypeFilter}}
+                                  <span ng-show="!fileIsFolder(file)">{{file.size | fileSizeFilter}}</span>
 				</td>
 				<td>
-					{{file.size | fileSizeFilter}}
-				</td>
-				<td>
-					{{file.lastModified | lastModifiedFilter}}
+                                  <span ng-show="!fileIsFolder(file)">{{file.updated | lastModifiedFilter}}</span>
 				</td>
 			</tr>
 		</tbody>

@@ -92,7 +92,7 @@ commonModule.controller("commonController", ["$scope", "$rootScope", "apiAuth",
   };
 }]);
 
-commonModule.controller("headerController", ["$scope", function ($scope) {
+commonModule.controller("headerController", [function () {
 	$(".selectpicker").selectpicker();
 }
 ]);

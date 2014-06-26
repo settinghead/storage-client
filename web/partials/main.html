@@ -45,13 +45,18 @@
  					</li>
 -->
 				<li>
-					<button class="btn" type="button" title="Upload" ng-click="uploadButtonClick()" ng-disabled="actionsDisabled">
+					<button class="btn" type="button" title="Upload" ng-click="uploadButtonClick()" ng-disabled="actionsDisabled || uploadDisabled">
 						<i class="glyphicons cloud-upload"></i>
 					</button>
 				</li>
 				<li>
 					<button class="btn" type="button" title="Download" ng-click="downloadButtonClick()" ng-disabled="downloadDisabled || actionsDisabled">
 						<i class="glyphicons cloud-download"></i>
+					</button>
+				</li>
+				<li>
+					<button class="btn" type="button" title="New Folder" ng-click="newFolderButtonClick()" ng-disabled="actionsDisabled || newFolderDisabled">
+						<i class="glyphicons folder_new"></i>
 					</button>
 				</li>
 <!--
@@ -69,7 +74,7 @@
 			</ul>
 		</div>
 		<div class="col-sm-5 storage">
-			<div>Storage Used: {{librarySize | fileSizeFilter}} <!-- / Bandwidth Used: N/A --></div>
+			<div class="storage-used-info">Storage Used: {{librarySize | fileSizeFilter}} <!-- / Bandwidth Used: N/A --></div>
 		</div>
 	</div>
 	<div class="row" ng-controller="UploadController">

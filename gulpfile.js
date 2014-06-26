@@ -49,7 +49,7 @@ var env = process.env.NODE_ENV || "dev",
       "web/js/*/*.js",
       "web/js/**/*.js",
       "web/js/**/**/*.js",
-      "test/unit/fixtures/*.js",
+      "test/fixtures/*.js",
       "test/**/*spec.js"
     ],
     // uglify also take care of removing unnecessary "use strict" statements 

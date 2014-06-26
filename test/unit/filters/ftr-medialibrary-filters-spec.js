@@ -1,7 +1,7 @@
 /*jshint expr:true */
-"use strict";
 
 describe("Filters: lastModifiedFilter", function() {
+  "use strict";
 
   beforeEach(module("medialibraryFilters"));
 

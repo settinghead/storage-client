@@ -41,6 +41,8 @@ angular.module("gapi", ["common-config"])
       get: function () {
         var deferred = $q.defer();
         var errMsg;
+        var apiuri = $window.location.search.substr(1).split("&")[0].split("=");
+        apiuri = apiuri[0] === "apiuri" ? apiuri[1] : "";
         gapiLoader.get().then(function (gApi) {
           if ($window.isStorageApi) {
             deferred.resolve(gApi.client.storage);
@@ -57,7 +59,7 @@ angular.module("gapi", ["common-config"])
                 $log.error(errMsg);
                 deferred.reject(errMsg);
               }
-            }, $routeParams.apiuri ? $routeParams.apiuri : STORAGE_URL);
+            }, apiuri ? apiuri : STORAGE_URL);
           }
         });
         return deferred.promise;

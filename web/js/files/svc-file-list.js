@@ -1,15 +1,15 @@
 "use strict";
-
 angular.module("gapi-file", ["gapi", "medialibraryServices"])
-  .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", function ($q, $log, storageAPILoader, LocalFiles) {
-    return function (companyId) {
+  .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", "$rootScope", function ($q, $log, storageAPILoader, LocalFiles, $rootScope) {
+    return function (companyId, folder) {
       var deferred = $q.defer();
 
       if (companyId) {
          console.log(window.location.href);
          storageAPILoader.get().then(function (storageApi) {
           var request = storageApi.files.get({
-            "companyId": companyId
+            "companyId": companyId,
+            "folder": folder
           });
           request.execute(function (resp) {
             if (resp.code === 403 || resp.code === 401 || resp.code === 400) {
