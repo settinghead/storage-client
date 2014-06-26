@@ -16,15 +16,7 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
   $scope.filesSelected = function(element) {
     if ($scope.authStatus !== 1) {
       return;
-    }
-
-    if ($rootScope.requireBucketCreation) {
-      apiStorage.createBucket($routeParams.companyId)
-        .then(function() {
-          $rootScope.requireBucketCreation=false; loadFiles(element);
-        }, onUploadError);
-    }
-    else {
+    } else {
       loadFiles(element);
     }
   };
