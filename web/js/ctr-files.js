@@ -38,7 +38,9 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   };
 
   $scope.fileExtOrderFunction = function(file) {
-    return file.name.split(".").pop();
+    return file.name.substr(-1) === "/" ?
+           "Folder" :
+           file.name.split(".").pop();
   };
 
   $scope.fileSizeOrderFunction = function(file) {

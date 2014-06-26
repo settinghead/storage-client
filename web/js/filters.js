@@ -47,8 +47,12 @@ angular.module("medialibraryFilters", [])
 
 .filter("fileTypeFilter", function() {
 	return function(filename) {
-		var re = /(?:\.([^.]+))?$/;
-		var ext = re.exec(filename)[1];
+		var re = /(?:\.([^.]+))?$/
+                   ,ext;
+
+                if (filename.substr(-1) === "/") {return "Folder";}
+
+		ext = re.exec(filename)[1];
 
 		if (ext && ext.length <= 4) {
 			ext = ext.toUpperCase();
