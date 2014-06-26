@@ -8,7 +8,6 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
   $rootScope.bucketName = "risemedialibrary-" + $routeParams.companyId;
   $rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + "/";
-  $rootScope.requireBucketCreation = false;
 	
   $scope.mediaFiles = fileInfo.files || [];
   $scope.$location = $location;
@@ -19,7 +18,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
   else if(fileInfo.notFound) {
     $rootScope.actionsDisabled = false;
-    $rootScope.requireBucketCreation = true;
+    apiStorage.createBucket($routeParams.companyId);
   }
 
   else {
