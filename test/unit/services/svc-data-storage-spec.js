@@ -59,12 +59,6 @@ describe("Services: apiStorage", function() {
 
   });
 
-  describe("getFileUrl", function () {
-    it("should get file URL", function (done) {
-      done();
-    });
-  });
-
   describe("createBucket", function () {
     it("should create bucket", function (done) {
       done();

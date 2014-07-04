@@ -149,16 +149,13 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
       file = getSelectedFile();
     }
     $scope.selectedFile = file;
+
     if ($scope.selectedFile) {
-      apiStorage.getFileUrl($routeParams.companyId,
-                            encodeURIComponent($scope.selectedFile))
-                .then(onFileUrlResponse);
+      window.location.assign("https://www.googleapis.com/storage/v1/b/" +
+                              $rootScope.bucketName + "/o/" +
+                              $scope.selectedFile + "?alt=media");
     }
   });
-
-  function onFileUrlResponse(response) {
-    window.location.assign(response);
-  }
 
   $scope.$on("FileDeleteAction", function(event) {
     var selectedFiles = getSelectedFiles()
