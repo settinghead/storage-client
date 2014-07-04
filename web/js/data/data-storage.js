@@ -31,29 +31,6 @@ angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", 
       return deferred.promise;
     };
 
-    this.getFileUrl = function (companyId, file) {
-      var deferred = $q.defer();
-
-      var obj = {
-        "companyId": companyId,
-        "file": file
-      };
-      gapiLoader.get().then(function (gApi) {
-        var request = gApi.client.storage.file.url(obj);
-        request.execute(function (resp) {
-          $log.debug(resp);
-          if (resp.code !== 200) {
-            $log.error("Error retrieving policy: ", resp);
-            resp = null;
-          }
-          deferred.resolve(resp.response);
-        });
-      });
-
-      return deferred.promise;
-
-    };
-
     this.createBucket = function (companyId) {
       var deferred = $q.defer();
       var obj = {
