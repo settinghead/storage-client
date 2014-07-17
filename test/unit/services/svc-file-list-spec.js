@@ -1,6 +1,6 @@
 /*jshint expr:true */
 
-describe("Services: FileList", function() {
+describe("Services: FileListFactory", function() {
   
   "use strict";
 
@@ -34,15 +34,15 @@ describe("Services: FileList", function() {
     }));
 
   it("should exist", function (done) {
-    inject(function (FileList) {
-      expect(FileList).be.defined;
+    inject(function (FileListFactory) {
+      expect(FileListFactory).be.defined;
       done();
     });
   });
 
   it("should get local files", function (done) {
-    inject(function (FileList) {
-      new FileList().then(function (fileInfo) {
+    inject(function (FileListFactory) {
+      FileListFactory.listFiles().then(function (fileInfo) {
         expect(fileInfo).to.be.defined;
         expect(fileInfo.files.files.length).to.equal(3);
         done();
@@ -51,8 +51,8 @@ describe("Services: FileList", function() {
   });
 
   it("should get company files", function (done) {
-    inject(function (FileList) {
-      new FileList("fj243g43g4-g43g43g43g-34g43").then(function (fileInfo) {
+    inject(function (FileListFactory) {
+      FileListFactory.listFiles("fj243g43g4-g43g43g43g-34g43").then(function (fileInfo) {
         expect(fileInfo).to.be.defined;
         expect(fileInfo.files.length).to.equal(3);
         done();

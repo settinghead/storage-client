@@ -1,39 +1,27 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$location", "apiStorage", "fileInfo",
-	function ($scope, $rootScope, $routeParams, $route, $location, apiStorage, fileInfo) {
+angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "InitialAuthService", "$window",
+	function ($scope, $rootScope, $routeParams, $route, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, InitialAuthService, $window) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
   $rootScope.bucketName = "risemedialibrary-" + $routeParams.companyId;
   $rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + "/";
-	
-  $scope.mediaFiles = fileInfo.files || [];
+  $scope.isAuthed = InitialAuthService.isAuthed;
   $scope.$location = $location;
+  $scope.fileListRequestInProgress = false;
 
-  if(fileInfo.authError) {
-    $scope.authenticationError = true;
-  }
-
-  else if(fileInfo.notFound) {
-    $rootScope.actionsDisabled = false;
-    apiStorage.createBucket($routeParams.companyId);
-  }
-
-  else {
-    $rootScope.actionsDisabled = false;
-    $rootScope.librarySize = 0;
-    $scope.selectAll = false;
-    if(fileInfo.local) {
-      $rootScope.actionsDisabled = true;
-    }
-  }
-  
   $scope.orderByAttribute = "lastModified";
   
   $scope.dateModifiedOrderFunction = function(file) {
     return file.updated ? file.updated.value : ""
+  };
+
+  $scope.login = function() {
+    apiAuth.checkAuth().then(function() {
+      $window.location.reload();
+    });
   };
 
   $scope.fileExtOrderFunction = function(file) {
@@ -48,19 +36,37 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
   $scope.reverseSort = true;
 
-  $rootScope.updateList = function() {
-    if ($rootScope.authStatus !== 1) {
-      return;
-    }
-    $route.reload();
+  $scope.updateFileList = function() {
+    $scope.fileListRequestInProgress = true;
+    fileListFactory.listFiles($routeParams.companyId, $routeParams.folder)
+                   .then(onGetFiles);
   };
+
+  $scope.$on("user.oAuthPermissionGranted", $scope.updateFileList);
+  $scope.$on("file.uploaded", $scope.updateFileList);
+  $scope.$on("user.oAuthPermissionNotGranted", function() {
+    $scope.isAuthed = false;
+  });
 	
   function onGetFiles(resp) {
-    if (resp && resp.files) {
-    	$scope.mediaFiles = resp.files;
+    $scope.fileListRequestInProgress = false;
+    $rootScope.actionsDisabled = false;
+    $rootScope.librarySize = 0;
+    $scope.selectAll = false;
+
+    $scope.mediaFiles = resp.files || [];
+
+    if(resp.authError) {
+      $scope.authenticationError = true;
     }
-    else {
-    	$scope.mediaFiles = [];
+
+    if(resp.notFound) {
+      $rootScope.actionsDisabled = false;
+      apiStorage.createBucket($routeParams.companyId);
+    }
+
+    if(resp.local) {
+      $rootScope.actionsDisabled = true;
     }
   }
 	
@@ -151,7 +157,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     $scope.selectedFile = file;
 
     if ($scope.selectedFile) {
-      window.location.assign("https://www.googleapis.com/storage/v1/b/" +
+      $window.location.assign("https://www.googleapis.com/storage/v1/b/" +
                               $rootScope.bucketName + "/o/" +
                               $scope.selectedFile + "?alt=media");
     }
@@ -171,8 +177,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
     if (confirm(confirmationMessage)) {
       apiStorage.deleteFiles($routeParams.companyId, selectedFiles)
-                .then(function() {$rootScope.updateList()})
-                .then(onGetFiles);
+                .then(function() {$scope.updateFileList()});
     }
   });
 
@@ -181,8 +186,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     if (!folderName) {return;}
     if (folderName.indexOf("/") > -1) {return;}
     apiStorage.createFolder($routeParams.companyId, folderName)
-              .then(function() {$rootScope.updateList()})
-              .then(onGetFiles);
+              .then(function() {$scope.updateFileList()});
   });
 
   function getSelectedFile() {

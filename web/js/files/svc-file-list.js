@@ -1,11 +1,11 @@
 "use strict";
 angular.module("gapi-file", ["gapi", "medialibraryServices"])
-  .factory("FileList", ["$q", "$log", "storageAPILoader", "LocalFiles", "$rootScope", function ($q, $log, storageAPILoader, LocalFiles, $rootScope) {
-    return function (companyId, folder) {
+  .factory("FileListFactory", ["$q", "$log", "storageAPILoader", "LocalFiles", "$rootScope", function ($q, $log, storageAPILoader, LocalFiles, $rootScope) {
+    var factory = {};
+    factory.listFiles = function (companyId, folder) {
       var deferred = $q.defer();
 
       if (companyId) {
-         console.log(window.location.href);
          storageAPILoader.get().then(function (storageApi) {
           var request = storageApi.files.get({
             "companyId": companyId,
@@ -45,4 +45,5 @@ angular.module("gapi-file", ["gapi", "medialibraryServices"])
 
       return deferred.promise;
     };
+    return factory;
   }]);

@@ -1,25 +1,20 @@
-<!-- Thumbnail View -->
-<!--
-<div id="thumbnails" class="thumbnails">
-	<div class="thumbnail" ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" ng-class="{active: file.checked}">
-		<a href="#" ng-click="$emit('FileSelectAction', file)">
-			<img src="../images/presentation_thumb.jpg" width="120" height="80">
-		</a>
-		<div class="caption">
-			<label>
-				<input type="checkbox" ng-model="file.checked">
-			</label><br>
-			{{file.key}}<br>
-			{{file.key | fileTypeFilter}}<br>
-			{{file.size | fileSizeFilter}}<br>
-			{{file.lastModified | lastModifiedFilter}}
-		</div>
-	</div>
-</div>
--->
-
-<!-- List View -->
-<div id="list" class="table-responsive">
+<div ng-controller="FileListCtrl" id="list" class="table-responsive">
+        <div class="alert alert-info alert-dismissable" ng-show="fileListRequestInProgress">
+          Requesting file list...
+        </div>
+        <div class="alert alert-danger" ng-show="isAuthed === false">
+          <span>Rise Vision requires permission to access your google user information.</span>
+                <button class="btn btn-warning btn-sm" type="button" ng-click="login()">
+                  <span title="Initiate Permission Request" 
+                        class="glyphicon glyphicon-log-in"> Initiate Request</span>
+                </button>
+        </div>
+        <div class="alert alert-danger" ng-show="authenticationError">
+                You are not authorized to view this Company's files...
+                <button class="btn btn-warning btn-sm" type="button" onclick="window.location.reload()">
+                  <span title="Retry" class="glyphicon glyphicon-refresh"></span>
+                </button>
+        </div>
 	<table class="table table-hover">
 		<thead>
 			<tr>

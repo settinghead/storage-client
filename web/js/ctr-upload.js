@@ -13,15 +13,7 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
   $scope.fileName = "";
   $scope.contentType = "";
 
-  $scope.filesSelected = function(element) {
-    if ($scope.authStatus !== 1) {
-      return;
-    } else {
-      loadFiles(element);
-    }
-  };
-
-  function loadFiles(element) {
+  $scope.uploadFile = function(element) {
     $("#uploadform").attr("action", $rootScope.bucketUrl);
 
     for (var i = 0; i < element.files.length; i++) {
@@ -83,7 +75,7 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
 
     $("#uploadform").trigger("reset");
 
-    $rootScope.updateList();
+    $rootScope.$broadcast("file.uploaded");
     $scope.uploadComplete = true;
     $scope.uploadError = false;
     $scope.uploadActive = false;
