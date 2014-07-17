@@ -11,7 +11,6 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   $scope.isAuthed = InitialAuthService.isAuthed;
   $scope.$location = $location;
   $scope.fileListRequestInProgress = false;
-
   $scope.orderByAttribute = "lastModified";
   
   $scope.dateModifiedOrderFunction = function(file) {
@@ -42,12 +41,17 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
                    .then(onGetFiles);
   };
 
-  $scope.$on("user.oAuthPermissionGranted", $scope.updateFileList);
+  $scope.$on("user.oAuthPermissionGranted", function() {
+    $scope.isAuthed = true;
+    $scope.updateFileList();
+  });
   $scope.$on("file.uploaded", $scope.updateFileList);
   $scope.$on("user.oAuthPermissionNotGranted", function() {
     $scope.isAuthed = false;
   });
 	
+  if ($scope.isAuthed) {$scope.updateFileList();}
+
   function onGetFiles(resp) {
     $scope.fileListRequestInProgress = false;
     $rootScope.actionsDisabled = false;
