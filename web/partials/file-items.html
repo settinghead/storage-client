@@ -3,10 +3,10 @@
           Requesting file list...
         </div>
         <div class="alert alert-danger" ng-show="isAuthed === false">
-          <span>Rise Vision requires permission to access your google user information.</span>
-                <button class="btn btn-warning btn-sm" type="button" ng-click="login()">
+          <span>Rise Vision needs access to your Google account to verify who you are. </span>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="login()">
                   <span title="Initiate Permission Request" 
-                        class="glyphicon glyphicon-log-in"> Initiate Request</span>
+                        class="glyphicon glyphicon-okay"> Okay</span>
                 </button>
         </div>
         <div class="alert alert-danger" ng-show="noCompanyAccess">
