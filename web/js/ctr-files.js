@@ -60,16 +60,14 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
     $scope.mediaFiles = resp.files || [];
 
-    if(resp.authError) {
-      $scope.authenticationError = true;
-    }
-
-    if(resp.notFound) {
+    if (resp.noCompanyAccess) {
+      $scope.noCompanyAccess = true;
+    } else if (resp.oauthError) {
+      $scope.isAuthed = false;
+    } else if (resp.notFound) {
       $rootScope.actionsDisabled = false;
       apiStorage.createBucket($routeParams.companyId);
-    }
-
-    if(resp.local) {
+    } else if (resp.local) {
       $rootScope.actionsDisabled = true;
     }
   }

@@ -9,11 +9,8 @@
                         class="glyphicon glyphicon-log-in"> Initiate Request</span>
                 </button>
         </div>
-        <div class="alert alert-danger" ng-show="authenticationError">
+        <div class="alert alert-danger" ng-show="noCompanyAccess">
                 You are not authorized to view this Company's files...
-                <button class="btn btn-warning btn-sm" type="button" onclick="window.location.reload()">
-                  <span title="Retry" class="glyphicon glyphicon-refresh"></span>
-                </button>
         </div>
 	<table class="table table-hover">
 		<thead>

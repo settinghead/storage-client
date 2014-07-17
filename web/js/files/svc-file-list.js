@@ -12,19 +12,22 @@ angular.module("gapi-file", ["gapi", "medialibraryServices"])
             "folder": folder
           });
           request.execute(function (resp) {
-            if (resp.code === 403 || resp.code === 401 || resp.code === 400) {
+            if (resp.code === 403) {
               deferred.resolve({
-                authError: true,
+                noCompanyAccess: true,
                 code: resp.code
               });
-            }
-            else if (resp.code === 404) {
+            } else if (resp.code === 401 || resp.code === 400) {
+              deferred.resolve({
+                code: resp.code,
+                oauthError: true
+              });
+            } else if (resp.code === 404) {
               deferred.resolve({
                 notFound: true,
                 code: resp.code
               });
-            }
-            else {
+            } else {
               deferred.resolve({
                 local: false,
                 files: resp.files
