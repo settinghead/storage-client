@@ -1,15 +1,12 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module('medialibrary').controller("MainController", ["$scope", "$rootScope",
-  function ($scope, $rootScope) {
-    $rootScope.actionsDisabled = true;
-    $rootScope.closeButtonClick = function() {
-      gadgets.rpc.call("", "rscmd_closeSettings", null);
-    }
+angular.module('medialibrary')
+.controller("ModalWindowController", ["$scope", function($scope) {
+  $scope.closeButtonClick = function() {
+    gadgets.rpc.call("", "rscmd_closeSettings", null);
   }
-])
-
+}])
 .controller("ButtonsController",
             ["$scope", "$rootScope", "$routeParams",
             function ($scope, $rootScope, $routeParams) {

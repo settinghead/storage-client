@@ -1,7 +1,4 @@
 "use strict";
-
-/* App Module */
-
 angular.module("medialibrary", [
   "ngRoute",
   "medialibraryFilters", 
@@ -9,7 +6,6 @@ angular.module("medialibrary", [
   "gapi-auth",
   "gapi-file"
 ]);
-
 
 angular.module("medialibrary").config(["$routeProvider", function($routeProvider) {
   $routeProvider

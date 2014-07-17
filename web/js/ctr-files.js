@@ -1,8 +1,8 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$routeParams", "$route", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "InitialAuthService", "$window",
-	function ($scope, $rootScope, $routeParams, $route, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, InitialAuthService, $window) {
+angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "InitialAuthService", "$window",
+	function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, InitialAuthService, $window) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
@@ -12,6 +12,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   $scope.$location = $location;
   $scope.fileListRequestInProgress = false;
   $scope.orderByAttribute = "lastModified";
+  $rootScope.actionsDisabled = true;
   
   $scope.dateModifiedOrderFunction = function(file) {
     return file.updated ? file.updated.value : ""
