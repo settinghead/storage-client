@@ -7,14 +7,6 @@ angular.module('medialibrary').controller("MainController", ["$scope", "$rootSco
     $rootScope.closeButtonClick = function() {
       gadgets.rpc.call("", "rscmd_closeSettings", null);
     }
-
-    $scope.$on("user.signout", function () {
-      $("#signindialog").modal("show");
-    });
-
-    $scope.$on("profile.loaded", function () {
-      $("#signindialog").modal("hide");
-    });
   }
 ])
 
@@ -47,15 +39,4 @@ angular.module('medialibrary').controller("MainController", ["$scope", "$rootSco
   $scope.newFolderButtonClick = function() {
     $rootScope.$broadcast("NewFolderAction");
   }
-}])
-
-.controller("ProgressController", ["$scope", "$rootScope", function ($scope, $rootScope) {
-  $rootScope.uploadProgress = 0;
-}])
-
-.controller("NavController", ["$scope", "$location", function ($scope, $location) { 
-
-  $scope.isActive = function (viewLocation) { 
-    return viewLocation === $location.path();
-  };
 }]);

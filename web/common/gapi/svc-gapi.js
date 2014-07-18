@@ -1,9 +1,9 @@
 /* jshint ignore:start */
 
-window.isClientJS = false;
+window.isGoogleJSClientLoaded = false;
 function handleClientJSLoad() {
-    window.isClientJS = true;
-    console.log("ClientJS is loaded");
+    window.isGoogleJSClientLoaded = true;
+    console.log("Google JS client is loaded");
     //Ready: create a generic event
     var evt = document.createEvent("Events");
     //Aim: initialize it to be the event we want
@@ -37,12 +37,14 @@ angular.module("gapi", ["common-config"])
   }])  
 
   .factory("storageAPILoader", ["$rootScope", "gapiLoader", "$q", "$routeParams", "CORE_URL", "STORAGE_URL", "$window", "$log", function ($rootScope, gapiLoader, $q, $routeParams, CORE_URL, STORAGE_URL, $window, $log) {
+
     return {
       get: function () {
         var deferred = $q.defer();
         var errMsg;
         var apiuri = $window.location.search.substr(1).split("&")[0].split("=");
         apiuri = apiuri[0] === "apiuri" ? apiuri[1] : "";
+
         gapiLoader.get().then(function (gApi) {
           if ($window.isStorageApi) {
             deferred.resolve(gApi.client.storage);
@@ -62,6 +64,7 @@ angular.module("gapi", ["common-config"])
             }, apiuri ? apiuri : STORAGE_URL);
           }
         });
+
         return deferred.promise;
       }
     };
@@ -72,7 +75,7 @@ angular.module("gapi", ["common-config"])
       get: function () {
         var deferred = $q.defer(), gapiLoaded;
 
-        if($window.isClientJS) { 
+        if($window.isGoogleJSClientLoaded) { 
           deferred.resolve($window.gapi);
         }
 

@@ -5,6 +5,7 @@ angular.module("gapi-auth", ["common-config", "gapi"])
 
       var CLIENT_ID = "614513768474.apps.googleusercontent.com";
       var SCOPES = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+      var autoRefreshHandle = null;
 
       var self = this;
 
@@ -12,6 +13,12 @@ angular.module("gapi-auth", ["common-config", "gapi"])
         var deferred = $q.defer();
         gapiLoader.get().then(function (gApi) {
           gApi.auth.authorize({ client_id: CLIENT_ID, scope: SCOPES, immediate: silentCheck }, function (authResult) {
+            if (silentCheck && !authResult.error) {
+              autoRefreshHandle = $interval(function(){
+                $interval.cancel(autoRefreshHandle);
+                self.checkAuth(true);
+              }, 55 * 60 * 1000); //refresh every 55 minutes
+            }
             deferred.resolve(authResult);
           });
         });

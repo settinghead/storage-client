@@ -1,13 +1,10 @@
 "use strict";
 
 
-angular.module("common").service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", "gapiLoader", "storageAPILoader", "STORAGE_URL", "$log",
+angular.module("medialibraryServices").service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", "gapiLoader", "storageAPILoader", "STORAGE_URL", "$log",
   function ($q, $rootScope, $timeout, apiAuth, $routeParams, gapiLoader, storageAPILoader, STORAGE_URL, $log) {
 
-
-    apiAuth.checkAuth(true).then(function () {
-        storageAPILoader.get();
-    });
+    storageAPILoader.get();
 
     this.deleteFiles = function (companyId, files) {
       var deferred = $q.defer();
