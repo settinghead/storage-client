@@ -67,9 +67,10 @@
 <!-- <script type="text/javascript" src="./media.js"></script> -->
 </head>
 <body>
-	<div class="widget-overlay" ng-click="closeButtonClick()"></div>
+	<div class="widget-overlay" ng-controller="ModalWindowController"
+                                    ng-click="closeButtonClick()"></div>
 		<div class="widget-wrapper container modal-content">
-			<div class="modal-header">
+			<div ng-controller="ModalWindowController" class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closeButtonClick()">
 					<i class="glyphicons remove_2"></i>
 				</button>
@@ -79,7 +80,7 @@
 			</div>
 
 			<!--Body content-->
-			<div ng-view ng-controller="MainController"></div>
+			<div ng-view></div>
 		</div>
 
 		<!-- Latest compiled and minified JavaScript -->
