@@ -9,7 +9,7 @@ describe("Services: apiStorage", function() {
 
     $provide.service("$q", function() {return Q;});
     $provide.value("apiAuth", {
-      checkAuth: function() {
+      authorize: function() {
         var deferred = Q.defer(); 
         deferred.resolve();
         return deferred.promise;
