@@ -3,8 +3,8 @@
 describe("Services: apiStorage", function() {
   "use strict";
 
-  beforeEach(module("common"));
-
+  beforeEach(module("medialibraryServices"));
+  beforeEach(module("gapi-auth"));
   beforeEach(module(function ($provide) {
 
     $provide.service("$q", function() {return Q;});
