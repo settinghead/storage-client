@@ -3,13 +3,13 @@
 describe("Services: apiStorage", function() {
   "use strict";
 
-  beforeEach(module("common"));
-
+  beforeEach(module("medialibraryServices"));
+  beforeEach(module("gapi-auth"));
   beforeEach(module(function ($provide) {
 
     $provide.service("$q", function() {return Q;});
     $provide.value("apiAuth", {
-      checkAuth: function() {
+      authorize: function() {
         var deferred = Q.defer(); 
         deferred.resolve();
         return deferred.promise;

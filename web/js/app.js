@@ -7,7 +7,8 @@ angular.module("medialibrary", [
   "gapi-file"
 ]);
 
-angular.module("medialibrary").config(["$routeProvider", function($routeProvider) {
+angular.module("medialibrary")
+.config(["$routeProvider", function($routeProvider) {
   $routeProvider
     .when("/files/", {
        templateUrl: "partials/main.html",

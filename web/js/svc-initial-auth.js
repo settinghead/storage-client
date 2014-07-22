@@ -3,7 +3,7 @@ angular.module("medialibrary").service("InitialAuthService",
 function(apiAuth, $interval, $window, $rootScope) {
   var obj = {};
 
-  apiAuth.checkAuth(true).then(function (authResult) {
+  apiAuth.authorize(true).then(function (authResult) {
     if (authResult && !authResult.error) {
       console.log("Application has user's oAuth permission.");
       $rootScope.$broadcast("user.oAuthPermissionGranted");

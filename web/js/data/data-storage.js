@@ -1,8 +1,11 @@
 "use strict";
 
 
-angular.module("medialibraryServices").service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth", "$routeParams", "gapiLoader", "storageAPILoader", "STORAGE_URL", "$log",
-  function ($q, $rootScope, $timeout, apiAuth, $routeParams, gapiLoader, storageAPILoader, STORAGE_URL, $log) {
+angular.module("medialibraryServices")
+.service("apiStorage", ["$q", "$rootScope", "$timeout", "apiAuth",
+                        "gapiLoader", "storageAPILoader",
+                        "STORAGE_URL", "$log",
+  function ($q, $rootScope, $timeout, apiAuth, gapiLoader, storageAPILoader, STORAGE_URL, $log) {
 
     storageAPILoader.get();
 

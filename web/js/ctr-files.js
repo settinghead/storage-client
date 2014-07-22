@@ -19,7 +19,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   };
 
   $scope.login = function() {
-    apiAuth.checkAuth().then(function() {
+    apiAuth.authorize().then(function() {
       $window.location.reload();
     });
   };

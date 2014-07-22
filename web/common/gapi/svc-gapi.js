@@ -36,7 +36,7 @@ angular.module("gapi", ["common-config"])
 
   }])  
 
-  .factory("storageAPILoader", ["$rootScope", "gapiLoader", "$q", "$routeParams", "CORE_URL", "STORAGE_URL", "$window", "$log", function ($rootScope, gapiLoader, $q, $routeParams, CORE_URL, STORAGE_URL, $window, $log) {
+  .factory("storageAPILoader", ["$rootScope", "gapiLoader", "$q", "STORAGE_URL", "$window", "$log", function ($rootScope, gapiLoader, $q, STORAGE_URL, $window, $log) {
 
     return {
       get: function () {
