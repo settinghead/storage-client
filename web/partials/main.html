@@ -60,7 +60,7 @@
 			</ul>
 		</div>
 		<div class="col-sm-5 storage">
-			<div class="storage-used-info">Storage Used: {{librarySize | fileSizeFilter}} <!-- / Bandwidth Used: N/A --></div>
+			<div ng-controller="BandwidthController" class="storage-used-info">This month's bandwidth use: {{bandwidthUse}} MB </div>
 		</div>
 	</div>
 	<div class="row" ng-controller="UploadController">
