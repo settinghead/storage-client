@@ -80,10 +80,10 @@
                                   <span>{{file.name | fileTypeFilter}}</span>
 				</td>
 				<td>
-                                  <span ng-show="!fileIsFolder(file)">{{file.size | fileSizeFilter}}</span>
+                                  <span> {{file.size | fileSizeFilter}}</span>
 				</td>
 				<td>
-                                  <span ng-show="!fileIsFolder(file)">{{file.updated | lastModifiedFilter}}</span>
+                                  <span> {{file.updated | lastModifiedFilter}}</span>
 				</td>
 			</tr>
 		</tbody>
