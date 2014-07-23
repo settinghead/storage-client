@@ -56,6 +56,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   function onGetFiles(resp) {
     $scope.fileListRequestInProgress = false;
     $rootScope.actionsDisabled = false;
+    $rootScope.librarySize = 0;
     $scope.selectAll = false;
 
     $scope.mediaFiles = resp.files || [];
@@ -72,6 +73,14 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     }
   }
 	
+  function getLibrarySize(mediaFiles) {
+    var size = 0;
+    for ( var i = 0; i < mediaFiles.length; ++i ) {
+      size += parseInt(mediaFiles[ i ].size);
+    }
+    return size;
+  }
+
   $scope.$watch("mediaFiles", function(items) {
     if(items) {
       var checkedCount = 0, folderChecked = false;
@@ -80,9 +89,14 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
           checkedCount++;
           if (item.name.substr(-1) === "/") { folderChecked = true;}
         }
+        $rootScope.librarySize = getLibrarySize(items);
       });
       $rootScope.$broadcast("CheckedCountChange", checkedCount, folderChecked);    
     }
+    else {
+      $rootScope.librarySize = 0;
+    }
+
   }, true);
 /*
  *     Scope $watch won't work within a bootstrap modal unless it's an object
