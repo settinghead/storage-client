@@ -9,16 +9,15 @@ module.exports = function(config){
 
     browsers : ["PhantomJS"],
 
-    reporters: ["progress"],
+    reporters: ["spec"],
 
     plugins : [
-            "karma-chrome-launcher",
             "karma-firefox-launcher",
-            "karma-jasmine",
             "karma-mocha",
             "karma-chai",
             "karma-chai-plugins",
-            "karma-phantomjs-launcher"
+            "karma-phantomjs-launcher",
+            "karma-spec-reporter"
             ],
 
     // web server port

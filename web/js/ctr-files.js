@@ -1,14 +1,13 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "InitialAuthService", "$window",
-	function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, InitialAuthService, $window) {
+angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "OAuthService", "$window",
+	function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, OAuthService, $window) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
   $rootScope.bucketName = "risemedialibrary-" + $routeParams.companyId;
   $rootScope.bucketUrl = MEDIA_LIBRARY_URL + $rootScope.bucketName + "/";
-  $scope.isAuthed = InitialAuthService.isAuthed;
   $scope.$location = $location;
   $scope.fileListRequestInProgress = false;
   $scope.orderByAttribute = "lastModified";
@@ -42,17 +41,15 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
                    .then(onGetFiles);
   };
 
-  $scope.$on("user.oAuthPermissionGranted", function() {
-    $scope.isAuthed = true;
-    $scope.updateFileList();
+  OAuthService.getAuthStatus().then(function(resp) {
+    $scope.isAuthed = resp;
+    if ($scope.isAuthed) {
+      $scope.updateFileList();
+    }
   });
-  $scope.$on("file.uploaded", $scope.updateFileList);
-  $scope.$on("user.oAuthPermissionNotGranted", function() {
-    $scope.isAuthed = false;
-  });
-	
-  if ($scope.isAuthed) {$scope.updateFileList();}
 
+  $scope.$on("file.uploaded", $scope.updateFileList);
+	
   function onGetFiles(resp) {
     $scope.fileListRequestInProgress = false;
     $rootScope.actionsDisabled = false;
