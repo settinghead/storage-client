@@ -21,46 +21,22 @@
                 </div> -->
 	</div>
 	<div class="row commands">
-		<div id="buttons-action" class="col-sm-7" ng-controller="ButtonsController">
-			<ul class="actions">
-<!--
- 					<li>
- 						<button class="btn" type="button" title="Select" ng-click="$emit('FileSelectAction')" ng-disabled="selectDisabled || actionsDisabled">
- 							<i class="glyphicons ok"></i>
- 						</button>
- 					</li>
--->
-				<li>
-					<button class="btn" type="button" title="Upload" ng-click="uploadButtonClick()" ng-disabled="actionsDisabled || uploadDisabled">
+		<div id="buttons-action" class="col-sm-7 btn-group add-bottom" ng-controller="ButtonsController">
+					<button class="btn btn-link" type="button" title="Upload" ng-click="uploadButtonClick()" ng-disabled="actionsDisabled || uploadDisabled">
 						<i class="glyphicons cloud-upload"></i>
 					</button>
-				</li>
-				<li>
-					<button class="btn" type="button" title="Download" ng-click="downloadButtonClick()" ng-disabled="downloadDisabled || actionsDisabled">
+					<button class="btn btn-link" type="button" title="Download" ng-click="downloadButtonClick()" ng-disabled="downloadDisabled || actionsDisabled">
 						<i class="glyphicons cloud-download"></i>
 					</button>
-				</li>
-				<li>
-					<button class="btn" type="button" title="New Folder" ng-click="newFolderButtonClick()" ng-disabled="actionsDisabled || newFolderDisabled">
+					<button class="btn btn-link" type="button" title="New Folder" ng-click="newFolderButtonClick()" ng-disabled="actionsDisabled || newFolderDisabled">
 						<i class="glyphicons folder_new"></i>
 					</button>
-				</li>
-<!--
- 					<li>
- 						<button class="btn" type="button" title="Link" disabled>
- 							<i class="glyphicons link"></i>
- 						</button>
- 					</li>
--->
-				<li>
-					<button class="btn" type="button" title="Delete" ng-click="deleteButtonClick()" ng-disabled="deleteDisabled || actionsDisabled">
+					<button class="btn btn-link" type="button" title="Delete" ng-click="deleteButtonClick()" ng-disabled="deleteDisabled || actionsDisabled">
 						<i class="glyphicons bin"></i>
 					</button>
-				</li>
-			</ul>
 		</div>
 		<div class="col-sm-5 storage">
--			<div class="storage-used-info">Total file size: {{librarySize | fileSizeFilter}} </div>
+			<div class="storage-used-info">Total file size: {{librarySize | fileSizeFilter}} </div>
 			<div ng-controller="BandwidthController" class="storage-used-info">This month's bandwidth use: {{bandwidthUse}} MB </div>
 		</div>
 	</div>

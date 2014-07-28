@@ -64,7 +64,8 @@ var env = process.env.NODE_ENV || "dev",
     ],
 
     cssFiles = [
-      "web/css/**/*.css"
+      "web/css/**/*.css",
+      "web/components/rise-vision-style-guide/dist/css/*.min.css"
     ],
 
     imgFiles = [
