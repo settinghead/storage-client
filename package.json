@@ -32,6 +32,7 @@
     "chai-as-promised": "~4.1.1",
     "karma-chai-plugins": "~0.2.1",
     "karma-junit-reporter": "~0.2.2",
+    "karma-spec-reporter": "~0.0.12",
     "karma-coverage": "~0.2.1",
     "gulp-connect": "~2.0.5",
     "gulp-protractor": "~0.0.7",
