@@ -42,7 +42,6 @@ var env = process.env.NODE_ENV || "dev",
       "web/components/angular-route/angular-route.js",
       "web/components/angular-resource/angular-resource.js",
       "web/components/angular-mocks/angular-mocks.js",
-      "https://s3.amazonaws.com/rise-common-test/scripts/bootstrap/bootstrap.min.js",
       "web/common/gapi/svc-gapi.js",
       "web/common/auth/svc-gapi-auth.js",
       "web/js/*.js",
@@ -73,7 +72,8 @@ var env = process.env.NODE_ENV || "dev",
     ],
 
     htmlFiles = [
-      "web/*.html"
+      "web/*.html",
+      "web/components/common-header/src/common-header.html"
     ],
 
     viewFiles = [
@@ -100,7 +100,7 @@ gulp.task("watch", function() {
     return gulp.watch(appJSFiles, ["lint"]);
 });
 
-gulp.task("html", ["lint"], function () {
+gulp.task("html", ["clean", "lint"], function () {
   return gulp.src(htmlFiles)
     .pipe(usemin({
     js: [uglify({mangle:false, outSourceMap: true})] //disable mangle just for $routeProvider in controllers.js
@@ -132,19 +132,19 @@ gulp.task("build-e2e", function () {
   .pipe(gulp.dest("dist-e2e/"));
 });
 
-gulp.task("view", function() {
+gulp.task("view", ["clean"], function() {
   return gulp.src(viewFiles)
     .pipe(gulp.dest("dist/partials"));
 });
 
 
-gulp.task("files", function() {
+gulp.task("files", ["clean"], function() {
   return gulp.src(fileFiles)
     .pipe(gulp.dest("dist/files"));
 });
 
 
-gulp.task("img", function() {
+gulp.task("img", ["clean"], function() {
   return gulp.src(imgFiles)
     .pipe(gulp.dest("dist/img"));
 });
@@ -156,7 +156,7 @@ gulp.task("sass", function () {
       .pipe(gulp.dest("web/css"));
 });
 
-gulp.task("css", ["sass"], function () {
+gulp.task("css", ["clean", "sass"], function () {
   return gulp.src(cssFiles)
     .pipe(minifyCSS({keepBreaks:true}))
     .pipe(concat("all.min.css"))

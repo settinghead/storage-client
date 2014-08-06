@@ -9,7 +9,12 @@ Storage client is the client side application for the storage server.  Together 
 
 [RVA](http://rva.risevision.com) runs on Google App Engine and as such requires GAE to operate. It also uses Google Cloud Storage as a datastore.
 
-Storage Client Usage
+Demo
+====
+To see the stand-alone storage client in action visit:
+http://storage.risevision.com/storage-full.html
+
+Storage Client Development
 ====================
 
 * Checkout the project from git repository.

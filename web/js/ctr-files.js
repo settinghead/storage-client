@@ -148,6 +148,7 @@ function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileL
               .path("/files/" + $routeParams.companyId + 
                     "/folder/" + file.name);
       } else {
+        $window.parent.postMessage(fileUrl, "*");
         gadgets.rpc.call("", "rscmd_saveSettings", null, data);
       }
     }

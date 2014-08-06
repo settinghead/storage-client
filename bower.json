@@ -1,16 +1,16 @@
 {
   "name": "rv-storage-client",
   "dependencies": {
-    "angular": "1.2.6",
-    "angular-mocks": "1.2.6",
-    "angular-resource": "1.2.6",
-    "angular-route": "1.2.6",
-    "jQuery": "1.10.1",
-    "q": "1.0.1",
-    "rv-style-guide": "https://github.com/Rise-Vision/style-guide.git"
+    "angular": "~1.2.6",
+    "angular-mocks": "~1.2.6",
+    "angular-resource": "~1.2.6",
+    "angular-route": "~1.2.6",
+    "jQuery": "~1.10.1",
+    "q": "~1.0.1",
+    "rv-style-guide": "https://github.com/Rise-Vision/style-guide.git",
+    "common-header": "https://github.com/Rise-Vision/common-header.git"
   },
   "resolutions": {
-    "angular": "1.2.18",
-    "angular-mocks": "1.2.18"
+    "angular": "1.2.18"
   }
 }
