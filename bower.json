@@ -7,6 +7,10 @@
     "angular-route": "1.2.6",
     "jQuery": "1.10.1",
     "q": "1.0.1",
-    "rise-vision-style-guide": "~0.2.0"
+    "rv-style-guide": "https://github.com/Rise-Vision/style-guide.git"
+  },
+  "resolutions": {
+    "angular": "1.2.18",
+    "angular-mocks": "1.2.18"
   }
 }
