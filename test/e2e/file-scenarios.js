@@ -1,3 +1,4 @@
+/*global by: false, browser:false,  protractor:false, element:false */
 (function() {
 
   "use strict";
@@ -9,8 +10,6 @@
 
   chai.use(chaiAsPromised);
   var expect = chai.expect;
-
-  var fs = require("fs");
 
   browser.driver.manage().window().setSize(1024, 768);
 

@@ -44,7 +44,7 @@ describe("Services: OAuthService", function() {
       expect(apiAuth.callCount).to.equal(1);
     }));
 
-    it("should return a promise", inject(function(apiAuth) {
+    it("should return a promise", inject(function() {
       expect(oAuthService.getAuthStatus()).to.have.property("then");
     }));
 

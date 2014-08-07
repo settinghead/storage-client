@@ -1,11 +1,11 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module('medialibrary')
+angular.module("medialibrary")
 .controller("ModalWindowController", ["$scope", function($scope) {
   $scope.closeButtonClick = function() {
     gadgets.rpc.call("", "rscmd_closeSettings", null);
-  }
+  };
 }])
 .controller("ButtonsController",
             ["$scope", "$rootScope", "$routeParams",
@@ -35,5 +35,5 @@ angular.module('medialibrary')
 
   $scope.newFolderButtonClick = function() {
     $rootScope.$broadcast("NewFolderAction");
-  }
+  };
 }]);
