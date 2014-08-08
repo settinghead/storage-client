@@ -68,7 +68,7 @@ angular.module("medialibraryFilters", [])
 		if ($routeParams.folder) {
                   if (filename === $routeParams.folder ||
                       filename === $routeParams.folder + "/") {
-                    return "/Previous Folder"
+                    return "/Previous Folder";
                   } else {
                     return filename.substr($routeParams.folder.length + 1);
                   }

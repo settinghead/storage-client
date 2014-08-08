@@ -41,7 +41,7 @@ angular.module("medialibrary").controller("UploadController", ["$scope", "$rootS
 
     }
 
-  }
+  };
 
   function onSignedPolicy(response) {
     $scope.signature = response;

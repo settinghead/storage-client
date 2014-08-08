@@ -1,8 +1,12 @@
 "use strict";
 /* global gadgets: true */
 
-angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope", "$route", "$routeParams", "$location", "apiStorage", "FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "OAuthService", "$window",
-	function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileListFactory, apiAuth, $interval, oauthAPILoader, OAuthService, $window) {
+angular.module("medialibrary").controller("FileListCtrl",
+["$scope", "$rootScope", "$route", "$routeParams", "$location", "apiStorage",
+"FileListFactory", "apiAuth", "$interval", "oauthAPILoader", "OAuthService", "$window",
+
+function ($scope, $rootScope, $route, $routeParams, $location, apiStorage, fileListFactory,
+          apiAuth, $interval, oauthAPILoader, OAuthService, $window) {
 
   var MEDIA_LIBRARY_URL = "http://commondatastorage.googleapis.com/";
 
@@ -14,7 +18,7 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   $rootScope.actionsDisabled = true;
   
   $scope.dateModifiedOrderFunction = function(file) {
-    return file.updated ? file.updated.value : ""
+    return file.updated ? file.updated.value : "";
   };
 
   $scope.login = function() {
@@ -121,12 +125,12 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
   };
 
   $scope.fileIsCurrentFolder = function(file) {
-      return file.name === $routeParams.folder + "/"
-    }
+      return file.name === $routeParams.folder + "/";
+    };
 
   $scope.fileIsFolder = function(file) {
-      return file.name.substr(-1) === '/';
-    }
+      return file.name.substr(-1) === "/";
+    };
 
   $scope.$on("FileSelectAction", function(event, file) {
     if (!file) {
@@ -136,14 +140,13 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     if (file) {
       var fileUrl = $rootScope.bucketUrl + file.name;
       var data = { params: fileUrl };
-      var newPath;
 
       if ($scope.fileIsCurrentFolder(file)) {
         $scope.$location.path("/files/" + $routeParams.companyId); 
       } else if ($scope.fileIsFolder(file)) {
         $scope.$location
               .path("/files/" + $routeParams.companyId + 
-                    "/folder/" + file.name)
+                    "/folder/" + file.name);
       } else {
         gadgets.rpc.call("", "rscmd_saveSettings", null, data);
       }
@@ -163,9 +166,9 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
     }
   });
 
-  $scope.$on("FileDeleteAction", function(event) {
-    var selectedFiles = getSelectedFiles()
-       ,confirmationMessage = "Please confirm PERMANENT deletion of:\n\n";
+  $scope.$on("FileDeleteAction", function() {
+    var selectedFiles = getSelectedFiles();
+    var confirmationMessage = "Please confirm PERMANENT deletion of:\n\n";
 
     selectedFiles.forEach(function(val) {
       if (val.substr(-1) === "/") {
@@ -177,16 +180,16 @@ angular.module("medialibrary").controller("FileListCtrl", ["$scope", "$rootScope
 
     if (confirm(confirmationMessage)) {
       apiStorage.deleteFiles($routeParams.companyId, selectedFiles)
-                .then(function() {$scope.updateFileList()});
+                .then(function() {$scope.updateFileList();});
     }
   });
 
-  $scope.$on("NewFolderAction", function(event) {
+  $scope.$on("NewFolderAction", function() {
     var folderName = prompt("Enter a folder name");
     if (!folderName) {return;}
     if (folderName.indexOf("/") > -1) {return;}
     apiStorage.createFolder($routeParams.companyId, folderName)
-              .then(function() {$scope.updateFileList()});
+              .then(function() {$scope.updateFileList();});
   });
 
   function getSelectedFile() {

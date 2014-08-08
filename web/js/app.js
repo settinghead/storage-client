@@ -19,5 +19,5 @@ angular.module("medialibrary")
     .when("/files/:companyId/folder/:folder", {
       templateUrl: "partials/main.html",
     })
-    .otherwise({redirectTo: "/files/"})
+    .otherwise({redirectTo: "/files/"});
 }]);
