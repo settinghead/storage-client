@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rise Vision Storage</title>
+     <link href="//s3.amazonaws.com/rise-common-test/styles/glyphicons/glyphicons.min.css" rel="stylesheet" type="text/css">
+
+    <!-- build:css css/all.min.css -->
+    <link rel="stylesheet" type="text/css"
+          href="components/rv-style-guide/dist/css/rise.min.css" />
+    <!-- endbuild -->
+  </head>
+
+  <body style="height: 800px">
+    <div ng-app="commonHeader">
+      <common-header
+        nav-options="navOptions"
+        auth-status="1"
+        is-admin="false"
+        sub-company-selected="false"
+        company-loaded="true"
+        selected-company-name="'Rise Vision'"
+        user-profile-picture="'http://api.randomuser.me/portraits/med/men/33.jpg'"
+        user-profile-name="'Demo User'"
+        user-profile-email="'demo.user@example.com'"
+        messages="">
+      </common-header>
+    </div>
+
+    <div id="implDetails" style="margin-left: 1em; display: none">
+      <div>This is the reference implementation of the storage modal.</div>
+      <div>To use the modal, create a window with the following source url:</div>
+      <div>
+        <span style="background-color: #e7e7e7;
+                     padding: 0.2em; border: 2px ridge; margin: 0 2em">
+          http://storage.risevision.com/storage-modal.html#/files/company-id
+        </span>
+      </div>
+
+      <div style="margin-top: 1em">
+        Then listen for window events which will contain the url of any clicked file
+      </div>
+      <pre style="background-color: #e7e7e7; border: 2px ridge; margin: 0 2em">
+window.addEventListener("message", function(event) {
+  console.log(event.data);  //log the url to the console
+});</pre>
+
+    </div>
+
+      <button type="button"
+              onclick="document.getElementById('implDetails').style.display = 'block'"
+              style="margin-top: 1em">Show implementation help</button>
+      <button type="button"
+              onclick="enterCompanyId()"
+              style="margin-top: 1em">Browse a different company ID</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
+
+    <!-- build:js script/common-header.min.js -->
+    <script src="components/common-header/dist/common-header.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:jsdev nothing-->
+    <script src="components/common-header/src/common-header.js"></script>
+    <!-- endbuild -->
+
+    <script>
+      function enterCompanyId() {
+        var id = prompt("company id: ");
+        storageModal.src = "storage-modal.html#/files/" + id;
+      }
+
+      function loadStorageModal() {
+        storageModal = document.createElement("iframe");
+        storageModal.src = "storage-modal.html#/files/b428b4e8-c8b9-41d5-8a10-b4193c789443";
+        storageModal.style.width = "90%";
+        storageModal.style.height = "500px";
+        storageModal.style.marginLeft = "5%";
+        storageModal.style.borderStyle = "none";
+        storageModal = document.body.appendChild(storageModal);
+      }
+
+      window.addEventListener("message", handleStorageMessage, false);
+      window.addEventListener("load", loadStorageModal);
+
+      function handleStorageMessage(event) {
+        console.log(event.data);
+      }
+    </script>
+  </body>
+</html>

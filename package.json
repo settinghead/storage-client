@@ -45,7 +45,7 @@
     "dev-install": "npm install && bower install && gulp config",
     "dev": "gulp server",
     "dist": "gulp server-dist", 
-    "ci-build": "npm install && bower install && gulp config && gulp test-ci && gulp build"
+    "ci-build": "npm install && bower install && bower update && gulp config && gulp test-ci && gulp build"
   },
   "author": "Rise",
   "license": "ISC"

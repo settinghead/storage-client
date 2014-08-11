@@ -3,7 +3,7 @@ angular.module("medialibrary")
   .controller("BandwidthController",
   ["$scope", "$rootScope", "$route", "$routeParams", "BandwidthService",
   function ($scope, $rootScope, $route, $routeParams, bandwidthService) {
-    $scope.bandwidthUse = "undetermined";
+    $scope.bandwidthUse = undefined;
 
     (function getBandwidth() {
       bandwidthService.getBandwidth($routeParams.companyId)

@@ -7,7 +7,7 @@ function bandwidthFactory($q, storageAPILoader, OAuthService) {
      ,bandwidthValuesPromiseCache = {};
 
   service.getBandwidth = function(companyId) {
-    if (!companyId) {return {};}
+    if (!companyId) {return $q.when(undefined);}
 
     if (bandwidthValuesPromiseCache.hasOwnProperty(companyId)) {
       return bandwidthValuesPromiseCache[companyId];
