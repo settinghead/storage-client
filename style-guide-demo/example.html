@@ -32,35 +32,29 @@
 </script>
 
 <script>
-var StorageServiceController = function($scope, $modal, $log) {
-  $scope.loadStorageSelector = function() {
-    var modalInstance = $modal.open({
-      template: "libs/storage-selector/style-guide-demo/storage-modal.html#/files/company-uuid-string"
-     ,controller: ModalInstanceController
-     ,size: 'lg'
-    });
-
-    modalInstance.result.then(function(resp) {
-      $scope.storageURL = resp;
-    });
+  function loadStorageSelector() {
+    storageModal = document.createElement("iframe");
+    storageModal.src = "http://storage.risevision.com/storage-modal.html#/files/b428b4e8-c8b9-41d5-8a10-b4193c789443";
+    storageModal.style.width = "90%";
+    storageModal.style.height = "500px";
+    storageModal.style.position = "absolute";
+    storageModal.style.top = "20%";
+    storageModal.style.left = "5%";
+    storageModal = document.body.appendChild(storageModal);
   }
 
-  function ModalInstanceController() {
-  }
-};
+  window.addEventListener("message", handleStorageMessage, false);
 
-function handleStorageMessage(event) {
-  if (event.data.indexOf("risemedialibrary") > -1) {
-    document.getElementById("urlMessage").innerHTML = event.data;
-    storageModal.parentNode.removeChild(storageModal);
+  function handleStorageMessage(event) {
+    if (event.data.indexOf("risemedialibrary") > -1) {
+      document.getElementById("urlMessage").innerHTML = event.data;
+      storageModal.parentNode.removeChild(storageModal);
+    }
   }
-}
 </script>
 
 <h3>Click to see an example</h3>
-<div ng-controller="StorageServiceController">
-  <button type="button" ng-click="loadStorageSelector()">iframe</button>
-  <button type="button" disabled>new tab</button>
-  <button type="button" disabled>pop-up window</button>
-</div>
+<button type="button" onclick="loadStorageSelector()">iframe</button>
+<button type="button" disabled onclick="loadStorageSelector()">new tab</button>
+<button type="button" disabled onclick="loadStorageSelector()">pop-up window</button>
 <h6>URL message:</h6><p id="urlMessage"></p>
