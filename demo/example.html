@@ -1,0 +1,60 @@
+<h1>Storage Selector</h1>
+
+<p class="lead">This is a sample implementation of the storage selector</p>
+
+<p><strong>Dependencies</strong> <span class="label label-info">html5</span></p>
+
+<h3>Usage</h3>
+<p>When a file is selected, the storage selector will send a message to its parent window.
+   The message will contain the url of the selected file.</p>
+
+<p>The current window will load the iframe and is responsible for providing the company id 
+   as well as any desired styling on the iframe. </p>
+
+<p>Company id can be found in the url of the rise vision company configuration page.</p>
+
+<hljs include="'sample-usage'"></hljs>
+<script type="text/ng-template" id="sample-usage">
+  function loadStorageModal() {
+    storageModal = document.createElement("iframe");
+    storageModal.src = "http://storage.risevision.com/storage-modal.html#/files/company-uuid-string";
+    storageModal.style.width = "90%";
+    storageModal.style.height = "500px";
+    storageModal = document.body.appendChild(storageModal);
+  }
+
+  window.addEventListener("load", loadStorageModal);
+  window.addEventListener("message", handleStorageMessage, false);
+
+  function handleStorageMessage(event) {
+    console.log(event.data);   //log the selected file's url
+  }
+</script>
+
+<script>
+  function loadStorageSelector() {
+    storageModal = document.createElement("iframe");
+    storageModal.src = "http://storage.risevision.com/storage-modal.html#/files/b428b4e8-c8b9-41d5-8a10-b4193c789443";
+    storageModal.style.width = "90%";
+    storageModal.style.height = "500px";
+    storageModal.style.position = "absolute";
+    storageModal.style.top = "20%";
+    storageModal.style.left = "5%";
+    storageModal = document.body.appendChild(storageModal);
+  }
+
+  window.addEventListener("message", handleStorageMessage, false);
+
+  function handleStorageMessage(event) {
+    if (event.data.indexOf("risemedialibrary") > -1) {
+      document.getElementById("urlMessage").innerHTML = event.data;
+      storageModal.parentNode.removeChild(storageModal);
+    }
+  }
+</script>
+
+<h3>Click to see an example</h3>
+<button type="button" onclick="loadStorageSelector()">iframe</button>
+<button type="button" disabled onclick="loadStorageSelector()">new tab</button>
+<button type="button" disabled onclick="loadStorageSelector()">pop-up window</button>
+<h6>URL message:</h6><p id="urlMessage"></p>

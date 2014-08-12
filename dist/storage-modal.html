@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="medialibrary">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Rise Storage</title>
+
+	<link rel="shortcut icon" href="favicon.ico" />
+
+	<link href="//s3.amazonaws.com/rise-common-test/styles/glyphicons/glyphicons.min.css" rel="stylesheet" type="text/css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" type="text/css">
+          <link rel="stylesheet" href="css/all.min.css"/>
+	<script src="script/main.min.js"></script>
+  <script type="text/javascript" src="//s3.amazonaws.com/rise-common-test/scripts/bootstrap/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//apis.google.com/js/client.js?onload=handleClientJSLoad"></script>
+</head>
+<body class="storage-modal">
+  <div ng-controller="ModalWindowController" class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            ng-click="closeButtonClick()" ng-show="showClose">
+      <i class="glyphicons remove_2"></i>
+    </button>
+  </div>
+  <h2>
+    Storage
+  </h2>
+  <div class="row">
+  </div>
+  <div ng-view></div>
+</body>
+</html>
