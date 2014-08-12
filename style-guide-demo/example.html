@@ -33,6 +33,15 @@
 
 <script>
   function loadStorageSelector() {
+    backDrop = document.createElement("div");
+    backDrop.style.position = 'absolute';
+    backDrop.style.top = '0px';
+    backDrop.style.left = '0px';
+    backDrop.style.width = "100%";
+    backDrop.style.height = "100%";
+    backDrop.style.backgroundColor = "#e7e7e7";
+    backDrop.style.opacity = "0.7";
+    document.body.appendChild(backDrop);
     storageModal = document.createElement("iframe");
     storageModal.src = "http://storage.risevision.com/storage-modal.html#/files/b428b4e8-c8b9-41d5-8a10-b4193c789443";
     storageModal.style.width = "90%";
@@ -49,6 +58,7 @@
     if (event.data.indexOf("risemedialibrary") > -1) {
       document.getElementById("urlMessage").innerHTML = event.data;
       storageModal.parentNode.removeChild(storageModal);
+      backDrop.parentNode.removeChild(backDrop);
     }
   }
 </script>
@@ -57,4 +67,4 @@
 <button type="button" onclick="loadStorageSelector()">iframe</button>
 <button type="button" disabled onclick="loadStorageSelector()">new tab</button>
 <button type="button" disabled onclick="loadStorageSelector()">pop-up window</button>
-<h6>URL message:</h6><p id="urlMessage"></p>
+<h6>URL message:</h6><p style="background-color: #eeeeee" id="urlMessage"></p>
