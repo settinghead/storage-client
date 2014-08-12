@@ -50,6 +50,12 @@
     storageModal.style.top = "20%";
     storageModal.style.left = "5%";
     storageModal = document.body.appendChild(storageModal);
+    backDrop.onclick=function(event){
+      if (event.target === backDrop) {
+        storageModal.parentNode.removeChild(storageModal);
+        backDrop.parentNode.removeChild(backDrop);
+      }
+    };
   }
 
   window.addEventListener("message", handleStorageMessage, false);
@@ -67,4 +73,4 @@
 <button type="button" onclick="loadStorageSelector()">iframe</button>
 <button type="button" disabled onclick="loadStorageSelector()">new tab</button>
 <button type="button" disabled onclick="loadStorageSelector()">pop-up window</button>
-<h6>URL message:</h6><p style="background-color: #eeeeee" id="urlMessage"></p>
+<h6>URL message:</h6><p style="background-color: #dddddd" id="urlMessage"></p>
