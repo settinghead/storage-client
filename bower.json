@@ -5,7 +5,7 @@
     "angular-mocks": "~1.2.6",
     "angular-resource": "~1.2.6",
     "angular-route": "~1.2.6",
-    "jQuery": "~1.10.1",
+    "jQuery": "~1.11.1",
     "q": "~1.0.1",
     "rv-style-guide": "https://github.com/Rise-Vision/style-guide.git",
     "common-header": "https://github.com/Rise-Vision/common-header.git"

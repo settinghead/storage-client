@@ -35,7 +35,7 @@ var env = process.env.NODE_ENV || "dev",
 
     //Test files
     testFiles = [
-      "web/components/jQuery/jquery.js",
+      "web/components/jQuery/dist/jquery.js",
       "web/components/q/q.js",
       "web/components/angular/angular.js",
       "web/components/angular-bootstrap/ui-bootstrap-tpls.js",

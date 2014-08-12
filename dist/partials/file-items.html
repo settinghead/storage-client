@@ -1,0 +1,91 @@
+<div ng-controller="FileListCtrl" id="list" class="table-responsive">
+        <div class="alert alert-info alert-dismissable" ng-show="fileListRequestInProgress">
+          Requesting file list...
+        </div>
+        <div class="alert alert-danger" ng-show="isAuthed === false">
+          <span>Rise Vision needs access to your Google account to verify who you are. </span>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="login()">
+                  <span title="Initiate Permission Request" 
+                        class="glyphicon glyphicon-okay"> Okay</span>
+                </button>
+        </div>
+        <div class="alert alert-danger" ng-show="noCompanyAccess">
+                You are not authorized to view this Company's files...
+        </div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th class="col-md-1 text-center">
+					<input type="checkbox" ng-model="selectAll" ng-change="selectAllCheckboxes()">
+				</th>
+				<th class="col-md-5" ng-click="orderByAttribute = 'name'; reverseSort = !reverseSort">
+					<a href="">File Name
+						<span ng-show="orderByAttribute=='name'">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-alpha-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-alpha-asc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-1" ng-click="orderByAttribute = fileExtOrderFunction; reverseSort = !reverseSort">
+					<a href="">Type
+						<span ng-show="orderByAttribute==fileExtOrderFunction">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-2" ng-click="orderByAttribute = fileSizeOrderFunction; reverseSort = !reverseSort">
+					<a href="">File Size
+						<span ng-show="orderByAttribute==fileSizeOrderFunction">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+				<th class="col-md-3" ng-click="orderByAttribute = dateModifiedOrderFunction; reverseSort = !reverseSort">
+					<a href="">Date Modified
+						<span ng-show="orderByAttribute==dateModifiedOrderFunction">
+							<span ng-show="reverseSort">
+								<i class="fa fa-sort-desc"></i>
+							</span>
+							<span ng-show="!reverseSort">
+								<i class="fa fa-sort-asc"></i>
+							</span>
+						</span>
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="file in mediaFiles | filter:query | orderBy:orderByAttribute:reverseSort" ng-class="{active: file.checked}">
+				<td class="text-center">
+					<input type="checkbox" ng-model="file.checked" ng-show="!fileIsCurrentFolder(file)">
+				</td>
+				<td>
+                                  <a href="" ng-click="$emit('FileSelectAction', file)">{{file.name | fileNameFilter}}</a>
+				</td>
+                                <td>
+                                  <span>{{file.name | fileTypeFilter}}</span>
+				</td>
+				<td>
+                                  <span> {{file.size | fileSizeFilter}}</span>
+				</td>
+				<td>
+                                  <span> {{file.updated | lastModifiedFilter}}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
